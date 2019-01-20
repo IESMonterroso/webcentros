@@ -75,7 +75,7 @@ include("../../inc_menu.php");
                             <span class="input-group-addon">
                                 <i class="now-ui-icons ui-1_zoom-bold"></i>
                             </span>
-                            <input type="text" id="buscar" name="q" class="form-control" placeholder="Buscar una noticia" value="<?php echo xss_clean($_GET['q']); ?>" autocomplete="off">
+                            <input type="text" id="buscar" name="q" class="form-control" placeholder="Buscar una noticia" value="<?php echo (isset($_GET['q'])) ? xss_clean($_GET['q']) : ''; ?>" autocomplete="off">
                         </div>
                     </form>
 

@@ -178,7 +178,7 @@
                           <?php if (isset($config['web_ampa']) && ! empty($config['web_ampa'])): ?>
                           <?php $pos = strpos($config['web_ampa'], WEBCENTROS_DOMINIO); ?>
                           <?php $_target = ($pos !== false) ? 0 : 1; ?>
-                          <a class="dropdown-item" href="<?php echo $config['web_ampa']; ?>"<?php echo ($_target) ? ' target="_blank"' : ''; ?>>Asoc. de Madres y Padres</a>
+                          <a class="dropdown-item" href="<?php echo $config['web_ampa']; ?>"<?php echo ($_target) ? ' target="_blank"' : ''; ?>>AMPA</a>
                           <?php unset($pos); ?>
                           <?php unset($_target); ?>
                           <?php endif; ?>
@@ -260,14 +260,17 @@
                       <a class="nav-link" href="<?php echo $config['web_biblioteca']; ?>" target="_blank">Biblioteca</a>
                   </li>
                   <?php endif; ?>
+                  <?php if (file_exists(WEBCENTROS_DIRECTORY.'/alumnado') && is_dir(WEBCENTROS_DIRECTORY.'/alumnado')): ?>
                   <li class="nav-item">
                       <a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>alumnado">Alumnado</a>
                   </li>
+                  <?php endif; ?>
                   <li class="nav-item">
                       <a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>intranet" target="_blank">Intranet</a>
                   </li>
               </ul>
               <ul class="navbar-nav">
+                  <?php if (file_exists(WEBCENTROS_DIRECTORY.'/alumnado') && is_dir(WEBCENTROS_DIRECTORY.'/alumnado')): ?>
                   <?php if (isset($_SESSION['alumno_autenticado']) && $_SESSION['alumno_autenticado']): ?>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="menuUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -281,6 +284,7 @@
                       <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>alumnado/logout.php">Cerrar sesión</a>
                     </div>
                   </li>
+                  <?php endif; ?>
                   <?php endif; ?>
                   <li class="nav-item active">
                       <a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>contacto">
