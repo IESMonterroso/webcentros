@@ -15,6 +15,33 @@ $alias_autor = mb_strtolower(str_replace($acentos, $no_acentos, $noticia['autor'
 $alias_categoria = mb_strtolower(str_replace($acentos, $no_acentos, $noticia['categoria']));
 $alias = mb_strtolower(str_replace($acentos, $no_acentos, $noticia['titulo']));
 
+// Obtenemos las imágenes del artículo
+$result_imagenes = preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $noticia['contenido'], $imagenes);
+
+if ((isset($result_imagenes) && $result_imagenes) && isset($imagenes[1])) {
+  if (strpos($imagenes[1], 'data:image') !== false) {
+    $exp_datos_base64 = explode(',', $imagenes[1]);
+    $exp_datos = explode(';', $exp_datos_base64[0]);
+    $exp_formato = explode('/', $exp_datos[0]);
+    $formato = trim($exp_formato[1]);
+
+    $ruta_imagenes = WEBCENTROS_DIRECTORY."/images/";
+    $nombre_archivo = $noticia['id']."_".$alias.".".$formato;
+    $ruta_imagen = $ruta_imagenes.$nombre_archivo;
+
+    if (! file_exists($ruta_imagen)) {
+      file_put_contents($ruta_imagen, file_get_contents($imagenes[1]));
+    }
+    
+    $ruta_web_imagen = WEBCENTROS_DOMINIO."images/".$nombre_archivo;
+    $pagina['meta']['meta_imagen'] = $ruta_web_imagen;
+  }
+  else {
+    $pagina['meta']['meta_imagen'] = $imagenes[1];
+  }
+}
+
+
 $pagina['titulo'] = strip_tags($noticia['titulo']);
 
 // SEO

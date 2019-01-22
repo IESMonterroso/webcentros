@@ -222,11 +222,41 @@ include("inc_menu.php");
                                     &nbsp;&nbsp;/&nbsp;&nbsp;
                                     <?php echo strftime('%e %b %Y', strtotime($noticia['fechapub'])); ?>
                                 </h6>
+                                <?php $result_imagenes = preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $noticia['contenido'], $imagenes); ?>
+                                <?php if ((isset($result_imagenes) && $result_imagenes) && isset($imagenes[1])): ?>
+                                <div class="float-left" style="width: 150px; height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                  <?php if (strpos($imagenes[1], 'data:image') !== false): ?>
+                                  <?php
+                                    $exp_datos_base64 = explode(',', $imagenes[1]);
+                                    $exp_datos = explode(';', $exp_datos_base64[0]);
+                                    $exp_formato = explode('/', $exp_datos[0]);
+                                    $formato = trim($exp_formato[1]);
+
+                                    $ruta_imagenes = WEBCENTROS_DIRECTORY."/images/";
+                                    $nombre_archivo = $noticia['id']."_".$noticia['alias'].".".$formato;
+                                    $ruta_imagen = $ruta_imagenes.$nombre_archivo;
+
+                                    if (! file_exists($ruta_imagen)) {
+                                      file_put_contents($ruta_imagen, file_get_contents($imagenes[1]));
+                                    }
+
+                                    $ruta_web_imagen = WEBCENTROS_DOMINIO."images/".$nombre_archivo;
+                                  ?>
+                                  <img src="<?php echo $ruta_web_imagen; ?>" alt="Imagen de la noticia: <?php echo $noticia['titulo']; ?>">
+                                  <?php else: ?>
+                                  <img src="<?php echo $imagenes[1]; ?>" alt="Imagen de la noticia: <?php echo $noticia['titulo']; ?>">
+                                  <?php endif; ?>
+                                </div>
+                                <?php endif; ?>
                                 <?php
-                                 $noticia['contenido'] = str_ireplace("&nbsp;", "", $noticia['contenido']);
+                                $noticia['contenido'] = str_ireplace(". ", ".", $noticia['contenido']);
+                                $noticia['contenido'] = str_ireplace(".", ". ", $noticia['contenido']);
+                                $noticia['contenido'] = str_ireplace("&nbsp;", "", $noticia['contenido']);
                                 ?>
+                                <?php $noticia['contenido'] = str_ireplace("&nbsp;", "", $noticia['contenido']); ?>
                                 <p class="text-wrap"><?php echo cortarPalabras($noticia['contenido']).'<br><a href="'.$url_noticia.'">[Leer más]</a>'; ?></p>
 
+                                <div class="clearfix"></div>
                                 <div class="" style="margin-top: 10px;">
                                     <a href="#" onclick="javascript:popup('http://www.facebook.com/share.php?u=<?php echo $url_noticia; ?>',550,350)" class="btn btn-default btn-sm btn-icon btn-round btn-pad5" data-toggle="tooltip" title="Compartir en Facebook"><i class="fab fa-facebook"></i></a>
                                     <a href="#" onclick="javascript:popup('http://twitter.com/home?status=<?php echo $url_noticia; ?>',550,350)" class="btn btn-default btn-sm btn-icon btn-round btn-pad5" data-toggle="tooltip" title="Compartir en Twitter"><i class="fab fa-twitter"></i></a>
@@ -253,6 +283,32 @@ include("inc_menu.php");
                                     &nbsp;&nbsp;/&nbsp;&nbsp;
                                     <?php echo strftime('%e %b %Y', strtotime($noticia['fechapub'])); ?>
                                 </h6>
+                                <?php $result_imagenes = preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $noticia['contenido'], $imagenes); ?>
+                                <?php if ((isset($result_imagenes) && $result_imagenes) && isset($imagenes[1])): ?>
+                                <div class="float-left" style="width: 150px; height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                  <?php if (strpos($imagenes[1], 'data:image') !== false): ?>
+                                  <?php
+                                    $exp_datos_base64 = explode(',', $imagenes[1]);
+                                    $exp_datos = explode(';', $exp_datos_base64[0]);
+                                    $exp_formato = explode('/', $exp_datos[0]);
+                                    $formato = trim($exp_formato[1]);
+
+                                    $ruta_imagenes = WEBCENTROS_DIRECTORY."/images/";
+                                    $nombre_archivo = $noticia['id']."_".$noticia['alias'].".".$formato;
+                                    $ruta_imagen = $ruta_imagenes.$nombre_archivo;
+
+                                    if (! file_exists($ruta_imagen)) {
+                                      file_put_contents($ruta_imagen, file_get_contents($imagenes[1]));
+                                    }
+
+                                    $ruta_web_imagen = WEBCENTROS_DOMINIO."images/".$nombre_archivo;
+                                  ?>
+                                  <img src="<?php echo $ruta_web_imagen; ?>" alt="Imagen de la noticia: <?php echo $noticia['titulo']; ?>">
+                                  <?php else: ?>
+                                  <img src="<?php echo $imagenes[1]; ?>" alt="Imagen de la noticia: <?php echo $noticia['titulo']; ?>">
+                                  <?php endif; ?>
+                                </div>
+                                <?php endif; ?>
                                 <?php
                                 $noticia['contenido'] = str_ireplace(". ", ".", $noticia['contenido']);
                                 $noticia['contenido'] = str_ireplace(".", ". ", $noticia['contenido']);
@@ -260,6 +316,7 @@ include("inc_menu.php");
                                 ?>
                                 <p class="text-wrap"><?php echo cortarPalabras($noticia['contenido']).'<br><a href="'.$url_noticia.'">[Leer más]</a>'; ?></p>
 
+                                <div class="clearfix"></div>
                                 <div class="pad10">
                                     <a href="#" onclick="javascript:popup('http://www.facebook.com/share.php?u=<?php echo $url_noticia; ?>',550,350)" class="btn btn-default btn-sm btn-icon btn-round btn-pad5" data-toggle="tooltip" title="Compartir en Facebook"><i class="fab fa-facebook"></i></a>
                                     <a href="#" onclick="javascript:popup('http://twitter.com/home?status=<?php echo $url_noticia; ?>',550,350)" class="btn btn-default btn-sm btn-icon btn-round btn-pad5" data-toggle="tooltip" title="Compartir en Twitter"><i class="fab fa-twitter"></i></a>

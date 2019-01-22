@@ -3,6 +3,8 @@ require_once("../../bootstrap.php");
 require_once("../../config.php");
 
 $icons = array(
+    'Auxiliar de Conversacion' => 'fas fa-assistive-listening-systems',
+    'Auxiliar de Conversación' => 'fas fa-assistive-listening-systems',
     'Alemán' => 'fas fa-language',
     'Biología y Geología' => 'fas fa-dna',
     'Biología y Geología y Física y Química' => 'fas fa-dna',
@@ -15,7 +17,8 @@ $icons = array(
     'Educación Plástica, Audiovisual y Visual' => 'fas fa-pencil-ruler',
     'FOL' => 'fas fa-chart-bar',
     'FOL y Economía' => 'fas fa-chart-bar',
-    'Filosofía' => 'fas fa-universal-access',
+    'Filosofía' => 'fas fa-university',
+    'Filosofía y Lenguas Clásicas' => 'fas fa-university',
     'Física y Química' => 'fas fa-vial',
     'Francés' => 'fas fa-language',
     'Francés y Alemán' => 'fas fa-language',
@@ -30,9 +33,13 @@ $icons = array(
     'Religión Evangélica' => 'fas fa-church',
     'Lengua Castellana y Literatura' => 'fas fa-font',
     'Matemáticas' => 'fas fa-superscript',
+    'Matemáticas y Economía' => 'fas fa-superscript',
     'Música' => 'fas fa-music',
     'Orientación Educativa' => 'far fa-compass',
-    'Pedagogía Terapéutica ESO' => 'fas fa-compass',
+    'Pedagogía Terapéutica' => 'fas fa-universal-access',
+    'Pedagogía Terapeutica' => 'fas fa-universal-access',
+    'Pedagogía Terapéutica ESO' => 'fas fa-universal-access',
+    'Pedagogía Terapeutica ESO' => 'fas fa-universal-access',
     'Plástica y Visual' => 'fas fa-paint-brush',
     'Servicios a la Comunidad' => 'fas fa-people-carry',
     'Tecnología' => 'fas fa-laptop-code',
@@ -117,7 +124,7 @@ include("../../inc_menu.php");
                 <div class="modal-body">
 
                     <div class="pad30">
-                        <h6><span class="far fa-users fa-fw"></span> Miembros del Departamento</h6>
+                        <h6><span class="fas fa-users fa-fw"></span> Miembros del Departamento</h6>
                         <hr>
                         <ul class="fa-ul">
                             <?php foreach ($departamento['componentes'] as $componente): ?>
@@ -134,7 +141,7 @@ include("../../inc_menu.php");
                             <li><a href="mailto:<?php echo $departamento['correo']; ?>"><i class="far fa-envelope fa-fw"></i>&nbsp;<?php echo $departamento['correo']; ?></a></li>
                         </ul>
                         <?php endif; ?>
-                        
+
                         <br>
 
                         <h6><span class="far fa-folder fa-fw"></span> Recursos</h6>

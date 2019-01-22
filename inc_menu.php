@@ -43,6 +43,9 @@
     <meta property="og:author" content="<?php echo $pagina['meta']['meta_autor']; ?>">
     <?php endif; ?>
     <meta property="og:description" content="<?php echo $pagina['meta']['meta_description']; ?>">
+    <?php if ($pagina['meta']['meta_imagen']): ?>
+    <meta property="og:image" content="<?php echo $pagina['meta']['meta_imagen']; ?>">
+    <?php endif; ?>
     <meta property="og:type" content="<?php echo $pagina['meta']['meta_type']; ?>">
     <meta property="og:locale" content="<?php echo $pagina['meta']['meta_locale']; ?>">
     <meta property="og:site_name" content="<?php echo $config['centro_denominacion']; ?>">
@@ -52,6 +55,9 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:description" content="<?php echo $pagina['meta']['meta_description']; ?>">
     <meta name="twitter:title" content="<?php echo $pagina['meta']['meta_title']; ?>">
+    <?php if ($pagina['meta']['meta_imagen']): ?>
+    <meta property="twitter:image" content="<?php echo $pagina['meta']['meta_imagen']; ?>">
+    <?php endif; ?>
 
     <?php else: ?>
     <meta name="robots" content="noindex, nofollow">
