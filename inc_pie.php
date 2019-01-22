@@ -117,7 +117,9 @@
         if (direction == 'right') $(this).carousel('prev');
         if (direction == null){
           var currentItem = $("#carousel .carousel-item.active");
-          window.open(currentItem.data('href'));
+          if (currentItem.data('href')) {
+            window.open(currentItem.data('href'));
+          }
         }
 
       },

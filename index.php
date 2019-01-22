@@ -171,10 +171,10 @@ include("inc_menu.php");
                           $esClaro = ($promedioDecimal >= $umbral) ? 1 : 0;
                         }
                         ?>
-                        <div class="carousel-item <?php echo ($i == 1) ? 'active' : ''; ?>" data-href="<?php echo $carousel['enlace']; ?>" style="cursor: pointer;">
+                        <div class="carousel-item <?php echo ($i == 1) ? 'active' : ''; ?>"<?php echo (isset($carousel['enlace']) && ! empty($carousel['enlace']) && $carousel['enlace'] != "#") ? ' data-href="'.$carousel['enlace'].'"' : ''; ?> style="cursor: pointer;">
                           <div class="row" style="background-color: rgb(<?php echo $rgbImagen['r'].','.$rgbImagen['g'].','.$rgbImagen['b']; ?>);">
                             <?php $contenidoCarousel = 0; ?>
-                            <?php if (isset($carousel['titulo']) || (isset($carousel['contenido']) && ! empty($carousel['contenido']))): ?>
+                            <?php if ((isset($carousel['titulo']) && ! empty($carousel['titulo'])) || ((isset($carousel['contenido']) && ! empty($carousel['contenido'])))): ?>
                             <?php $contenidoCarousel = 1; ?>
                             <div class="col-xl-4 d-none d-xl-block">
                               <div class="container <?php echo ($esClaro) ? 'text-black' : 'text-white'; ?>" style="padding-top: 10px;">
