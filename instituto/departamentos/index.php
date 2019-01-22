@@ -50,7 +50,7 @@ while ($row = mysqli_fetch_array($result)) {
         $result_componentes = mysqli_query($db_con, "SELECT nombre, cargo FROM departamentos WHERE departamento = '".$row['departamento']."' ORDER BY nombre ASC");
         while ($row_componente = mysqli_fetch_array($result_componentes)) {
             $componente = array(
-                'nombre'    => $row_componente['nombre'],
+                'nombre'    => rgpdNombreProfesor($row_componente['nombre']),
                 'esJefe'    => ((stristr($row_componente['cargo'], '4') == true) ? '1' : '0')
             );
 
@@ -63,6 +63,7 @@ while ($row = mysqli_fetch_array($result)) {
             'nombre'        => $row['departamento'],
             'alias'         => strtolower(str_replace($acentos, $no_acentos, $row['departamento'])),
             'icono'         => ((array_key_exists($row['departamento'], $icons) == true) ? $icons[$row['departamento']] : 'fas fa-briefcase'),
+            'correo'        => '',
             'componentes'   => $componentes
         );
 
@@ -116,7 +117,7 @@ include("../../inc_menu.php");
                 <div class="modal-body">
 
                     <div class="pad30">
-                        <h6><span class="far fa-group fa-fw"></span> Miembros del Departamento</h6>
+                        <h6><span class="far fa-users fa-fw"></span> Miembros del Departamento</h6>
                         <hr>
                         <ul class="fa-ul">
                             <?php foreach ($departamento['componentes'] as $componente): ?>
@@ -124,12 +125,22 @@ include("../../inc_menu.php");
                             <?php endforeach; ?>
                         </ul>
 
+                        <?php if (isset($departamento['correo']) && ! empty($departamento['correo'])): ?>
+                        <br>
+
+                        <h6><span class="far fa-envelope fa-fw"></span> Correo electrónico</h6>
+                        <hr>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:<?php echo $departamento['correo']; ?>"><i class="far fa-envelope fa-fw"></i>&nbsp;<?php echo $departamento['correo']; ?></a></li>
+                        </ul>
+                        <?php endif; ?>
+                        
                         <br>
 
                         <h6><span class="far fa-folder fa-fw"></span> Recursos</h6>
                         <hr>
                         <ul class="list-unstyled">
-                            <li><a href="<?php echo WEBCENTROS_DOMINIO; ?>documentos/index.php?dir=/Departamentos/<?php echo urlencode(str_replace($acentos, $no_acentos_con_espacio, $departamento['nombre'])); ?>"><i class="far fa-file-alt fa-fw"> </i>&nbsp;Documentos de <?php echo $departamento['nombre']; ?></a></li>
+                            <li><a href="<?php echo WEBCENTROS_DOMINIO; ?>documentos/index.php?dir=/Departamentos/<?php echo urlencode(str_replace($acentos, $no_acentos_con_espacio, $departamento['nombre'])); ?>"><i class="far fa-file-alt fa-fw"></i>&nbsp;Documentos de <?php echo $departamento['nombre']; ?></a></li>
                         </ul>
                     </div>
                 </div>

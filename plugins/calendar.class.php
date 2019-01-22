@@ -1,7 +1,7 @@
 <?php
 
 class calendar {
-	
+
 	// Events array
 	private $events = array();
 	// Defaults for day and month names
@@ -28,7 +28,7 @@ class calendar {
 							  'days_of_week' => 'days-of-week'
 							 );
 	}
-	
+
 	// Get calendar name
 	public function getCalendarName(){
 		return $this->calendarName;
@@ -102,7 +102,7 @@ class calendar {
 	public function disableNavigation() {
 		$this->enableNav = false;
 	}
-	
+
 	// Enables prev and next month links
 	public function enableYear() {
 		$this->enableYear = true;
@@ -142,7 +142,7 @@ class calendar {
 	public function disableNonMonthDays() {
 		$this->displayNonMonthDays = false;
 	}
-	
+
 	// get an event on a given date
 	public function getEventByDate($year, $month, $day) {
 		if (isset($this->events[$year][$month][$day]))
@@ -151,8 +151,9 @@ class calendar {
 	}
 
 	// Add an event
-	public function addEvent($eventTitle, $eventYear, $eventMonth, $eventDay, $eventLink) {
-		$this->events[$eventYear][$eventMonth][$eventDay] = array(	'event_title' => $eventTitle, 'event_link' => $eventLink);
+	public function addEvent($eventTitle, $eventYear, $eventMonth, $eventDay, $eventLink, $eventColor = null) {
+		if (! $eventColor) $eventColor = "#FF3636";
+		$this->events[$eventYear][$eventMonth][$eventDay] = array(	'event_title' => $eventTitle, 'event_link' => $eventLink, 'event_color' => $eventColor);
 	}
 	public function removeEvent($eventYear, $eventMonth, $eventDay) {
 		unset($this->events[$eventYear][$eventMonth][$eventDay]);
@@ -169,7 +170,7 @@ class calendar {
 
 	// Display calendar.true Supply month and year to override default value of current month
 	public function display($month='', $year='') {
-	
+
 		// Remove whitespaces
 		$year = trim($year);
 		$month = trim($month);
@@ -179,7 +180,7 @@ class calendar {
 		$this->month = ($month == '') ?	date('n') : $month;
 		$this->year = ($year == '') ? date('Y') : $year;
 
-		// Check for valid input	
+		// Check for valid input
 		if (!preg_match('~[0-9]{4}~', $this->year))
 			throw new exception('Año no válido');
 		if (!is_numeric($this->month) || $this->month < 0 || $this->month > 13)
@@ -208,13 +209,13 @@ class calendar {
 		}
 
 		$calHTML = sprintf("<table id=\"%s\" class=\"table table-bordered text-center\"><thead class=\"%s\"><tr>", $this->calendarName, $calendar_color);
-	
+
 		// Display previous month navigation
 		if ($this->enableNav) {
 			$pM = explode('-', date('n-Y', strtotime('-1 month', $this->timeStamp)));
 			$calHTML .= sprintf("<th class=\"%s-%s\"><h4><a href=\"?%smonth=%d&amp;year=%d\">%s</a></h4></th>", $this->calendarName, $this->markup['nav'], $this->queryString, $pM[0], $pM[1],$this->prevMonthNavTxt);
 		}
-		
+
 		// Month name and optional year
 		$calHTML .= sprintf("<th colspan=\"%d\" id=\"%s-%s\"><h4 class=\"text-center\">%s%s</h4></th>", ($this->enableNav ? 5 : 7), $this->calendarName, $this->markup['header'], $this->getMonthName(), ($this->enableYear) ? ' '.$this->getYear() : '');
 
@@ -231,50 +232,50 @@ class calendar {
 			$calHTML .= sprintf("<th class=\"text-center\">%s</th>", $dayName);
 
 		$calHTML .= "</tr></thead><tbody><tr>";
-		
+
 		/// What the heck is this
 		$sDay = date('N', $this->timeStamp) + $this->startDay - 1;
-		
+
 		// Print previous months days
 			for ($e=1;$e<=$sDay;$e++)
 				$calHTML .= sprintf("<td class=\"text-muted\">%s</td>", (($this->displayNonMonthDays) ? $this->timeTravel("-" . ($sDay -$e + 1) . " days", 'd', $this->timeStamp) : ''));
-	
+
 		// Print days
 		for ($i=1;$i<=$this->daysInMonth;$i++) {
 			// Set current day and timestamp
 			$this->day = $i;
 			$this->timeStamp = mktime(1,1,1,$this->month, $this->day, $this->year);
-			
+
 			// Set day as either plain text or event link
 			if (isset($this->events[$this->year][$this->month][$this->day]))
-				$this->htmlDay = sprintf("<a href=\"%s\" class=\"text-white\" data-toggle=\"tooltip\" title=\"%s\">%s</a>", $this->events[$this->year][$this->month][$this->day]['event_link'], $this->events[$this->year][$this->month][$this->day]['event_title'], $this->day);
+				$this->htmlDay = sprintf("<a href=\"%s\" class=\"text-black\" style=\"text-decoration: none;\" data-toggle=\"tooltip\" title=\"%s\">%s</a>", $this->events[$this->year][$this->month][$this->day]['event_link'], $this->events[$this->year][$this->month][$this->day]['event_title'], $this->day);
 			else
-				$this->htmlDay = $this->day;			
-	
+				$this->htmlDay = $this->day;
+
 			// Display calendar cell
-			$calHTML .= sprintf("<td%s>%s</td>", (isset($this->events[$this->year][$this->month][$this->day])) ? ' class="bg-danger"' : '', $this->htmlDay);				
-						
-			// End row if necessary			
+			$calHTML .= sprintf("<td%s>%s</td>", (isset($this->events[$this->year][$this->month][$this->day])) ? ' style="background-color: '.$this->events[$this->year][$this->month][$this->day]['event_color'].'"' : '', $this->htmlDay);
+
+			// End row if necessary
 			if (($sDay + $this->day) % 7 == 0)
 				$calHTML .= "</tr><tr>";
 		}
-		
+
 		// Print next months days
 		for ($e2=1;$e2 < (7 - (($sDay + $this->daysInMonth -1) % 7)); $e2++)
 			$calHTML .= sprintf("<td class=\"text-muted\">%s</td>", (($this->displayNonMonthDays) ? $this->timeTravel("+$e2 days", 'd', $this->timeStamp) : ''));
-		
+
 		$calHTML .= "</tr></tbody></table>";
-	
+
 		// Tidy up html
 		if ($this->prettyHTML) {
 			$replaceWhat = array('<tr', '<td', '<th', '</tr>', '</table>', '<thead>', '</thead>', '<tbody>', '</tbody>');
 			$replaceWith = array("\n\t\t<tr", "\n\t\t\t<td", "\n\t\t\t<th", "\n\t\t</tr>", "\n</table>", "\n\t<thead>", "\n\t</thead>", "\n\t<tbody>", "\n\t</tbody>");
 			$calHTML = str_replace($replaceWhat, $replaceWith, $calHTML);
 		}
-		
+
 		// Print calendar
 		echo $calHTML;
 	}
-	
+
 }
 ?>

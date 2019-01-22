@@ -37,7 +37,7 @@ while ($row = mysqli_fetch_array($result)) {
                     'horafin'       => $row_actividades['horafin'],
                     'lugar'         => $row_actividades['lugar'],
                     'departamento'  => $row_actividades['departamento'],
-                    'profesores'    => $row_actividades['profesores'],
+                    'profesores'    => rgpdNombreProfesor($row_actividades['profesores']),
                     'unidades'      => $row_actividades['unidades'],
                     'observaciones' => $row_actividades['observaciones']
                 );

@@ -14,11 +14,11 @@ $cal->disableNavigation();
 $cal->enableNonMonthDays();
 $cal->enableYear();
 
-$cal->addEvent('Inicio curso E.S.O., Bachillerato y F.P.', substr($config['curso_inicio'],0,4), 9, substr($config['curso_inicio'],8,2), '#');
-$cal->addEvent('Fin días lectivos', substr($config['curso_fin'],0,4), 6, substr($config['curso_fin'],8,2), '#');
+$cal->addEvent('Inicio curso ESO, Bachillerato y FP', substr($config['curso_inicio'],0,4), 9, substr($config['curso_inicio'],8,2), '#', "#FD9BB1");
+$cal->addEvent('Fin días lectivos', substr($config['curso_fin'],0,4), 6, substr($config['curso_fin'],8,2), '#', "#FD9BB1");
 
 // DIAS FESTIVOS
-$result = mysqli_query($db_con, "SELECT fecha, nombre FROM festivos");
+$result = mysqli_query($db_con, "SELECT `fecha`, `nombre`, `ambito` FROM `festivos` ORDER BY `fecha` ASC");
 
 if (mysqli_num_rows($result)) {
 
@@ -28,7 +28,14 @@ if (mysqli_num_rows($result)) {
         substr($fecha[1],0,1)==0 ? $fecha_mes = substr($fecha[1],1,2) : $fecha_mes = $fecha[1];
         substr($fecha[2],0,1)==0 ? $fecha_dia = substr($fecha[2],1,2) : $fecha_dia = $fecha[2];
 
-        $cal->addEvent($row['nombre'], $fecha_anio, $fecha_mes, $fecha_dia, '#');
+        switch ($row['ambito']) {
+          case 'Andalucía': $color = "#8ECC5B"; break;
+          case 'Localidad': $color = "#95E4FF"; break;
+          case 'Provincial': $color = "#FEFB49"; break;
+          default: $color = null; break;
+        }
+
+        $cal->addEvent($row['nombre'], $fecha_anio, $fecha_mes, $fecha_dia, '#', $color);
     }
 
 }
@@ -49,6 +56,23 @@ include("../../inc_menu.php");
 
     <div class="section">
         <div class="container">
+
+            <div class="row">
+
+              <div class="col-12">
+
+                <div class="d-flex justify-content-center shadow-none p-3 mb-5 bg-light rounded">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><span class="fas fa-square fa-lg fa-fw" style="color: #8ECC5B;"></span> Fiesta autonómica</li>
+                    <li class="list-inline-item"><span class="fas fa-square fa-lg fa-fw" style="color: #FEFB49;"></span> Fiesta provincial</li>
+                    <li class="list-inline-item"><span class="fas fa-square fa-lg fa-fw" style="color: #95E4FF;"></span> Fiesta local</li>
+                    <li class="list-inline-item"><span class="fas fa-square fa-lg fa-fw" style="color: #FD9BB1;"></span> Otras</li>
+                  </ul>
+                </div>
+
+              </div>
+
+            </div>
 
             <div class="row">
 

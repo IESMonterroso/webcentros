@@ -100,11 +100,46 @@ function ofuscarEmail($email) {
 	return $result;
 }
 
-function nombreProfesorTitle($nombre) {
-	return mb_convert_case($nombre, MB_CASE_TITLE, "UTF-8");
+function rgpdNombreProfesor($nombre) {
+	global $db_con;
+
+	$result = mysqli_query($db_con, "SELECT `rgpd_mostrar_nombre` FROM `c_profes` WHERE `profesor` = '$nombre' LIMIT 1");
+	if (mysqli_num_rows($result)) {
+		$row = mysqli_fetch_array($result);
+		if (! $row['rgpd_mostrar_nombre']) {
+			$exp_nombre = explode(' ', $nombre);
+			$iniciales = "";
+
+			foreach ($exp_nombre as $letra) {
+				$iniciales .= $letra[0];
+			}
+
+			$minusculas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','y','z');
+			$nada = array('','','','','','','','','','','','','','','','','','','','','','','','','','');
+			$iniciales = str_replace($minusculas, $nada, $iniciales);
+
+			return $iniciales;
+		}
+		else {
+			return $nombre;
+		}
+	}
+	return $nombre;
 }
 
-function obtenerHoraTutoria($db_con, $dia, $hora) {
+function nombreProfesor($nombre) {
+	global $db_con;
+
+	$result = mysqli_query($db_con, "SELECT `profesor` FROM `c_profes` WHERE UPPER(`profesor`) = UPPER('$nombre') LIMIT 1");
+	if (mysqli_num_rows($result)) {
+		$row = mysqli_fetch_array($result);
+		return $row['profesor'];
+	}
+	return $nombre;
+}
+
+function obtenerHoraTutoria($dia, $hora) {
+	global $db_con;
 
 	if (empty($dia) && empty($hora)) {
 		return false;

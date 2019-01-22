@@ -188,6 +188,7 @@
                           <?php if (isset($config['libros_texto']) && $config['libros_texto']): ?>
                           <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/libros-texto">Libros de texto</a>
                           <?php endif; ?>
+                          <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/aula-convivencia">Aula de Convivencia</a>
                           <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/actividades-extraescolares">Actividades extraescolares</a>
                           <?php if (isset($config['web_imagenes']) && ! empty($config['web_imagenes'])): ?>
                           <?php $pos = strpos($config['web_imagenes'], WEBCENTROS_DOMINIO); ?>
@@ -259,6 +260,13 @@
                   <li class="nav-item">
                       <a class="nav-link" href="<?php echo $config['web_biblioteca']; ?>" target="_blank">Biblioteca</a>
                   </li>
+                  <?php endif; ?>
+                  <?php if (count($config['menu_superior'])): ?>
+                  <?php foreach ($config['menu_superior'] as $menu_superior): ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $menu_superior['enlace']; ?>"<?php echo (($menu_superior['target'] == "_blank") ? " target=\"_blank\"" : ""); ?>><?php echo $menu_superior['titulo']; ?></a>
+                  </li>
+                  <?php endforeach; ?>
                   <?php endif; ?>
                   <?php if (file_exists(WEBCENTROS_DIRECTORY.'/alumnado') && is_dir(WEBCENTROS_DIRECTORY.'/alumnado')): ?>
                   <li class="nav-item">

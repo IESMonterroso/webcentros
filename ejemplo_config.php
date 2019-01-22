@@ -41,6 +41,20 @@ $config['alumnado']['ver_informes_tareas']  = 0;
 $config['alumnado']['ver_informes_tutoria'] = 0;
 $config['alumnado']['detalles_fechorias'] = 0;
 
+// ENLACES MENÚ SUPERIOR
+// Comentar / Descomentar el bloque para mostrar o no mostrar, respectivamente, enlaces en el menú superior
+// Slo se permiten dos enlaces más
+/*
+$config['menu_superior'][0]['titulo'] = "";
+$config['menu_superior'][0]['enlace'] = "";
+// $config['menu_superior'][0]['target'] = "_blank"; // Descomentar esta línea para abrir en una nueva ventana
+*/
+/*
+$config['menu_superior'][1]['titulo'] = "";
+$config['menu_superior'][1]['enlace'] = "";
+// $config['menu_superior'][1]['target'] = "_blank"; // Descomentar esta línea para abrir en una nueva ventana
+*/
+
 // ICONOS BARRA LATERAL (SOLO 3 ICONOS)
 // Introducir la URL de la imagen de los iconos de la barra lateral, título y enlace URL a donde dirigir a los usuarios
 // Comentar / Descomentar este bloque para mostrar o no mostrar, respectivamente, los iconos en la barra lateral
@@ -261,5 +275,7 @@ $config['carousel'][2]['enlace'] = 'http://www.juntadeandalucia.es/educacion/por
 // Copia la clave del sitio y la clave secreta en las siguientes variables de configuración
 //$config['google_recaptcha']['site_key'] = 'YOUR_SITE_KEY';
 //$config['google_recaptcha']['secret'] = 'YOUR_SECRET_CODE';
+
+// Por último, renombra este fichero como config.php
 
 // Fin de archivo config.php
