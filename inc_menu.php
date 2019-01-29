@@ -181,6 +181,12 @@
                           <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/equipo-directivo">Equipo directivo</a>
                           <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/departamentos">Departamentos</a>
                           <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/tutorias">Tutorías</a>
+                          <?php if (isset($config['web_orientacion']) && ! empty($config['web_orientacion'])): ?>
+                          <?php $pos = strpos($config['web_orientacion'], WEBCENTROS_DOMINIO); ?>
+                          <?php $_target = ($pos !== false) ? 0 : 1; ?>
+                          <a class="dropdown-item" href="<?php echo $config['web_orientacion']; ?>"<?php echo ($_target) ? ' target="_blank"' : ''; ?>>Orientación</a>
+                          <?php unset($pos); ?>
+                          <?php unset($_target); ?>
                           <?php if (isset($config['web_ampa']) && ! empty($config['web_ampa'])): ?>
                           <?php $pos = strpos($config['web_ampa'], WEBCENTROS_DOMINIO); ?>
                           <?php $_target = ($pos !== false) ? 0 : 1; ?>
@@ -194,7 +200,9 @@
                           <?php if (isset($config['libros_texto']) && $config['libros_texto']): ?>
                           <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/libros-texto">Libros de texto</a>
                           <?php endif; ?>
+                          <?php if (isset($config['mod_convivencia']) && $config['mod_convivencia']): ?>
                           <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/aula-convivencia">Aula de Convivencia</a>
+                          <?php endif; ?>
                           <a class="dropdown-item" href="<?php echo WEBCENTROS_DOMINIO; ?>instituto/actividades-extraescolares">Actividades extraescolares</a>
                           <?php if (isset($config['web_imagenes']) && ! empty($config['web_imagenes'])): ?>
                           <?php $pos = strpos($config['web_imagenes'], WEBCENTROS_DOMINIO); ?>

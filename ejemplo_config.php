@@ -26,6 +26,11 @@ $config['fondo_patron'] = "1";
 // Comentar / Descomentar la línea para mostrar o no mostrar, respectivamente, el sitio web de la AMPA
 // $config['web_ampa']       = "";
 
+// SITIO WEB DE ORIENTACIÓN
+// Introducir la URL de la web, blog de la Biblioteca, por defecto, utiliza el enlace a BiblioWeb
+// Comentar / Descomentar la línea para mostrar o no mostrar, respectivamente, el sitio web de la Biblioteca
+// $config['web_orientacion'] = "";
+
 // SITIO WEB DE LA BIBLIOTECA
 // Introducir la URL de la web, blog de la Biblioteca, por defecto, utiliza el enlace a BiblioWeb
 // Comentar / Descomentar la línea para mostrar o no mostrar, respectivamente, el sitio web de la Biblioteca
