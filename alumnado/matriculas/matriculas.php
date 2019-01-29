@@ -248,7 +248,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 	if($num > 0){
 		$adv = substr($vacios,0,-2);
 		echo '
-<script> 
+<script>
  alert("Los siguientes datos son obligatorios y no los has rellenado en el formulario de inscripción:\n ';
 		$num_cur = substr($curso,0,1);
 		$num_cur_ant = $num_cur - 1;
@@ -269,7 +269,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		if (substr($curso,0,1)==4){
 			if ($optativa1==$optativa2) {
 				$opt_rep4 = 1;
-			}				
+			}
 		}
 		else{
 			for ($i = 1; $i < 8; $i++) {
@@ -298,7 +298,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		if($colegio == "Otro Centro" and ($otrocolegio == "" or $otrocolegio == "Escribe aquí el nombre del Centro")){
 			$vacios.="otrocolegio ";
 			echo '
-<script> 
+<script>
  alert("No has escrito el nombre del Centro del que procede el alumno.\n';
 			echo 'Rellena el nombre del Centro y envía los datos de nuevo para poder registrar tu solicitud correctamente.")
  </script>
@@ -306,7 +306,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		}
 		elseif(strstr($nacimiento,"-") == FALSE){
 			echo '
-<script> 
+<script>
  alert("ATENCIÓN:\n ';
 			echo 'La fecha de nacimiento que has escrito no es correcta.\nEl formato adecuado para la fecha  es: dia-mes-año (01-01-1998).")
  </script>
@@ -314,7 +314,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		}
 		elseif(strlen($ruta_este) > 0 and strlen($ruta_oeste) > 0){
 			echo '
-<script> 
+<script>
  alert("ATENCIÓN:\n';
 			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de Estepona.\nElige una sola parada y vuelve a enviar los datos.")
  </script>
@@ -323,7 +323,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		}
 		elseif(strlen($ruta_este) > 0 and strlen($ruta_oeste) > 0){
 			echo '
-<script> 
+<script>
  alert("ATENCIÓN:\n';
 			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de Estepona.\nElige una sola parada y vuelve a enviar los datos.")
  </script>
@@ -336,7 +336,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		}
 		elseif ($opt_rep=="1"){
 			echo '
-						<script> 
+						<script>
  alert("ATENCIÓN:\n';
 			echo 'Parece que has seleccionado el mismo número de preferencia para varias optativas, y cada optativa debe tener un número de preferencia distinto.\nElige las optativas sin repetir el número de preferencia e inténtalo de nuevo.")
  </script>
@@ -344,7 +344,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		}
 		elseif ($opt_rep2=="1"){
 			echo '
-						<script> 
+						<script>
  alert("ATENCIÓN:\n';
 			echo 'Parece que has seleccionado el mismo número de preferencia para varias optativas del curso anterior, y cada optativa debe tener un número de preferencia distinto.\nElige las optativas del curso anterior sin repetir el número de preferencia e inténtalo de nuevo.")
  </script>
@@ -352,7 +352,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		}
 		elseif ($opt_rep4=="1"){
 			echo '
-						<script> 
+						<script>
  alert("ATENCIÓN:\n';
 			echo 'Parece que has seleccionado erroneamente la misma optativa en los dos campos en 4º de la ESO. Elige las optativas sin repetirlas e inténtalo de nuevo.")
  </script>
@@ -360,7 +360,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 		}
 		elseif (($itinerario == 1 and (stristr($optativas4,"ciencias")==TRUE or stristr($optativas4,"iniciac")==TRUE)) or ($itinerario == 3 and (stristr($optativas4,"biolog")==TRUE or stristr($optativas4,"econom")==TRUE))){
 			echo '
-						<script> 
+						<script>
  alert("ATENCIÓN:\n';
 			echo 'Has elegido una optativa de modalidad incompatible con el Itinerario seleccionado.\nElige la optativa correspondiente debajo del  Itinerario seleccionado e inténtalo de nuevo.")
  </script>
@@ -403,7 +403,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
     <meta name="author" content="Miguel A. García">
     <meta name="description" content="IES Monterroso de Estepona. Oferta educativa: ESO, Bachillerato, Formación Profesional. Exámenes Trinity College. Programa Erasmus+. Información para familias.">
     <meta name="keywords" content="<?php echo $nombre_del_centro;?>, instituto educación secundaria, formación profesional, bachillerato, Estepona, Trinity, erasmus, e-smith, sme server">
-  	<title>Solicitud de Matrícula</title>	
+  	<title>Solicitud de Matrícula</title>
 	 <link rel="stylesheet" href="//<?php echo $dominio;?>css/<?php echo $css_estilo; ?>">
 	 <link rel="stylesheet" href="//<?php echo $dominio;?>css/font-awesome.min.css">
     <link rel="stylesheet" href="//<?php echo $dominio;?>css/personal.css">
@@ -451,8 +451,8 @@ Dirección del Centro. <br />
     <meta name="author" content="Miguel A. García">
     <meta name="description" content="IES Monterroso de Estepona. Oferta educativa: ESO, Bachillerato, Formación Profesional. Exámenes Trinity College. Programa Erasmus+. Información para familias.">
     <meta name="keywords" content="<?php echo $nombre_del_centro;?>, instituto educación secundaria, formación profesional, bachillerato, Estepona, Trinity, erasmus, e-smith, sme server">
-  	<title>Solicitud de Matrícula</title>	
-	
+  	<title>Solicitud de Matrícula</title>
+
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
     <link rel="dns-prefetch" href="//code.jquery.com">
@@ -478,27 +478,27 @@ return false;
 
 <script language="javascript">
 
-function dameColegio(){ 
-   	var indice = document.form1.colegio.selectedIndex 
-   	var textoEscogido = document.form1.colegio.options[indice].text 
+function dameColegio(){
+   	var indice = document.form1.colegio.selectedIndex
+   	var textoEscogido = document.form1.colegio.options[indice].text
    	if(textoEscogido == "Otro Centro"){
-    document.getElementById('otrocolegio').style.visibility='visible'; 
+    document.getElementById('otrocolegio').style.visibility='visible';
 		}
 	 }
-	 
-function dimeEnfermedad(){ 
-   	var indice = document.form1.enfermedad.selectedIndex 
-   	var textoEscogido = document.form1.enfermedad.options[indice].text 
+
+function dimeEnfermedad(){
+   	var indice = document.form1.enfermedad.selectedIndex
+   	var textoEscogido = document.form1.enfermedad.options[indice].text
    	if(textoEscogido == "Otra enfermedad"){
-    document.getElementById('otraenfermedad').style.visibility='visible'; 
+    document.getElementById('otraenfermedad').style.visibility='visible';
 		}
 	 }
-	 	 
-function it1(){ 
-   	var indice = document.form1.itinerario.selectedIndex 
+
+function it1(){
+   	var indice = document.form1.itinerario.selectedIndex
    	var textoEscogido = document.form1.itinerario.options[indice].value
    	if(textoEscogido == "1"){
-    document.getElementById('otrocolegio').style.visibility='visible'; 
+    document.getElementById('otrocolegio').style.visibility='visible';
 		}
 	}
 
@@ -513,7 +513,7 @@ function contar(form,name) {
 	    document.forms[form]['result'].value = t-n;
 	  }
 	}
-	
+
 </script>
 
 <style type="text/css">
@@ -625,13 +625,13 @@ información sobre el proceso de matriculación.</div>
 
 			if (substr($curso,0,1) == substr($n_curso_ya,0,1)) {
 				echo '
-<script> 
+<script>
  if(confirm("ATENCIÓN:\n ';
 				echo 'Has elegido matricularte en el mismo Curso( ';
 				echo strtoupper($n_curso_ya);
 				echo ') que ya has estudiado este año. \nEsta situación sólo puede significar que estás absolutamente seguro de que vas a repetir el mismo Curso. Si te has equivocado al elegir Curso para el próximo año escolar, vuelve atrás y selecciona el curso correcto. De lo contrario, puedes continuar.")){}else{history.back()};
  </script>
- 
+
 ';
 			}
 			$nacimiento= str_replace("/","-",$nacimiento);
@@ -641,7 +641,7 @@ información sobre el proceso de matriculación.</div>
 
 	?>
 <div id="content" class="container">
-<div class="col-md-12">  
+<div class="col-md-12">
 
 <br />
 <form id="form1" name="form1" method="post" action="matriculas.php">
@@ -653,8 +653,7 @@ información sobre el proceso de matriculación.</div>
 				<img class="img-responsive" src="../../ui-theme/img/encabezado_matricula.png" alt=""
 				width="450"></td>
 			<td colspan="2">
-			<h4 class="text-uppercase"><strong>Consejería de Educación, Cultura y
-			Deporte</strong></h4>
+			<h4 class="text-uppercase"><strong>Consejería de Educación y Deporte</strong></h4>
 			<h5 class="text-uppercase"><strong><?php echo $nombre_del_centro; ?></strong></h5>
 			</td>
 		</tr>
@@ -816,10 +815,10 @@ información sobre el proceso de matriculación.</div>
 			</td>
 			<td rowspan="2">
 			<div class="form-group <?php echo (strstr($vacios,"colegio, ")==TRUE) ? 'has-error' : ''; ?>">
-			<label for="colegio">Centro de procedencia</label> 	
+			<label for="colegio">Centro de procedencia</label>
 			<select name="colegio" class="form-control" id="colegio" onChange="dameColegio()">
 			<option><?php echo $colegio; ?></option>
-			<?php if($curso == "1ESO"): 
+			<?php if($curso == "1ESO"):
 				$cole_1=mysqli_query($db_con,"select distinct colegio from alma_primaria order by colegio");
 				?>
 				<option value="<?php echo $nombre_del_centro; ?>"><?php echo $nombre_del_centro; ?></option>
@@ -830,7 +829,7 @@ información sobre el proceso de matriculación.</div>
 				<option value="<?php echo $nombre_del_centro; ?>"><?php echo $nombre_del_centro; ?></option>
 				<?php endif; ?>
 				<option value="Otro Centro">Otro Centro</option>
-		</select> 
+		</select>
 		</div>
 
 		 <input style="<?php  if ($colegio == 'Otro Centro') {	echo "visibility:visible;";}else{	echo "visibility:hidden;";}?>" id = "otrocolegio" name="otrocolegio" value="<?php if (isset($otrocolegio)) { echo $otrocolegio ;} ?>" type="text" class="form-control" placeholder="Escribe aquí el nombre del Centro" />
@@ -993,11 +992,11 @@ información sobre el proceso de matriculación.</div>
 		Dpto. de Orientación decide finalmente.</small></p></th>
 	</tr>
 	<tr>
-		<td colspan="2" 
+		<td colspan="2"
 		<?php if ($opt_rep == "1" or stristr($adv, "optativa de ".$n_curso."")) {
 			echo " style='background-color:yellow;'";
 		} ?>>
-		
+
 		<?
 			$num1="";
 			for ($i = 1; $i < 5; $i++) {
@@ -1007,7 +1006,7 @@ información sobre el proceso de matriculación.</div>
 						$num1+=1;
 						echo '<div class="col-sm-6"><span style="margin:2px 2px" >'.$opt_1.'</span><br /></div>';
 						echo '<div><select class="form-control" name="optativa'.$num1.'" id="optativa'.$num1.'" >';
-							
+
 						echo '<option>'.${optativa.$num1}.'</option>';
 						for ($z=1;$z<$num_optativas;$z++){
 							echo '<option>'.$z.'</option>';
@@ -1020,7 +1019,7 @@ información sobre el proceso de matriculación.</div>
 			?>
 		</div>
 		</td>
-		<td valign=top colspan="2"><?php 
+		<td valign=top colspan="2"><?php
 		$num1="";
 		for ($i = 1; $i < 6; $i++) {
 			if (substr($curso, 0, 1) == $i) {
@@ -1053,7 +1052,7 @@ información sobre el proceso de matriculación.</div>
 		<th class="table-active text-center" colspan="3">Materias Optativas<br /></th>
 	</tr>
 	<tr>
-		<td valign=top colspan="1"><?	
+		<td valign=top colspan="1"><?
 		echo "<div class='radio'><label><input type='radio' name = 'matematicas3' value='A' ";
 		if ($matematicas3=="A") { echo "checked";}
 		echo " required />Matemáticas Académicas (Orientadas al Bachillerato)</label><label class='radio'><input type='radio' name = 'matematicas3' value='B' ";
@@ -1081,7 +1080,7 @@ información sobre el proceso de matriculación.</div>
 						echo '</select>';
 						}
 					}
-					
+
 			}
 		}
 		?>
@@ -1147,7 +1146,7 @@ información sobre el proceso de matriculación.</div>
 					<tr>
 						<td style="width:66%; background-color:#E0F2F7;">
 							<strong>Opción de Enseñanzas Académicas para la Iniciación al Bachillerato</strong>
-						</td>	
+						</td>
 						<td style="width:33%;background-color:#F7F2E0;">
 							<strong>Opción de Enseñanzas Aplicadas para la Iniciación a la Formación Profesional</strong>
 						</td>
@@ -1165,13 +1164,13 @@ información sobre el proceso de matriculación.</div>
 							<?php echo $i; ?></strong></span><br>
 							<small><?php echo ${it4.$i}[0]; ?></small> </label>
 							</div>
-							
+
 						</td>
 				<?php endfor; ?>
 					</tr>
 					<tr>
 		<?php for ($i = 1; $i < 4; $i++): ?>
-			<td style="width:33%; 
+			<td style="width:33%;
 		<?php if (stristr($adv, "optativas4") and $itinerario == $i) {echo "background-color:#E0F2F7;";}?>" class="text-left">
 		<!-- ASIGNATURAS DE MODALIDAD -->
 
@@ -1183,16 +1182,16 @@ información sobre el proceso de matriculación.</div>
 								<td>
 							<p class="text-warning">Modalidad 1</p>
 							<div class="form-check"><label> <input class="form-check-input" type="radio" id="ciencias4" name="ciencias4"
-							<?php if($ciencias4 == 1){echo " checked";} ?> value="1" onClick='document.getElementById("optativa2").disabled=true;'> 
+							<?php if($ciencias4 == 1){echo " checked";} ?> value="1" onClick='document.getElementById("optativa2").disabled=true;'>
 							<p class="text-info">Ingenieria y Arquitectura</p>
 							</label>
 							</div>
 								</td>
 								<td>
-							<p class="text-warning">Modalidad 2</p>		
+							<p class="text-warning">Modalidad 2</p>
 							<div class="form-check"><label> <input class="form-check-input" type="radio"
 				id="ciencias4" name="ciencias4"
-							<?php if($ciencias4 == 2){echo " checked";} ?> value="2" onClick='document.getElementById("optativa2").disabled=false;'> 
+							<?php if($ciencias4 == 2){echo " checked";} ?> value="2" onClick='document.getElementById("optativa2").disabled=false;'>
 							<p class="text-info">Ciencias de la Salud y de la Tierra</p>
 							</label>
 							</div>
@@ -1255,7 +1254,7 @@ información sobre el proceso de matriculación.</div>
 		</tr>
 		<tr>
 			<th class="table-active text-center" colspan="4"><strong class="text-uppercase">Asignaturas Optativas de 4º de ESO</strong><p class="help-block">
-			<small>(marca con 1, 2, 3, etc. por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.).<br> 
+			<small>(marca con 1, 2, 3, etc. por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.).<br>
 				<span class="text-warning">
 					Todos los alumnos cursan 2 optativas, excepto la Opción de <mark><em>Ingeniería y Arquitectura</em></mark> del Itinerario de Ciencias que cursa 1 sola pues todos cursan TIC.
 				</span></small></p></th>
@@ -1265,7 +1264,7 @@ información sobre el proceso de matriculación.</div>
 			<div class="form <?php echo (isset($opt_rep4) && $opt_rep4 == 1) ? 'has-error"' : '' ; ?>">
 
 			<?php $num1 = ""; ?>
-			<div class="form-row">	
+			<div class="form-row">
 			<div class="form-group col-md-5">
 			<label>
 			Optativa 1
@@ -1297,13 +1296,13 @@ información sobre el proceso de matriculación.</div>
 
 			</div>
 			</div>
-			
+
 			</div>
-			
+
 			</td>
 		</tr>
 
-		
+
 	<?php
 	}
 	?>
@@ -1319,7 +1318,7 @@ información sobre el proceso de matriculación.</div>
 		<small class="text-muted text-lowercase">(marca con 1, 2, 3, etc. por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.)</small></th>
 	</tr>
 	<tr>
-			<td valign=top colspan="1"><?	
+			<td valign=top colspan="1"><?
 		echo "<div class='radio'><label><input type='radio' name = 'matematicas3' value='A' ";
 		if ($matematicas3=="A") { echo "checked";}
 		echo " required />Matemáticas Académicas</label><label class='radio'></label></div>
@@ -1335,7 +1334,7 @@ información sobre el proceso de matriculación.</div>
 			if (substr($curso, 0, 1)-1 == $i) {
 				foreach (${opt.$i} as $opt_1){
 					$num1+=1;
-					if ($num1<5) {					
+					if ($num1<5) {
 					echo ''.$opt_1.'';
 					echo '
 					<select class="form-control col-sm-3" name="optativa2'.$num1.'" id="" required>';
@@ -1380,14 +1379,14 @@ información sobre el proceso de matriculación.</div>
 		</th>
 	</tr>
 	<tr>
-		<td colspan="4"><?php $num1 = ''; ?> 
+		<td colspan="4"><?php $num1 = ''; ?>
 			<?php if (substr($curso, 0, 1) == 4): ?> <?php foreach ($a3 as $act_1): ?>
 			<?php $n_a = count($a3)+1; ?> <?php $num1 += 1; ?> <?php if (${act.$num1} == 0) ${act.$num1} = ''; ?>
 			<div class="radio"><label> <input required type="radio" name="act1"
 				value="<?php echo $num1; ?>"
 				<?php echo ($act1 == $num1) ? 'checked' : ''; ?>> <?php echo $act_1; ?>
 			</label></div>
-			<?php endforeach; ?> <?php endif; ?> 
+			<?php endforeach; ?> <?php endif; ?>
 		</td>
 	</tr>
 	<?
@@ -1436,7 +1435,7 @@ información sobre el proceso de matriculación.</div>
 				}
 			}
 			?></div></td>
-		<td valign=top colspan="2"><?php    
+		<td valign=top colspan="2"><?php
 		$num1="";
 		for ($i = 1; $i < 5; $i++) {
 			if ((substr($curso, 0, 1) -1) == $i) {
@@ -1463,10 +1462,10 @@ información sobre el proceso de matriculación.</div>
 	<?php if(substr($curso, 0, 1)<3) { ?>
 	<tr>
 		<th class="table-active text-center text-uppercase" colspan="4">
-		<?php 
+		<?php
 		echo '<div class="checkbox"><label>
-		<input'; 
-		echo ' type="checkbox" name="exencion" value="1" '; echo " disabled"; if($exencion == '1'){echo "checked";} 
+		<input';
+		echo ' type="checkbox" name="exencion" value="1" '; echo " disabled"; if($exencion == '1'){echo "checked";}
 		echo " />"; ?>
 		Exenci&oacute;n de la asignatura
 		optativa (a rellenar por el Dep. de Orientaci&oacute;n previo acuerdo
@@ -1485,7 +1484,7 @@ información sobre el proceso de matriculación.</div>
 		</td>
 	</tr>
 	<?php } ?>
-	
+
 	<!-- ENFERMEDADES -->
 	<tr>
 		<th class="table-active text-center text-uppercase" colspan="2">ENFERMEDADES DEL ALUMNO
@@ -1512,10 +1511,10 @@ información sobre el proceso de matriculación.</div>
 			<td colspan="2">
 			<p class="help-block"><small>
 			Señalar si el alumno procede de padres divorciados y cual es la situación legal de la Guarda y Custodia respecto al mismo.</small></p>
-			<label for="divorcio">Alumno con padres divorciados</label>					 
+			<label for="divorcio">Alumno con padres divorciados</label>
 			<select
 				class="form-control" id="divorcio" name="divorcio">
-			<option value=""></option>	
+			<option value=""></option>
 				<?php for ($i = 0; $i < count($divorciados); $i++): ?>
 				<option value="<?php echo $divorciados[$i]['id']; ?>"
 				<?php echo (isset($divorcio) && $divorcio == $divorciados[$i]['id']) ? 'selected' : ''; ?>><?php echo $divorciados[$i]['nombre']; ?></option>
@@ -1557,9 +1556,9 @@ información sobre el proceso de matriculación.</div>
 			type="hidden" name="nuevo" value="<?php echo $nuevo;?>" /> <input
 			type="hidden" name="curso_matricula"
 			value="<?php echo $curso_matricula;?>" /> <input type="hidden"
-			name="claveal" <?php echo "value = \"$claveal\""; ?> /> 
-			<input type="hidden" name="letra_grupo" value="<?php echo $letra_grupo;?>" /> 
-			<?php 
+			name="claveal" <?php echo "value = \"$claveal\""; ?> />
+			<input type="hidden" name="letra_grupo" value="<?php echo $letra_grupo;?>" />
+			<?php
 			if (stristr($colegio,$nombre_corto)==TRUE) {
 				if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") {
 				echo '<input type="submit" name="enviar" value="Enviar los datos de la Matrícula" onClick="return confirmacion();" class="no_imprimir btn btn-primary btn-lg" />';
@@ -1571,7 +1570,7 @@ información sobre el proceso de matriculación.</div>
 				echo '<input type="submit" name="enviar" value="Enviar los datos de la Matrícula" onClick="return confirmacion();" class="no_imprimir btn btn-primary btn-lg" />';
 			}
 			}
-		 ?> 
+		 ?>
 		<br />
 		</center>
 		</td>
@@ -1585,7 +1584,7 @@ else{
 	echo "<br /><div class='alert alert-danger' style='max-width:450px;margin:auto'><legend>Atenci&oacute;n:</legend><p>Parece que estás intentando abrir una página sin autorización. Me temo que no podemos continuar. Si eres alumno o tutor legal de un alumno de este Centro, procede a entrar mediante tus claves con la página de <b>Acceso para Alumnos</b></p></div>";
 
 }
-?> 
+?>
 
 <br />
 </div>
@@ -1594,14 +1593,14 @@ else{
 <?php include("../../inc_pie.php"); ?>
 
 <script>
-	$(function ()  
-	{ 
+	$(function ()
+	{
 		$('#nacimiento').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})
-	});  
-	
+	});
+
 		$(document).ready(function() {
 			// Selector de Enfermedad
 			$('#enfermedad').change(function() {
@@ -1620,51 +1619,48 @@ else{
 				else {
 					$('#form-otrocolegio').addClass('hidden');
 				}
-			});	
-		
+			});
+
 		// Selector de itinerarios
-		$('#itinerario1').click(function() { 
-			if($('#itinerario1').is(':checked')) {  
+		$('#itinerario1').click(function() {
+			if($('#itinerario1').is(':checked')) {
 				$('.itinerario1').prop('disabled', false);
-				
+
 				$('.itinerario2').prop('disabled', true);
 				$('.itinerario3').prop('disabled', true);
 				$('.itinerario4').prop('disabled', true);
 			}
 		});
-		
-		$('#itinerario2').click(function() { 
-			if($('#itinerario2').is(':checked')) {  
+
+		$('#itinerario2').click(function() {
+			if($('#itinerario2').is(':checked')) {
 				$('.itinerario2').prop('disabled', false);
-				
+
 				$('.itinerario1').prop('disabled', true);
 				$('.itinerario3').prop('disabled', true);
 				$('.itinerario4').prop('disabled', true);
 			}
 		});
-		
-		$('#itinerario3').click(function() { 
-			if($('#itinerario3').is(':checked')) {  
+
+		$('#itinerario3').click(function() {
+			if($('#itinerario3').is(':checked')) {
 				$('.itinerario3').prop('disabled', false);
-				
+
 				$('.itinerario1').prop('disabled', true);
 				$('.itinerario2').prop('disabled', true);
 				$('.itinerario4').prop('disabled', true);
 			}
 		});
-		
-		$('#itinerario4').click(function() { 
-			if($('#itinerario4').is(':checked')) {  
+
+		$('#itinerario4').click(function() {
+			if($('#itinerario4').is(':checked')) {
 				$('.itinerario4').prop('disabled', false);
-				
+
 				$('.itinerario1').prop('disabled', true);
 				$('.itinerario2').prop('disabled', true);
 				$('.itinerario3').prop('disabled', true);
 			}
 		});
-		
+
 	});
 	</script>
-
-
-

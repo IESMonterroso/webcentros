@@ -254,7 +254,7 @@ include("../inc_menu.php");
             </button>
           </div>
           <div class="modal-body">
-            <p class="text-muted">En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal, la Consejería de Educación le informa que los datos personales proporcionados por Vd. en este formulario serán utilizados únicamente para gestionar su consulta y proporcionarle la respuesta adecuada. De acuerdo con lo previsto en la citada Ley Orgánica, puede ejercitar los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría General Técnica de la Consejería de Educación. C/ Juan Antonio de Vizarrón, s/n. Isla de la Cartuja. Torretriana. 41092. Sevilla.</small></p>
+            <p class="text-muted">En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal, la Consejería de Educación y Deporte le informa que los datos personales proporcionados por Vd. en este formulario serán utilizados únicamente para gestionar su consulta y proporcionarle la respuesta adecuada. De acuerdo con lo previsto en la citada Ley Orgánica, puede ejercitar los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría General Técnica de la Consejería de Educación y Deporte. C/ Juan Antonio de Vizarrón, s/n. Isla de la Cartuja. Torretriana. 41092. Sevilla.</small></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Entendido</button>
