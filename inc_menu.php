@@ -187,6 +187,7 @@
                           <a class="dropdown-item" href="<?php echo $config['web_orientacion']; ?>"<?php echo ($_target) ? ' target="_blank"' : ''; ?>>Orientación</a>
                           <?php unset($pos); ?>
                           <?php unset($_target); ?>
+                          <?php endif; ?>
                           <?php if (isset($config['web_ampa']) && ! empty($config['web_ampa'])): ?>
                           <?php $pos = strpos($config['web_ampa'], WEBCENTROS_DOMINIO); ?>
                           <?php $_target = ($pos !== false) ? 0 : 1; ?>
