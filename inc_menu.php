@@ -289,7 +289,7 @@
                   </li>
                   <?php endif; ?>
                   <li class="nav-item">
-                      <a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>intranet" target="_blank">Intranet</a>
+                      <a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>intranet" target="_blank">Profesorado</a>
                   </li>
               </ul>
               <ul class="navbar-nav">
