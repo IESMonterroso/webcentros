@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-sm-6 col-md-4 col-lg-2 text-center">
-                    <a href="https://www.mecd.gob.es/portada-mecd/" target="_blank">
+                    <a href="https://www.educacionyfp.gob.es/" target="_blank">
                         <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/mefp.png" class="pad10" alt="">
                     </a>
                 </div>

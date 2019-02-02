@@ -1,11 +1,46 @@
-<?php defined('WEBCENTROS_DIRECTORY') OR exit('No direct script access allowed'); 
+<?php defined('WEBCENTROS_DIRECTORY') OR exit('No direct script access allowed');
 
 $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profesor AS nomprofesor, asignaturas.NOMBRE AS nomasignatura, notas_cuaderno.id AS idactividad, notas_cuaderno.nombre AS nomactividad, notas_cuaderno.fecha AS fecactividad FROM notas_cuaderno JOIN asignaturas ON notas_cuaderno.asignatura = asignaturas.CODIGO WHERE notas_cuaderno.curso LIKE '%$unidad%' AND notas_cuaderno.visible_nota=1");
 ?>
-
 <a name="evaluables"></a>
-<h3>Actividades evaluables</h3>
 
+<h3>Calendario de actividades</h3>
+<br>
+
+<?php $eventQuery = mysqli_query($db_con,"SELECT id, fechaini, unidades, nombre, asignaturas FROM calendario WHERE unidades like '%".$unidad."%' and date(fechaini)>'".$config['curso_inicio']."' and categoria > '2' order by fechaini"); ?>
+<?php if (mysqli_num_rows($eventQuery)>0): ?>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <th class="text-center">Unidades</th>
+      <th class="text-center">Fecha</th>
+      <th class="text-center">Actividad</th>
+      <th class="text-center">Asignatura</th>
+    </thead>
+    <tbody>
+      <?php while ($reg = mysqli_fetch_array($eventQuery)): ?>
+      <?php $asg = explode(';', $reg[4]); ?>
+      <?php $asign = $asg[0]; ?>
+      <tr>
+        <td><?php echo $reg[2];?></td>
+        <td nowrap><?php echo $reg[1];?></td>
+        <td><?php echo $reg[3];?></td>
+        <td><?php echo $asign ;?></td>
+      </tr>
+      <?php endwhile; ?>
+    </tbody>
+  </table>
+<?php else: ?>
+
+<div class="justify-content-center">
+	<p class="lead text-muted text-center p-5">No se han registrado actividades evaluables</p>
+</div>
+
+<?php endif; ?>
+
+<br>
+<hr>
+
+<h3>Actividades evaluables</h3>
 <br>
 
 <?php if(mysqli_num_rows($query_evaluables)): ?>

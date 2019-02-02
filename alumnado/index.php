@@ -107,6 +107,7 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 }
 
 // Comprobamos si el alumno tiene actividades evaluables registradas
+$muestra_evaluables = 0;
 $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profesor AS nomprofesor, asignaturas.NOMBRE AS nomasignatura, notas_cuaderno.id AS idactividad, notas_cuaderno.nombre AS nomactividad, notas_cuaderno.fecha AS fecactividad FROM notas_cuaderno JOIN asignaturas ON notas_cuaderno.asignatura = asignaturas.CODIGO WHERE notas_cuaderno.curso LIKE '%$unidad%' AND notas_cuaderno.visible_nota=1");
 if (mysqli_num_rows($query_evaluables)>0) $muestra_evaluables = 1;
 
@@ -277,9 +278,9 @@ include('../inc_menu.php');
 						<li class="nav-item"><a class="nav-link active" href="#asistencia" role="tab" data-toggle="tab">Asistencia</a></li>
 						<li class="nav-item"><a class="nav-link" href="#convivencia" role="tab" data-toggle="tab">Convivencia</a></li>
 						<li class="nav-item"><a class="nav-link" href="#evaluaciones" role="tab" data-toggle="tab">Calificaciones</a></li>
-						<li class="nav-item"><a class="nav-link" href="#actividades" role="tab" data-toggle="tab">Actividades</a></li>
+						<li class="nav-item"><a class="nav-link" href="#actividades" role="tab" data-toggle="tab">Extraescolares</a></li>
 						<?php if ($muestra_evaluables == 1): ?>
-						<li class="nav-item"><a class="nav-link" href="#evaluables" role="tab" data-toggle="tab">Pruebas</a></li>
+						<li class="nav-item"><a class="nav-link" href="#evaluables" role="tab" data-toggle="tab">Actividades</a></li>
 						<?php endif; ?>
 						<li class="nav-item"><a class="nav-link" href="#horario" role="tab" data-toggle="tab">Horario</a></li>
 						<?php if (isset($config['alumnado']['ver_informes_tutoria']) && $config['alumnado']['ver_informes_tutoria']): ?>
