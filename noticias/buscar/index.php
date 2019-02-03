@@ -24,9 +24,9 @@ else {
 
 $limite = 25;
 
-$result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub FROM noticias WHERE pagina LIKE '%2%' $query_sql ORDER BY fechapub DESC");
-$total_noticias = mysqli_num_rows($result);
-mysqli_free_result($result);
+$result_noticias = mysqli_query($db_con, "SELECT id FROM noticias WHERE pagina LIKE '%2%' $query_sql ORDER BY fechapub DESC");
+$total_noticias = mysqli_num_rows($result_noticias);
+mysqli_free_result($result_noticias);
 
 $total_pags = ceil($total_noticias / $limite);
 if ($pag == 0 || $pag == 1) $inicio = 0;

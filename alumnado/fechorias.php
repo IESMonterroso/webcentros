@@ -12,10 +12,10 @@
 		<thead>
 			<tr>
 				<th>Fecha</th>
-				<th>Conducta contraria</th>				
-				<?php if ($config['alumnado']['detalles_fechorias']==1) { ?>
+				<th>Conducta contraria</th>
+				<?php if ($config['alumnado']['detalles_fechorias']==1): ?>
 				<th>Observaciones</th>
-				<?php }?>
+				<?php endif; ?>
 				<th>Gravedad</th>
 				<th>Profesor</th>
 			</tr>
@@ -24,10 +24,10 @@
 			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo $row['fecha']; ?></td>
-				<td><?php echo $row['asunto']; ?></td>				
-				<?php if ($config['alumnado']['detalles_fechorias']==1) { ?>
+				<td><?php echo $row['asunto']; ?></td>
+				<?php if ($config['alumnado']['detalles_fechorias'] == 1): ?>
 				<td><?php echo $row['notas']; ?></td>
-				<?php }?>
+				<?php endif; ?>
 				<td><?php echo $row['grave']; ?></td>
 				<td><?php echo $row['informa']; ?></td>
 			</tr>
@@ -88,5 +88,5 @@
 </div>
 
 <?php endif; ?>
-  
+
 <!-- FIN MODULO PROBLEMAS DE CONVIVENCIA -->
