@@ -108,8 +108,11 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 
 // Comprobamos si el alumno tiene actividades evaluables registradas
 $muestra_evaluables = 0;
-$query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profesor AS nomprofesor, asignaturas.NOMBRE AS nomasignatura, notas_cuaderno.id AS idactividad, notas_cuaderno.nombre AS nomactividad, notas_cuaderno.fecha AS fecactividad FROM notas_cuaderno JOIN asignaturas ON notas_cuaderno.asignatura = asignaturas.CODIGO WHERE notas_cuaderno.curso LIKE '%$unidad%' AND notas_cuaderno.visible_nota=1");
-if (mysqli_num_rows($query_evaluables)>0) $muestra_evaluables = 1;
+$query_evaluables0 = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profesor AS nomprofesor, asignaturas.NOMBRE AS nomasignatura, notas_cuaderno.id AS idactividad, notas_cuaderno.nombre AS nomactividad, notas_cuaderno.fecha AS fecactividad FROM notas_cuaderno JOIN asignaturas ON notas_cuaderno.asignatura = asignaturas.CODIGO WHERE notas_cuaderno.curso LIKE '%$unidad%' AND notas_cuaderno.visible_nota=1");
+if (mysqli_num_rows($query_evaluables0)>0) $muestra_evaluables = 1;
+
+$query_evaluables1 = mysqli_query($db_con,"SELECT id, fechaini, unidades, nombre, asignaturas FROM calendario WHERE unidades like '%".$unidad."%' and date(fechaini)>'".$config['curso_inicio']."' and categoria > '2' order by fechaini"); 
+if (mysqli_num_rows($query_evaluables1)>0)  $muestra_evaluables = 1;
 
 // Comprobamos mensajes recibidos
 $query_mensajes = mysqli_query($db_con, "SELECT mens_texto.id, ahora, asunto, texto, c_profes.profesor, (SELECT recibidoprofe FROM mens_profes WHERE id_texto = mens_texto.id AND profesor LIKE '%$apellido, $nombrepil%' OR profesor LIKE '%".$_SESSION['claveal']."%' LIMIT 1) AS recibidoprofe FROM mens_texto JOIN c_profes ON mens_texto.origen = c_profes.idea WHERE ahora BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' AND (destino LIKE '%$apellido, $nombrepil%' OR destino LIKE '%".$_SESSION['claveal']."%' AND asunto NOT LIKE 'Mensaje de confirmación') ORDER BY ahora DESC");
