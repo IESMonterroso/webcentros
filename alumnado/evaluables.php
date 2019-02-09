@@ -4,6 +4,8 @@ $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profes
 ?>
 <a name="evaluables"></a>
 
+<br>
+
 <h3>Calendario de actividades</h3>
 <br>
 
@@ -32,7 +34,7 @@ $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profes
 <?php else: ?>
 
 <div class="justify-content-center">
-	<p class="lead text-muted text-center p-5">No se han registrado actividades evaluables</p>
+  <p class="lead text-muted text-center p-5">No se han registrado actividades evaluables</p>
 </div>
 
 <?php endif; ?>
@@ -40,7 +42,7 @@ $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profes
 <br>
 <hr>
 
-<h3>Actividades evaluables</h3>
+<h3>Resultados de Actividades evaluables</h3>
 <br>
 
 <?php if(mysqli_num_rows($query_evaluables)): ?>
@@ -72,7 +74,7 @@ $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profes
 <?php else: ?>
 
 <div class="justify-content-center">
-	<p class="lead text-muted text-center p-5">No se han registrado actividades evaluables</p>
+  <p class="lead text-muted text-center p-5">No se han registrado resultados de actividades evaluables</p>
 </div>
 
 <?php endif; ?>
