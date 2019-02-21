@@ -140,7 +140,7 @@
         $('#lisAluLoading').html("<br><div class=\"text-center\"><div class=\"fa-4x\"><i class=\"fas fa-circle-notch fa-spin\"></i></div></div>");
 
         setTimeout(function(){
-          $.post( "./alumnado/consultaListados.php", { "data_value" : data_value }, null, "json")
+          $.post( "./plugins/consultas/conAluLis.php", { "data_value" : data_value }, null, "json")
           .done(function( data, textStatus, jqXHR ) {
             if (textStatus == "success") {
               if (data.result == 'ok') {
