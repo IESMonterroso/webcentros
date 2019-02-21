@@ -53,7 +53,7 @@
     </div><!-- ./wrapper -->
 
     <!-- Core JS Files -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <!-- Plugin for Cookie Consent, full documentation here: https://cookieconsent.insites.com -->
@@ -125,6 +125,69 @@
       },
       threshold: 0,
       allowPageScroll: "vertical",
+    });
+    </script>
+
+    <script>
+    $(document).ready(function(){
+      $('#lisAluForm').submit(function(){
+        event.preventDefault();
+
+        var data_value = $("#lisAluDni").val();
+        var results = '';
+
+        $('#lisAluForm').hide();
+        $('#lisAluLoading').html("<br><div class=\"text-center\"><div class=\"fa-4x\"><i class=\"fas fa-circle-notch fa-spin\"></i></div></div>");
+
+        setTimeout(function(){
+          $.post( "./alumnado/consultaListados.php", { "data_value" : data_value }, null, "json")
+          .done(function( data, textStatus, jqXHR ) {
+            if (textStatus == "success") {
+              if (data.result == 'ok') {
+                results += "<ul class=\"list-group list-group-flush\">";
+                $.each(data.data, function(i, item) {
+                  results += "<li class=\"list-group-item\"><strong>" + item.apellidos + ", " + item.nombre + "</strong><br><span class=\"text-info\">" + item.unidad + " (" + item.curso + ")</span></li>";
+                });
+                results += "</ul>";
+                results += "<br>";
+                results += "<div class=\"text-center\"><a class=\"btn btn-primary\" href=\"<?php echo WEBCENTROS_DOMINIO; ?>\">Realizar otra consulta</a></div>";
+
+                $('#lisAluLoading').hide();
+                $('#lisAluLoading').html();
+                $('#lisAluRes').html(results);
+              }
+              else {
+                results += "<p>Lo sentimos, no hemos encontrado resultados con este DNI/NIE.</p>";
+                results += "<br>";
+                results += "<div class=\"text-center\"><a class=\"btn btn-primary\" href=\"<?php echo WEBCENTROS_DOMINIO; ?>\">Realizar otra consulta</a></div>";
+
+                $('#lisAluLoading').hide();
+                $('#lisAluLoading').html();
+                $('#lisAluRes').html(results);
+              }
+            }
+            else {
+              results += "<p>Lo sentimos, no hemos podido comprobar su consulta. Pruebe en unos minutos.</p>";
+              results += "<br>";
+              results += "<div class=\"text-center\"><a class=\"btn btn-primary\" href=\"<?php echo WEBCENTROS_DOMINIO; ?>\">Realizar otra consulta</a></div>";
+
+              $('#lisAluLoading').hide();
+              $('#lisAluLoading').html();
+              $('#lisAluRes').html(results);
+            }
+          })
+          .fail(function() {
+            results += "<p>Lo sentimos, no hemos podido comprobar su consulta. Pruebe en unos minutos.</p>";
+            results += "<br>";
+            results += "<div class=\"text-center\"><a class=\"btn btn-primary\" href=\"<?php echo WEBCENTROS_DOMINIO; ?>\">Realizar otra consulta</a></div>";
+
+            $('#lisAluLoading').hide();
+            $('#lisAluLoading').html();
+            $('#lisAluRes').html(results);
+          });
+        },1500);
+
+      });
     });
     </script>
 
