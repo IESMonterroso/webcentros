@@ -1,4 +1,6 @@
 <?php
+if (! isset($_POST['data_value']) || empty($_POST['data_value'])) die ('No direct script access allowed');
+
 require_once("../../bootstrap.php");
 require_once("../../config.php");
 

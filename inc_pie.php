@@ -157,7 +157,7 @@
                 $('#lisAluRes').html(results);
               }
               else {
-                results += "<p>Lo sentimos, no hemos encontrado resultados con este DNI/NIE.</p>";
+                results += "<p>Lo sentimos, no hemos encontrado resultados con este DNI/NIE. Pruebe en otro momento.</p>";
                 results += "<br>";
                 results += "<div class=\"text-center\"><a class=\"btn btn-primary\" href=\"<?php echo WEBCENTROS_DOMINIO; ?>\">Realizar otra consulta</a></div>";
 
@@ -167,7 +167,7 @@
               }
             }
             else {
-              results += "<p>Lo sentimos, no hemos podido comprobar su consulta. Pruebe en unos minutos.</p>";
+              results += "<p>Lo sentimos, no hemos podido comprobar su consulta. Pruebe en otro momento.</p>";
               results += "<br>";
               results += "<div class=\"text-center\"><a class=\"btn btn-primary\" href=\"<?php echo WEBCENTROS_DOMINIO; ?>\">Realizar otra consulta</a></div>";
 
@@ -177,7 +177,7 @@
             }
           })
           .fail(function() {
-            results += "<p>Lo sentimos, no hemos podido comprobar su consulta. Pruebe en unos minutos.</p>";
+            results += "<p>Lo sentimos, no hemos podido comprobar su consulta. Pruebe en otro momento.</p>";
             results += "<br>";
             results += "<div class=\"text-center\"><a class=\"btn btn-primary\" href=\"<?php echo WEBCENTROS_DOMINIO; ?>\">Realizar otra consulta</a></div>";
 

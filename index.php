@@ -389,23 +389,25 @@ include("inc_menu.php");
 
                     <?php if (date('m') == 9 && (date('d') >= 13 && date('d') <= 30)): ?>
                     <!-- CONSULTA UNIDAD DEL ALUMNO -->
-                    <div class="card-box border-primary" style="min-height: 241px;">
-                      <h5 class="card-title">Consulta listados de grupo</h5>
+                    <div class="pad15">
+                      <div class="card-box border-primary" style="min-height: 241px;">
+                        <h5 class="card-title">Consulta listados de grupo</h5>
 
-                      <form id="lisAluForm" action="?admin=1" method="post" autocomplete="off">
-                        <p>Introduzca el DNI/NIE del alumno, madre, padre o tutor/a legal.</p>
+                        <form id="lisAluForm" action="?admin=1" method="post" autocomplete="off">
+                          <p>Introduzca el DNI/NIE del alumno, madre, padre o tutor/a legal.</p>
 
-                        <div class="form-group">
-                          <input type="text" class="form-control" id="lisAluDni" name="dni" value="" maxlength="9" placeholder="DNI/NIE" required>
-                        </div>
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="lisAluDni" name="dni" value="" maxlength="9" placeholder="DNI/NIE" required>
+                          </div>
 
-                        <div class="text-center">
-                          <button type="submit" class="btn btn-primary">Consultar</button>
-                        </div>
-                      </form>
+                          <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Consultar</button>
+                          </div>
+                        </form>
 
-                      <div id="lisAluLoading"></div>
-                      <div id="lisAluRes"></div>
+                        <div id="lisAluLoading"></div>
+                        <div id="lisAluRes"></div>
+                      </div>
                     </div>
                     <!-- FIN CONSULTA UNIDAD DEL ALUMNO -->
                     <?php endif; ?>
