@@ -4,20 +4,64 @@ if(isset($_POST['enviar'])) {
 
 	$asunto = trim(mysqli_real_escape_string($db_con,	$_POST['asunto']));
 	$mensaje = trim(mysqli_real_escape_string($db_con, $_POST['mensaje']));
+	$adjunto = $_FILES['adjunto'];
+	$dir_subida = "../intranet/varios/externos/"; // Añadir / al final
+
 
 	if (! empty($asunto) && ! empty($mensaje)) {
+
+		$enviarMensaje = true;
+		$nombreAdjunto = NULL;
+
+
+		// Control del archivo
+		if ($adjunto['type'] != "application/pdf") {
+			$enviarMensaje = false;
+			$msg_error = "El archivo adjunto debe ser un documento PDF.";
+		}
+		elseif ($adjunto['size'] > 100000) {
+			$enviarMensaje = false;
+			$msg_error = "El archivo adjunto debe tener un tamaño inferior a 100 Kb.";
+		}
+		elseif ($adjunto['error'] != 0) {
+			$enviarMensaje = false;
+			$msg_error = "El archivo adjunto no ha podido ser subido al servidor.";
+		}
+		else {
+
+			if (file_exists($dir_subida)) {
+				$hash_file = hash_file('md5', $adjunto['tmp_name']);
+				$dir_archivo = $dir_subida . $hash_file . '_' . basename($adjunto['name']);
+
+				if (! move_uploaded_file($adjunto['tmp_name'], $dir_archivo)) {
+					$msg_error = "Ha ocurrido un error al adjuntar el archivo.";
+					$enviarMensaje = false;
+				}
+				else {
+					$nombreAdjunto = "'".ltrim($dir_archivo, $dir_subida)."'";
+				}
+			}
+			else {
+				$enviarMensaje = false;
+				$msg_error = "El archivo adjunto no ha podido ser subido al servidor.";
+			}
+
+		}
 
 		if (isset($_SESSION['dnitutor'])) {
 			$mensaje .= mysqli_real_escape_string('<br><p style="color: #000 !important; background-color: #fff !important;">Mensaje enviado por el tutor/a legal:</p><p style="color: #000 !important; background-color: #fff !important;">'.$_SESSION['nombretutor'].'</p>');
 		}
 		$direccionIP = getRealIP();
-		$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '$unidad')");
 
-		if(! $result) {
-			$msg_error = "Los campos del formulario son obligatorios.";
-		}
-		else {
-			$msg_success = "El mensaje ha sido enviado correctamente.";
+		if ($enviarMensaje) {
+			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '$unidad', $nombreAdjunto)");
+
+			if(! $result) {
+				$msg_error = "Ha ocurrido un error al enviar el mensaje.";
+			}
+			else {
+				$msg_success = "El mensaje ha sido enviado correctamente.";
+			}
 		}
 
 	}
@@ -142,7 +186,7 @@ if(isset($_POST['leido'])){
 
 	<div class="col-sm-6 col-sm-offset-1">
 
-		<form method="post" action="index.php?mod=mensajes">
+		<form method="post" action="index.php?mod=mensajes" enctype="multipart/form-data">
 
 			<fieldset>
 				<legend>Contactar con el tutor</legend>
@@ -155,6 +199,13 @@ if(isset($_POST['leido'])){
 				<div class="form-group">
 					<label for="mensaje">Mensaje</label>
 					<textarea type="text" class="form-control" id="mensaje" name="mensaje" rows="5"></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="adjunto">Adjuntar un archivo</label>
+					<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+					<input type="file" class="form-control" id="adjunto" name="adjunto" accept="application/pdf">
+					<p class="help-block"><small>Tamaño máximo: 100 Kb.</small></p>
 				</div>
 
 				<button type="submit" class="btn btn-primary" name="enviar">Enviar mensaje</button>

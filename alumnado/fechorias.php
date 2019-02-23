@@ -13,23 +13,27 @@
 			<tr>
 				<th>Fecha</th>
 				<th>Conducta contraria</th>
-				<?php if ($config['alumnado']['detalles_fechorias']==1): ?>
-				<th>Observaciones</th>
-				<?php endif; ?>
-				<th>Gravedad</th>
 				<th>Profesor</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
-				<td><?php echo $row['fecha']; ?></td>
-				<td><?php echo $row['asunto']; ?></td>
-				<?php if ($config['alumnado']['detalles_fechorias'] == 1): ?>
-				<td><?php echo $row['notas']; ?></td>
-				<?php endif; ?>
-				<td><?php echo $row['grave']; ?></td>
-				<td><?php echo $row['informa']; ?></td>
+				<td nowrap><?php echo $row['fecha']; ?></td>
+				<td>
+					<?php
+					switch ($row['grave']) {
+						case 'leve' : $badge_type = 'badge-warning'; break;
+						case 'grave' : $badge_type = 'badge-danger'; break;
+						case 'muy grave' : $badge_type = 'badge-danger'; break;
+					}
+					?>
+					<strong><?php echo $row['asunto']; ?> <span class="badge badge-pill <?php echo $badge_type; ?>"><?php echo $row['grave']; ?></span></strong>
+					<?php if ((isset($config['alumnado']['detalles_fechorias']) && $config['alumnado']['detalles_fechorias']) && ! empty($row['notas'])): ?>
+					<p class="text-muted"><strong>Observaciones:</strong><br><?php echo $row['notas']; ?></p>
+					<?php endif; ?>
+				</td>
+				<td nowrap><?php echo $row['informa']; ?></td>
 			</tr>
 			<?php endwhile; ?>
 			<?php mysqli_free_result($result); ?>

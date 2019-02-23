@@ -9,24 +9,22 @@ $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profes
 <h3>Calendario de actividades</h3>
 <br>
 
-<?php $eventQuery = mysqli_query($db_con,"SELECT id, fechaini, unidades, nombre, asignaturas FROM calendario WHERE unidades like '%".$unidad."%' and date(fechaini)>'".$config['curso_inicio']."' and categoria > '2' order by fechaini"); ?>
-<?php if (mysqli_num_rows($eventQuery)>0): ?>
+<?php $query_acteva = mysqli_query($db_con,"SELECT id, fechaini, unidades, nombre, asignaturas FROM calendario WHERE unidades like '%".$unidad."%' and date(fechaini)>'".$config['curso_inicio']."' and categoria > '2' order by fechaini"); ?>
+<?php if (mysqli_num_rows($query_acteva)): ?>
   <table class="table table-bordered table-striped">
     <thead>
-      <th class="text-center">Unidades</th>
-      <th class="text-center">Fecha</th>
-      <th class="text-center">Actividad</th>
-      <th class="text-center">Asignatura</th>
+      <th>Fecha</th>
+      <th>Actividad</th>
+      <th>Asignatura</th>
     </thead>
     <tbody>
-      <?php while ($reg = mysqli_fetch_array($eventQuery)): ?>
-      <?php $asg = explode(';', $reg[4]); ?>
-      <?php $asign = $asg[0]; ?>
+      <?php while ($row_acteva = mysqli_fetch_array($query_acteva)): ?>
+      <?php $exp_nombre_asignatura = explode(';', $row_acteva['asignaturas']); ?>
+      <?php $nom_asignatura = trim($exp_nombre_asignatura[0]); ?>
       <tr>
-        <td><?php echo $reg[2];?></td>
-        <td nowrap><?php echo $reg[1];?></td>
-        <td><?php echo $reg[3];?></td>
-        <td><?php echo $asign ;?></td>
+        <td nowrap><?php echo $row_acteva['fechaini'];?></td>
+        <td><?php echo $row_acteva['nombre'];?></td>
+        <td><?php echo $nom_asignatura; ?></td>
       </tr>
       <?php endwhile; ?>
     </tbody>
