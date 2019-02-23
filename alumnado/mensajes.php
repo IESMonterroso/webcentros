@@ -202,7 +202,7 @@ if(isset($_POST['leido'])){
 				</div>
 
 				<div class="form-group">
-					<label for="adjunto">Adjuntar un archivo</label>
+					<label for="adjunto">Adjuntar archivo PDF <span class="text-muted">(opcional)</span></label>
 					<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
 					<input type="file" class="form-control" id="adjunto" name="adjunto" accept="application/pdf">
 					<p class="help-block"><small>Tamaño máximo: 100 Kb.</small></p>
