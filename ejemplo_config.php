@@ -251,7 +251,7 @@ $config['sidebar_html'][2]['html'] = '';
 $config['carousel'][0]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide1.jpg';
 $config['carousel'][0]['titulo'] = 'Portal de Escolarización 2019/20';
 $config['carousel'][0]['contenido'] = '<p>2º Ciclo de Infantil a Bachillerato</p><p style="display: block; padding: 8px; background-color: #eaff00; color: blue; text-align: center; transform: rotate(-1deg);">Plazo de Admisión</p><p style="display: block; padding: 8px; background-color: #eaff00; color: blue; text-align: center; transform: rotate(-1deg);">1 de marzo al 1 de abril</p>';
-$config['carousel'][0]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/escolarizacion/infantil-a-bachillerato';
+$config['carousel'][0]['enlace'] = 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoTramite/303/';
 
 $config['carousel'][1]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide2.jpg';
 $config['carousel'][1]['titulo'] = 'Programa de Digitalización de Centros';
