@@ -11,41 +11,43 @@ if(isset($_POST['enviar'])) {
 	if (! empty($asunto) && ! empty($mensaje)) {
 
 		$enviarMensaje = true;
-		$nombreAdjunto = NULL;
+		$nombreAdjunto = "";
 
 
 		// Control del archivo
-		if ($adjunto['type'] != "application/pdf") {
-			$enviarMensaje = false;
-			$msg_error = "El archivo adjunto debe ser un documento PDF.";
-		}
-		elseif ($adjunto['size'] > 100000) {
-			$enviarMensaje = false;
-			$msg_error = "El archivo adjunto debe tener un tamaño inferior a 100 Kb.";
-		}
-		elseif ($adjunto['error'] != 0) {
-			$enviarMensaje = false;
-			$msg_error = "El archivo adjunto no ha podido ser subido al servidor.";
-		}
-		else {
-
-			if (file_exists($dir_subida)) {
-				$hash_file = hash_file('md5', $adjunto['tmp_name']);
-				$dir_archivo = $dir_subida . $hash_file . '_' . basename($adjunto['name']);
-
-				if (! move_uploaded_file($adjunto['tmp_name'], $dir_archivo)) {
-					$msg_error = "Ha ocurrido un error al adjuntar el archivo.";
-					$enviarMensaje = false;
-				}
-				else {
-					$nombreAdjunto = "'".ltrim($dir_archivo, $dir_subida)."'";
-				}
+		if (! empty($adjunto['tmp_name'])) {
+			if ($adjunto['type'] != "application/pdf") {
+				$enviarMensaje = false;
+				$msg_error = "El archivo adjunto debe ser un documento PDF.";
 			}
-			else {
+			elseif ($adjunto['size'] > 100000) {
+				$enviarMensaje = false;
+				$msg_error = "El archivo adjunto debe tener un tamaño inferior a 100 Kb.";
+			}
+			elseif ($adjunto['error'] != 0) {
 				$enviarMensaje = false;
 				$msg_error = "El archivo adjunto no ha podido ser subido al servidor.";
 			}
+			else {
 
+				if (file_exists($dir_subida)) {
+					$hash_file = hash_file('md5', $adjunto['tmp_name']);
+					$dir_archivo = $dir_subida . $hash_file . '_' . basename($adjunto['name']);
+
+					if (! move_uploaded_file($adjunto['tmp_name'], $dir_archivo)) {
+						$msg_error = "Ha ocurrido un error al adjuntar el archivo.";
+						$enviarMensaje = false;
+					}
+					else {
+						$nombreAdjunto = ltrim($dir_archivo, $dir_subida);
+					}
+				}
+				else {
+					$enviarMensaje = false;
+					$msg_error = "El archivo adjunto no ha podido ser subido al servidor.";
+				}
+
+			}
 		}
 
 		if (isset($_SESSION['dnitutor'])) {
@@ -54,7 +56,7 @@ if(isset($_POST['enviar'])) {
 		$direccionIP = getRealIP();
 
 		if ($enviarMensaje) {
-			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '$unidad', $nombreAdjunto)");
+			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '$unidad', '$nombreAdjunto')");
 
 			if(! $result) {
 				$msg_error = "Ha ocurrido un error al enviar el mensaje.";
