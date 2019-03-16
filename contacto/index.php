@@ -143,15 +143,41 @@ include("../inc_menu.php");
                         <div class="col-10">
                             <div class="description">
                                 <h5 class="info-title"><?php echo $config['centro_denominacion']; ?><br><small>Centro código <?php echo $config['centro_codigo']; ?></small></h5>
-                                <p><?php echo $config['centro_direccion']; ?>
-                                    <br> <?php echo $config['centro_codpostal']; ?>, <?php echo $config['centro_localidad']; ?> (<?php echo $config['centro_provincia']; ?>)
-                                    <?php echo (isset($config['centro_telefono']) && $config['centro_telefono']) ? '<br> Teléfono: (+34) ' . formatoTelefono($config['centro_telefono']) : ''; ?>
-                                    <?php echo (isset($config['centro_fax']) && $config['centro_fax']) ? '<br> Fax: (+34) ' . formatoTelefono($config['centro_fax']) : ''; ?>
-                                    <?php echo (isset($config['centro_email']) && $config['centro_email']) ? '<br> Correo-e: ' . ofuscarEmail($config['centro_email']) : ''; ?>
+                                <p>CIF: S4111001F
+                                  <br> <?php echo $config['centro_direccion']; ?>
+                                  <br> <?php echo $config['centro_codpostal']; ?>, <?php echo $config['centro_localidad']; ?> (<?php echo $config['centro_provincia']; ?>)
+                                  <?php echo (isset($config['centro_telefono']) && $config['centro_telefono']) ? '<br> Teléfono: (+34) ' . formatoTelefono($config['centro_telefono']) : ''; ?>
+                                  <?php echo (isset($config['centro_fax']) && $config['centro_fax']) ? '<br> Fax: (+34) ' . formatoTelefono($config['centro_fax']) : ''; ?>
+                                  <?php echo (isset($config['centro_email']) && $config['centro_email']) ? '<br> Correo-e: ' . ofuscarEmail($config['centro_email']) : ''; ?>
                                 </p>
                             </div>
                         </div>
                     </div>
+
+                    <?php if (isset($config['dir3']['oficina_contable']) && isset($config['dir3']['organo_gestor']) && isset($config['dir3']['unidad_tramitadora']) && ! empty($config['dir3']['oficina_contable']) && ! empty($config['dir3']['organo_gestor']) && ! empty($config['dir3']['unidad_tramitadora'])): ?>
+                    <hr>
+
+                    <div class="row mt-4">
+                        <div class="col-2 text-center">
+                            <span class="fas fa-file-invoice fa-5x text-primary"></span>
+                        </div>
+                        <div class="col-10">
+                            <div class="description">
+                                <h5 class="info-title">Facturación electrónica</h5>
+                                <p>
+                                  <strong style="font-weight: bold;">Oficina contable: <?php echo $config['dir3']['oficina_contable']; ?></strong><br>
+                                  <small>Intervención General de la Junta de Andalucía</small><br>
+
+                                  <strong style="font-weight: bold;">Unidad tramitadora: <?php echo $config['dir3']['unidad_tramitadora']; ?></strong><br>
+                                  <small>Centros educativos</small><br>
+
+                                  <strong style="font-weight: bold;">Órgano gestor: <?php echo $config['dir3']['organo_gestor']; ?></strong><br>
+                                  <small><?php echo $config['centro_denominacion'] . ' (' . $config['centro_localidad'] . ')' . ' - ' . $config['centro_codigo']; ?></small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
 
                 <div class="col-md-6">

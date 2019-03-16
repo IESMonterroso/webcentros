@@ -182,6 +182,11 @@ $config['eqdirectivo_administrador']['cargo']                 = "Administrador/a
 $config['eqdirectivo_administrador']['telefono']              = "";
 $config['eqdirectivo_administrador']['correoe']               = "";
 
+// DATOS DEL CENTRO EN EL DIRECTORIO COMÚN DE UNIDADES ORGÁNICAS Y OFICINAS (DIR3)
+// Únicamente hay que modificar el valor del órgano gestor
+$config['dir3']['oficina_contable'] = "A01004456"; // Intervención General de la Junta de Andalucía
+$config['dir3']['unidad_tramitadora'] = "GE0010526"; // Centros educativos
+$config['dir3']['organo_gestor'] = "";
 
 // CÓDIGO PERSONALIZADO EN BLOQUE DE CONTENIDO DE LA PÁGINA DE INICIO
 // Es necesario descomentar el bloque correspondiente y rellenarlo de la siguiente manera:
