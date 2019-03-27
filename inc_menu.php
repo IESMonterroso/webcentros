@@ -122,75 +122,8 @@
     <?php endif; ?>
     <?php if (date('m-d') >= '03-29' && date('m-d') <= '03-30'): ?>
     <style type="text/css">
-    body {
-      background-color: #2a2a2a;
-    }
-    .navbar-lg {
-      background-color: #2a2a2a !important;
-      color: #ffffff !important;
-    }
-    .section {
-      background-color: #2a2a2a;
-      color: #ffffff;
-    }
-
-    .media {
-      background-color: #333;
-      box-shadow: 0px 1px 4px #222;
-    }
-
-    .media:hover {
-      box-shadow: 0px 1px 7px #000;
-    }
-
-    .card.shadow-sm {
-      background-color: #333;
-      color: #ffffff;
-    }
-
-    .card-box {
-      background-color: #333;
-      color: #ffffff;
-      box-shadow: 0px 1px 4px #222;
-    }
-
-    .dropdown-menu {
-      background-color: #333;
-      color: #ffffff;
-    }
-
-    .dropdown-menu:before {
-      color: #333;
-    }
-
-    .modal-content {
-      background-color: #333 !important;
-      color: #fff !important;
-    }
-
-    .breadcrumb {
-      background-color: #333 !important;
-    }
-    .bg-clouds {
-      background-color: #333 !important;
-    }
-
-    .bg-light {
-      background-color: #333 !important;
-    }
-
-    .input-group-addon {
-      background-color: #2a2a2a;
-      color: #E3E3E3;
-    }
-
-    .footer {
-      color: #fff;
-    }
-
-    #filelist tr.dir > td.name a, #filelist tr.file > td.name a {
-      color: #fff !important;
-    }
+    body{background-color:#2a2a2a}.navbar-lg{background-color:#2a2a2a !important;color:#fff !important}.section{background-color:#2a2a2a;color:#fff}.media{background-color:#333;box-shadow:0px 1px 4px #222}.media:hover{box-shadow:0px 1px 7px #000}.card.shadow-sm{background-color:#333;color:#fff}.card-box{background-color:#333;color:#fff;box-shadow:0px 1px 4px #222}.dropdown-menu{background-color:#333;color:#fff}.dropdown-menu:before{color:#333}.modal-content{background-color:#333 !important;color:#fff !important}.breadcrumb{background-color:#333 !important}.bg-clouds{background-color:#333 !important}.bg-light{background-color:#333 !important}.input-group-addon{background-color:#2a2a2a;color:#E3E3E3}.footer{color:#fff}#filelist tr.dir > td.name a, #filelist tr.file > td.name
+a{color:#fff !important}
     </style>
     <?php endif; ?>
 </head>
