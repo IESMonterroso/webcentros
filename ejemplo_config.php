@@ -243,6 +243,9 @@ $config['sidebar_html'][2]['html'] = '';
 */
 
 // CAROUSEL
+// Use el valor true si desea que el carousel cambie automaticamente las imágenes o false si desea que permanezca estático.
+$config['carousel_config']['cycle'] = false;
+
 // Comente / descomente el bloque para ocultar o mostrar, respectivamente, un carousel de imagenes en la página principal.
 // En el campo 'imagen' se escribe la URL completa de la imagen. La imagen debe tener un tamaño de 1218 x 580 pixeles. Este campo es obligatorio.
 // En el campo 'titulo' se escribe el título de la noticia, que aparecerá en la parte superior. Si se deja en blanco se mostrará el contenido únicamente.

@@ -141,7 +141,7 @@ include("inc_menu.php");
                     }
                     ?>
                     <?php if ($carouselEstado): ?>
-                    <div id="carousel" class="carousel slide" data-ride="carousel">
+                    <div id="carousel" class="carousel slide" <?php echo (isset($config['carousel_config']['cycle']) && empty($config['carousel_config']['cycle'])) ? 'data-wrap=""' : ''; ?> data-ride="carousel">
                       <ol class="carousel-indicators">
                         <?php $i = 1; ?>
                         <?php foreach ($config['carousel'] as $carousel): ?>
@@ -184,7 +184,11 @@ include("inc_menu.php");
                             </div>
                             <?php endif; ?>
                             <div class="<?php echo ($contenidoCarousel) ? 'col-xl-8' : 'col-12'; ?>">
+                              <?php if (stristr($carousel['imagen'], ".jpg") == TRUE || stristr($carousel['imagen'], ".jpeg") == TRUE || stristr($carousel['imagen'], ".png") == TRUE): ?>
                               <img class="d-block w-100" src="<?php echo $carousel['imagen']; ?>" alt="<?php echo $carousel['titulo']; ?>" draggable="false" style="-moz-user-select: none;">
+                              <?php else: ?>
+                              <iframe class="d-block w-100" width="100%" height="227" src="<?php echo $carousel['imagen']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                              <?php endif; ?>
                             </div>
                           </div>
                         </div>
