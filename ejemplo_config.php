@@ -237,6 +237,13 @@ $config['sidebar_html'][1]['html'] = '
 </a>
 ';
 
+$config['sidebar_html'][2]['titulo'] = "";
+$config['sidebar_html'][2]['html'] = '
+<a href="http://www.sepie.es" target="_blank">
+    <img class="img-responsive" src="'.WEBCENTROS_DOMINIO.'ui-theme/img/erasmus.png" alt="Cofinanciado por el programa Erasmus+ de la Unión Europea">
+</a>
+';
+
 /*
 $config['sidebar_html'][2]['titulo'] = "";
 $config['sidebar_html'][2]['html'] = '';
