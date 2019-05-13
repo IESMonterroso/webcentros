@@ -223,7 +223,7 @@ include("../inc_menu.php");
 
                             <?php if ($plugin_google_recaptcha): ?>
 
-                            <div class="row pad10">
+                            <div class="row pt-10">
                                 <div class="col-md-8">
                                     <div class="form-group text-center">
                                         <script src="https://www.google.com/recaptcha/api.js" async defer></script>

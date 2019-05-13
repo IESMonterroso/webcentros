@@ -169,7 +169,7 @@ include("../inc_menu.php");
                             <br><br>
                             <div class="text-center text-muted">
                                 <span class="far fa-calendar fa-4x"></span>
-                                <p class="lead pad10">No hay actividades programadas</p>
+                                <p class="lead pt-10">No hay actividades programadas</p>
                             </div>
                             <br><br>
                             <?php endif; ?>

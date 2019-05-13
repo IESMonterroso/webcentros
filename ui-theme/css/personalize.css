@@ -53,29 +53,3 @@
 .pomegranate { color: #C0392B; }
 .finn { color: #723147; }
 .tamarind { color: #31152B; }
-
-
-/* PADDING, MARGIN & ALIGNMENT */
-.pad5 { padding-top:5px; }
-.pad10 { padding-top:10px; }
-.pad15 { padding-top:15px; }
-.pad25 { padding-top:25px; }
-.pad30 { padding-top:30px; }
-.pad45 { padding-top:45px; }
-.pad60 { padding-top:60px; }
-.pad90 { padding-top:90px; }
-
-.min-height-100px { min-height: 100px; }
-.min-height-200px { min-height: 200px; }
-.min-height-300px { min-height: 300px; }
-.min-height-400px { min-height: 400px; }
-.min-height-500px { min-height: 500px; }
-.min-height-600px { min-height: 600px; }
-.min-height-700px { min-height: 700px; }
-.min-height-800px { min-height: 800px; }
-
-.marg-bottom15 { margin-bottom: 15px; }
-.marg-bottom5 { margin-bottom: 5px; }
-.marg-left5 { margin-left: 5px; }
-.marg-right5 { margin-right: 5px; }
-.but_marg { margin-left: 3px; }

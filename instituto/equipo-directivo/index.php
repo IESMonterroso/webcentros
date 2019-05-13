@@ -43,7 +43,7 @@ include("../../inc_menu.php");
                         <div class="card-avatar text-muted">
                             <i class="far fa-user-circle fa-7x"></i>
                         </div>
-                        <div class="card-block pad15">
+                        <div class="card-block pt-15">
                             <h5 class="card-title"><?php echo $config['eqdirectivo_'.$cargo]['nombre']; ?></h5>
                             <h6 class="category text-primary"><?php echo $config['eqdirectivo_'.$cargo]['cargo']; ?></h6>
                             <ul class="list-unstyled">

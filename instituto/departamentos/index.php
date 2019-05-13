@@ -135,7 +135,7 @@ include("../../inc_menu.php");
                 </div>
                 <div class="modal-body">
 
-                    <div class="pad30">
+                    <div class="pt-30">
                         <h6><span class="fas fa-users fa-fw"></span> Miembros del Departamento</h6>
                         <hr>
                         <ul class="fa-ul">

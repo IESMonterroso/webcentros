@@ -19,7 +19,10 @@
     <link rel="apple-touch-icon" sizes="76x76" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/apple-icon.png">
     <?php endif; ?>
     <?php if (file_exists(WEBCENTROS_DIRECTORY."/ui-theme/img/favicon.png")): ?>
-    <link rel="icon" type="image/png" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/favicon.ico">
+    <link rel="icon" type="image/png" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/favicon.png">
+    <?php endif; ?>
+    <?php if (file_exists(WEBCENTROS_DIRECTORY."/ui-theme/img/favicon.ico")): ?>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/favicon.ico">
     <?php endif; ?>
 
     <title><?php echo (isset($pagina['titulo']) && $pagina['titulo'] != '') ? strip_tags($pagina['titulo'])." - ".$config['centro_denominacion'] : $config['centro_denominacion']; ?> - Instituto de Educación Secundaria de <?php echo $config['centro_localidad']; ?></title>
@@ -70,9 +73,9 @@
 
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.8.2-web/css/all.css">
     <!-- CSS Files -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/css/now-ui-kit.css" rel="stylesheet" />
     <link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/css/my-style.css" rel="stylesheet" />
     <link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/css/personalize.css" rel="stylesheet" />

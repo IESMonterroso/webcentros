@@ -2464,7 +2464,7 @@ fieldset[disabled] .btn-link.active {
 .form-group .input-group-addon~.form-control,
 .input-group .input-group-addon+.form-control,
 .input-group .input-group-addon~.form-control {
-  padding: 10px 19px 11px 16px;
+  padding: 18px 19px 18px 16px;
 }
 
 .form-group.form-group-no-border .form-control,

@@ -236,7 +236,7 @@ function popup(url,ancho,alto) {
 
     posicion_x = (screen.width/2)-(ancho/2);
     posicion_y = (screen.height/2)-(alto/2);
-    
+
     window.open(url, "", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
 }
 
@@ -255,11 +255,12 @@ window.addEventListener("load", function () {
         "position": "bottom-right",
         "type": "opt-in",
         "content": {
+            "policy": "Política de cookies",
             "message": "Este sitio web utiliza cookies para mejorar su experiencia de navegación.",
-            "dismiss": "Rechazo las cookies",
+            "deny": "Rechazo las cookies",
             "allow": "Acepto las cookies",
             "link": "Más información sobre cómo usamos las cookies y de qué manera puede cambiar su configuración",
-            "href": "http://" + window.location.host + "/aviso-legal/",
+            "href": "https://" + window.location.host + "/aviso-legal/",
         }
     })
 });

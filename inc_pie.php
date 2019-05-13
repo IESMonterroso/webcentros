@@ -5,32 +5,32 @@
             <div class="row justify-content-center">
                 <div class="col-sm-6 col-md-4 col-lg-2 text-center">
                     <a href="https://www.educacionyfp.gob.es/" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/mefp.png" class="pad10" alt="">
+                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/mefp.png" class="pt-10" alt="">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-2 text-center">
                     <a href="https://www.mecd.gob.es/educacion/mc/fse/fse.html" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/fse.png" class="pad10" alt="">
+                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/fse.png" class="pt-10" alt="">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-2 text-center">
                     <a href="http://www.juntadeandalucia.es/educacion/cga/portal/" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/cga.png" class="pad10" alt="">
+                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/cga.png" class="pt-10" alt="">
                     </a>
                 </div>
                  <div class="col-sm-6 col-md-4 col-lg-2 text-center">
                     <a href="https://www.juntadeandalucia.es/educacion/portalaverroes/portada" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/averroes.png" class="pad10" alt="">
+                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/averroes.png" class="pt-10" alt="">
                     </a>
                 </div>
                  <div class="col-sm-6 col-md-4 col-lg-2 text-center">
                     <a href="http://www.juntadeandalucia.es/educacion/portals/web/buenas-practicas-educativas" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/bpe.png" class="pad10" alt="">
+                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/bpe.png" class="pt-10" alt="">
                     </a>
                 </div>
                  <div class="col-sm-6 col-md-4 col-lg-2 text-center">
                     <a href="http://www.formajoven.org" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/formajoven.png" class="pad10" alt="">
+                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/formajoven.png" class="pt-10" alt="">
                     </a>
                 </div>
             </div>
@@ -54,11 +54,11 @@
 
     <!-- Core JS Files -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- Plugin for Cookie Consent, full documentation here: https://cookieconsent.insites.com -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
     <!-- Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
     <script src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/js/plugins/bootstrap-switch.js"></script>
     <!-- Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->

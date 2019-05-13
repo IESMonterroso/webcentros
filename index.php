@@ -321,7 +321,7 @@ include("inc_menu.php");
                                 <p class="text-wrap"><?php echo cortarPalabras($noticia['contenido']).'<br><a href="'.$url_noticia.'">[Leer más]</a>'; ?></p>
 
                                 <div class="clearfix"></div>
-                                <div class="pad10">
+                                <div class="pt-10">
                                     <a href="#" onclick="javascript:popup('http://www.facebook.com/share.php?u=<?php echo $url_noticia; ?>',550,350)" class="btn btn-default btn-sm btn-icon btn-round btn-pad5" data-toggle="tooltip" title="Compartir en Facebook"><i class="fab fa-facebook"></i></a>
                                     <a href="#" onclick="javascript:popup('http://twitter.com/home?status=<?php echo $url_noticia; ?>',550,350)" class="btn btn-default btn-sm btn-icon btn-round btn-pad5" data-toggle="tooltip" title="Compartir en Twitter"><i class="fab fa-twitter"></i></a>
                                     <a href="#" onclick="javascript:popup('https://www.linkedin.com/shareArticle?title=<?php echo urlencode($noticia['titulo']); ?>&url=<?php echo $url_noticia; ?>&mini=true&share_to=http%3A%2F%2Fwww.linkedin.com%2FshareArticle',550,550)" class="btn btn-default btn-sm btn-icon btn-round btn-pad5" data-toggle="tooltip" title="Compartir en LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -339,7 +339,7 @@ include("inc_menu.php");
                     <br><br><br><br>
                     <div class="text-center text-muted">
                         <span class="far fa-newspaperfa-4x"></span>
-                        <p class="lead pad10">No hay novedades en el instituto</p>
+                        <p class="lead pt-10">No hay novedades en el instituto</p>
                     </div>
                     <br><br><br><br>
 
@@ -366,7 +366,7 @@ include("inc_menu.php");
                 <div class="col-md-4">
 
                     <?php if (isset($config['sidebar_icon']) && count($config['sidebar_icon']) == 3): ?>
-                    <div class="pad10 d-none d-sm-block">
+                    <div class="pt-10 d-none d-sm-block">
                       <div class="row">
                         <div class="col-sm-4">
                           <a href="<?php echo $config['sidebar_icon'][0]['enlace']; ?>" target="_blank" data-toggle="tooltip" title="" data-original-title="<?php echo $config['sidebar_icon'][0]['titulo']; ?>">
@@ -393,7 +393,7 @@ include("inc_menu.php");
 
                     <?php if (date('m') == 9 && (date('d') >= 13 && date('d') <= 30)): ?>
                     <!-- CONSULTA UNIDAD DEL ALUMNO -->
-                    <div class="pad15">
+                    <div class="pt-15">
                       <div class="card-box border-primary" style="min-height: 241px;">
                         <h5 class="card-title">Consulta listados de grupo</h5>
 
@@ -416,7 +416,7 @@ include("inc_menu.php");
                     <!-- FIN CONSULTA UNIDAD DEL ALUMNO -->
                     <?php endif; ?>
 
-                    <div class="calendario pad15">
+                    <div class="calendario pt-15">
                         <div class="card-box border-primary">
                             <h5 class="card-title">Próximos eventos</h5>
                             <?php if (count($eventos)): ?>
@@ -445,7 +445,7 @@ include("inc_menu.php");
                             <br>
                             <div class="text-center text-muted">
                                 <span class="far fa-calendar fa-4x"></span>
-                                <p class="lead pad10">No hay eventos próximos</p>
+                                <p class="lead pt-10">No hay eventos próximos</p>
                             </div>
                             <br>
 
