@@ -1,53 +1,35 @@
 <?php if (! defined("WEBCENTROS_DOMINIO")) die ('No direct script access allowed'); ?>
 
-    <div class="section section-resources bg-clouds">
+    <div class="section p-5 section-resources bg-clouds">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-sm-6 col-md-4 col-lg-2 text-center">
-                    <a href="https://www.educacionyfp.gob.es/" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/mefp.png" class="pt-10" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-2 text-center">
-                    <a href="https://www.mecd.gob.es/educacion/mc/fse/fse.html" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/fse.png" class="pt-10" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-2 text-center">
-                    <a href="http://www.juntadeandalucia.es/educacion/cga/portal/" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/cga.png" class="pt-10" alt="">
-                    </a>
-                </div>
-                 <div class="col-sm-6 col-md-4 col-lg-2 text-center">
-                    <a href="https://www.juntadeandalucia.es/educacion/portalaverroes/portada" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/averroes.png" class="pt-10" alt="">
-                    </a>
-                </div>
-                 <div class="col-sm-6 col-md-4 col-lg-2 text-center">
-                    <a href="http://www.juntadeandalucia.es/educacion/portals/web/buenas-practicas-educativas" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/bpe.png" class="pt-10" alt="">
-                    </a>
-                </div>
-                 <div class="col-sm-6 col-md-4 col-lg-2 text-center">
-                    <a href="http://www.formajoven.org" target="_blank">
-                        <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/formajoven.png" class="pt-10" alt="">
-                    </a>
-                </div>
+            <div class="row justify-content-around">
+              <div class="col-sm-3 pb-3 pb-sm-0 text-center">
+                <a href="https://www.mecd.gob.es/educacion/mc/fse/fse.html" target="_blank">
+                  <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/fse_horizontal.png" alt="">
+                </a>
+              </div>
+              <div class="col-sm-3 pb-3 pb-sm-0 text-center">
+                <a href="https://www.educacionyfp.gob.es/" target="_blank">
+                  <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/mefp.png" alt="">
+                </a>
+              </div>
+
+              <div class="col-sm-3 pb-3 pb-sm-0 text-center">
+                <a href="http://www.juntadeandalucia.es/educacion/portals/web/ced" target="_blank">
+                  <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/ced_horizontal.png" alt="">
+                </a>
+              </div>
             </div>
         </div>
     </div>
 
     <footer class="footer">
-        <div class="container">
-            <nav>
-                <ul>
-                    <li><a href="<?php echo WEBCENTROS_DOMINIO; ?>aviso-legal">Aviso legal y Política de Cookies</a></li>
-                </ul>
-            </nav>
-            <div class="copyright">
-                © <?php echo date('Y'); ?>, <?php echo $config['centro_denominacion']; ?>
-            </div>
-        </div>
+      <div class="container text-center">
+        <ul class="mb-2">
+          <li><a href="<?php echo WEBCENTROS_DOMINIO; ?>aviso-legal">Aviso legal y Política de Cookies</a></li>
+        </ul>
+        <p class="copyright">Copyright © <?php echo date('Y'); ?>, <?php echo $config['centro_denominacion']; ?></p>
+      </div>
     </footer>
 
     </div><!-- ./wrapper -->

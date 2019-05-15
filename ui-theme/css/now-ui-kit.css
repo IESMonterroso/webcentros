@@ -6846,9 +6846,6 @@ font icons
   .section-nucleo-icons .container .row>[class*="col-"]:first-child {
       text-align: center;
   }
-  .footer .copyright {
-      text-align: right;
-  }
   .section-nucleo-icons .icons-container {
       margin-top: 65px;
   }
@@ -7402,9 +7399,6 @@ font icons
   .dropdown-menu .dropdown-item {
       color: inherit;
   }
-  .footer .copyright {
-      float: right;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -7447,9 +7441,6 @@ font icons
   .navbar[class*='navbar-expand-'] .container {
       margin-left: 0;
       margin-right: 0;
-  }
-  .footer .copyright {
-      text-align: center;
   }
   .section-nucleo-icons .icons-container i {
       font-size: 30px;
