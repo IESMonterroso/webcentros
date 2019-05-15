@@ -276,7 +276,7 @@ $config['carousel'][1]['enlace'] = 'http://www.juntadeandalucia.es/educacion/por
 $config['carousel'][2]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide3.jpg?uid='.uniqid();
 $config['carousel'][2]['titulo'] = 'Programa de Refuerzo Educativo y Deportivo en periodo vacacional';
 $config['carousel'][2]['contenido'] = '<br><p style="display: block; padding: 8px; background-color: #e0dab0; color: #087021; font-weight: bold; text-align: center; transform: rotate(-1deg);">25 de abril al 13 de mayo</p><p style="display: block; padding: 8px; background-color: #e0dab0; color: #087021; font-weight: bold; text-align: center; transform: rotate(-1deg);">Presentación telemática</p>';
-$config['carousel'][2]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
+$config['carousel'][2]['enlace'] = 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoTramite/405/';
 
 $config['carousel'][3]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide4.jpg?uid='.uniqid();
 $config['carousel'][3]['titulo'] = 'Programa de Digitalización de Centros';
