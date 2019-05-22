@@ -453,26 +453,29 @@ if(isset($_POST['enviar'])){
 			else{
 				?>
 <!DOCTYPE html>
-<html>
-  <head>
-  <meta charset="iso-8859-1">
-<title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description"
-	content="Intranet del <?php echo $nombre_del_centro; ?>">
-<meta name="author"
-	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+<html lang="es">
 
-<link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
-    <link rel="dns-prefetch" href="//code.jquery.com">
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+<head>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Fonts and icons -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title><?php echo (isset($pagina['titulo']) && $pagina['titulo'] != '') ? strip_tags($pagina['titulo'])." - ".$config['centro_denominacion'] : $config['centro_denominacion']; ?> - Instituto de Educación Secundaria de <?php echo $config['centro_localidad']; ?></title>
+
+	<meta name="robots" content="noindex, nofollow">
+
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//stackpath.bootstrapcdn.com">
+	<link rel="dns-prefetch" href="//code.jquery.com">
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+
+	<!-- Fonts and icons -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
+	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.8.2-web/css/all.css">
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
+
 </head>
 <body>
 <br />
@@ -503,26 +506,28 @@ en ponerse en contacto con la Administración o Dirección del Centro. <br />
 }
 ?>
 <!DOCTYPE html>
-<html>
-  <head>
-     <meta charset="iso-8859-1">
-<title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description"
-	content="Intranet del <?php echo $nombre_del_centro; ?>">
-<meta name="author"
-	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+<html lang="es">
 
-<link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
-    <link rel="dns-prefetch" href="//code.jquery.com">
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+<head>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Fonts and icons -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title><?php echo (isset($pagina['titulo']) && $pagina['titulo'] != '') ? strip_tags($pagina['titulo'])." - ".$config['centro_denominacion'] : $config['centro_denominacion']; ?> - Instituto de Educación Secundaria de <?php echo $config['centro_localidad']; ?></title>
+
+	<meta name="robots" content="noindex, nofollow">
+
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//stackpath.bootstrapcdn.com">
+	<link rel="dns-prefetch" href="//code.jquery.com">
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+
+	<!-- Fonts and icons -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
+	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.8.2-web/css/all.css">
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
 
 <script type="text/javascript">
 function confirmacion() {
@@ -661,7 +666,7 @@ if ($claveal or $id) {
 	}
 ?>
 
-<div id="content" class="container">
+<div id="content" class="container-fluid">
 <div class="col-md-12">
 
 <br />
@@ -673,7 +678,7 @@ if ($claveal or $id) {
 	<thead>
 		<tr>
 			<td colspan="2" style="border-right: 0; height: 75px; vertical-align:middle;">
-				<img class="img-responsive" src="../../ui-theme/img/encabezado_matricula.png" alt=""
+				<img class="img-responsive" src="encabezado.jpg" alt=""
 				width="450"></td>
 			<td colspan="2">
 			<h4 class="text-uppercase"><strong>Consejería de Educación y Deporte</strong></h4>
@@ -1472,14 +1477,18 @@ if ($claveal or $id) {
 </div>
 </div>
 
-<?php include("../../inc_pie.php"); ?>
+<!-- Core JS Files -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<script src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
 
 <script>
 	$(function ()
 	{
-		$('#nacimiento').datetimepicker({
-			language: 'es',
-			pickTime: false
+		$('#nacimiento').datepicker({
+			format: "dd-mm-yyyy",
+    	startView: 2
 		})
 	});
 
