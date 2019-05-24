@@ -269,8 +269,7 @@ include('../inc_menu.php');
 			</div><!-- /.row -->
 			</div><!-- /.well -->
 
-			<?php if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']): ?>
-			<?php if ((isset($estaMatriculadoBachillerato) && $estaMatriculadoBachillerato) || (isset($estaMatriculadoESO) && $estaMatriculadoESO)): ?>
+			<?php if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'])): ?>
 			<div class="row mb-3">
 				<div class="col-12">
 
@@ -291,7 +290,6 @@ include('../inc_menu.php');
 
 				</div>
 			</div>
-			<?php endif; ?>
 			<?php endif; ?>
 
 			<div class="row">
