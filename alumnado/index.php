@@ -58,7 +58,8 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 	if (mysqli_num_rows($result)) $ofertaBachillerato = 1;
 	else $ofertaBachillerato = 0;
 
-	if (stristr($curso, '4º de E.S.O.') == true || stristr($curso, '1º de Bachillerato') == true) {
+
+	if (stristr($curso, '4º de E.S.O.') == true || stristr($curso, 'Bachillerato') == true) {
 		$result_matricula_bach = mysqli_query($db_con, "SELECT claveal FROM matriculas_bach WHERE claveal = '$claveal' LIMIT 1");
 		if (mysqli_num_rows($result_matricula_bach)) $estaMatriculadoBachillerato = 1;
 		else $estaMatriculadoBachillerato = 0;
@@ -69,7 +70,7 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 			$_form_action = "matriculas_bach.php";
 			$_form_descripcion = "1º Bachillerato";
 		}
-		elseif (stristr($curso, '1º de Bachillerato') == true) {
+		elseif (stristr($curso, 'Bachillerato') == true) {
 			$_curso_matricula = "2 BACH";
 			$_form_action = "matriculas_bach.php";
 			$_form_descripcion = "2º Bachillerato";
