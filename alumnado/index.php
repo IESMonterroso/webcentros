@@ -188,7 +188,7 @@ include('../inc_menu.php');
 			<?php $row2 = mysqli_fetch_array($result); ?>
 			<?php mysqli_free_result($result); ?>
 
-			<?php $result = mysqli_query($db_con, "SELECT claveal, DNI, fecha, domicilio, telefono, padre, dnitutor, matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente FROM $bd_alma WHERE claveal= '$claveal'"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, DNI, fecha, domicilio, telefono, padre, dnitutor, matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente FROM $bd_alma WHERE claveal= '$claveal'"); ?>
 
 			<?php if ($row = mysqli_fetch_array($result)): ?>
 			<?php $result_tutor = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."' LIMIT 1"); ?>
@@ -221,6 +221,12 @@ include('../inc_menu.php');
 						<div class="col-sm-6">
 
 							<dl class="row">
+								<dt class="col-sm-5">Nombre</dt>
+								<dd class="col-sm-7"><?php echo ($row['nombre'] != "") ? $row['nombre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+
+								<dt class="col-sm-5">Apellidos</dt>
+								<dd class="col-sm-7"><?php echo ($row['apellidos'] != "") ? $row['apellidos']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+
 								<dt class="col-sm-5">DNI / Pasaporte</dt>
 								<dd class="col-sm-7"><?php echo ($row['DNI'] != "") ? $row['DNI']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 
@@ -242,22 +248,6 @@ include('../inc_menu.php');
 								<dt class="col-sm-5">Teléfono urgencias</dt>
 								<dd class="col-sm-7"><?php echo ($row['telefonourgencia'] != "") ? $row['telefonourgencia']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 
-								<dt class="col-sm-5">Correo electrónico</dt>
-									<?php
-									if ($row['correo'] != "") {
-										$correo = $row['correo'];
-									}
-									elseif($row2['correo'] != "") {
-										$correo = $row2['correo'];
-									}
-									else {
-										$correo = '<span class="text-muted">Sin registrar</span>';
-									}
-									?>
-								<dd class="col-sm-7"><?php echo $correo ?></dd>
-
-								<dt class="col-sm-5">Representante legal</dt>
-								<dd class="col-sm-7"><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 							</dl>
 
 						</div><!-- /.col-sm-6 -->
@@ -285,6 +275,23 @@ include('../inc_menu.php');
 
 								<dt class="col-sm-5">Repetidor/a</dt>
 								<dd class="col-sm-7"><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
+
+								<dt class="col-sm-5">Representante legal</dt>
+								<dd class="col-sm-7"><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+
+								<dt class="col-sm-5">Correo electrónico</dt>
+									<?php
+									if ($row['correo'] != "") {
+										$correo = $row['correo'];
+									}
+									elseif($row2['correo'] != "") {
+										$correo = $row2['correo'];
+									}
+									else {
+										$correo = '<span class="text-muted">Sin registrar</span>';
+									}
+									?>
+								<dd class="col-sm-7"><?php echo $correo ?></dd>
 
 								<?php if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']): ?>
 								<dt class="col-sm-5">Puntos</dt>
