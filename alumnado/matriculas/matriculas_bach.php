@@ -19,9 +19,7 @@ if (isset($_POST['curso'])) {
 elseif (isset($_GET['curso'])) {
 	$curso = $_GET['curso'];
 }
-?>
 
-<?php
 $opt_a2b = mysqli_query($db_con,"select opt_aut21 from matriculas_bach");
 if (mysqli_num_rows($opt_aut2b) > 0) {}
 	else{
@@ -600,7 +598,7 @@ if ($claveal or $id) {
 			$conditio = " claveal = '$claveal'"; $conditio1 = $conditio;
 		}
 	}
-	
+
 	$curso = str_replace(" ","",$curso);
 
 	$ya_matricula = mysqli_query($db_con,"select claveal, apellidos, nombre, id from matriculas_bach where ". $conditio ."");
@@ -1421,9 +1419,9 @@ if ($claveal or $id) {
 			<td colspan="2" style="border-top: 0;">
 			<div class="form-group">
 			<div class="checkbox"><label> <input type="checkbox"
-				name="analgesicos" value="1" 
+				name="analgesicos" value="1"
 				<?php if($_SESSION['ya_matricula_bach']==0 or $analgesicos == '1'){echo "checked";} ?>> Autorizo al Centro para suministrar analgésicos al alumno si este lo solicita (Paracetamol). </label></div>
-			</div>	
+			</div>
 			<p class="help-block"><small> Señalar si el alumno tiene alguna
 	enfermedad que es importante que el Centro conozca por poder afectar a
 	la vida académica del alumno.</small></p>

@@ -27,8 +27,28 @@ if(isset($_SESSION['cambiar_clave_alumno']) && $_SESSION['cambiar_clave_alumno']
 $claveal = $_SESSION['claveal'];
 $c_escolar = (date('n') > 6) ?  date('Y').'/'.(date('y')+1) : (date('Y')-1).'/'.date('y');
 
+if (isset($_SESSION['tabla_bd'])) {
+	$bd_alma = $_SESSION['tabla_bd'];
+}
+else {
+	$bd_alma = "alma";
+}
+
+if (isset($_SESSION['tabla_bd_control'])) {
+	$bd_control = $_SESSION['tabla_control'];
+}
+else {
+	$bd_control = "control";
+}
+
 if ($claveal) {
-  $result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, curso, claveal, claveal1, numeroexpediente, dnitutor, combasi FROM alma WHERE claveal = '$claveal' ORDER BY apellidos");
+	if ($bd_alma == "alma") {
+		$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, curso, claveal, claveal1, numeroexpediente, dnitutor, combasi FROM $bd_alma WHERE claveal = '$claveal' ORDER BY apellidos");
+	}
+	else{
+		$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, curso, claveal, numeroexpediente, dnitutor FROM $bd_alma WHERE claveal = '$claveal' ORDER BY apellidos");
+	}
+
 
 	if ($row1 = mysqli_fetch_array($result1)) {
 	  $unidad = $row1['unidad'];
@@ -37,8 +57,12 @@ if ($claveal) {
 	  $apellido = $row1['apellidos'];
 	  $nombrepil = $row1['nombre'];
 	  $dni_responsable_legal = $row1['dnitutor'];
-		$combasi = $row1['combasi'];
-		$_SESSION['alumno'] = $nombrepil;
+		if (isset($row1['combasi'])) {
+			$combasi = $row1['combasi'];
+		}
+		if (! isset($_SESSION['alumno'])) {
+			$_SESSION['alumno'] = $nombrepil;
+		}
   }
 }
 
@@ -58,8 +82,12 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 	if (mysqli_num_rows($result)) $ofertaBachillerato = 1;
 	else $ofertaBachillerato = 0;
 
-
-	if (stristr($curso, '4º de E.S.O.') == true || stristr($curso, 'Bachillerato') == true) {
+	if (isset($_SESSION['alumno_primaria']) && $_SESSION['alumno_primaria'] == 1) {
+		$_curso_matricula = "1 ESO";
+		$_form_action = "matriculas.php";
+		$_form_descripcion = "1º de Educación Secundaria Obligatoria";
+	}
+	elseif (stristr($curso, '4º de E.S.O.') == true || stristr($curso, 'Bachillerato') == true) {
 		$result_matricula_bach = mysqli_query($db_con, "SELECT claveal FROM matriculas_bach WHERE claveal = '$claveal' LIMIT 1");
 		if (mysqli_num_rows($result_matricula_bach)) $estaMatriculadoBachillerato = 1;
 		else $estaMatriculadoBachillerato = 0;
@@ -156,11 +184,11 @@ include('../inc_menu.php');
 			</div>
 			<?php endif; ?>
 
-			<?php $result = mysqli_query($db_con, "SELECT correo FROM control WHERE claveal='$claveal' LIMIT 1"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT correo FROM $bd_control WHERE claveal='$claveal' LIMIT 1"); ?>
 			<?php $row2 = mysqli_fetch_array($result); ?>
 			<?php mysqli_free_result($result); ?>
 
-			<?php $result = mysqli_query($db_con, "SELECT claveal, DNI, fecha, domicilio, telefono, padre, dnitutor, matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente FROM alma WHERE claveal= '$claveal'"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT claveal, DNI, fecha, domicilio, telefono, padre, dnitutor, matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente FROM $bd_alma WHERE claveal= '$claveal'"); ?>
 
 			<?php if ($row = mysqli_fetch_array($result)): ?>
 			<?php $result_tutor = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."' LIMIT 1"); ?>
@@ -273,7 +301,7 @@ include('../inc_menu.php');
 			</div><!-- /.row -->
 			</div><!-- /.well -->
 
-			<?php if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin']) OR ($_SESSION['administrador']==1 and date('m')>4)): ?>
+			<?php if ((isset($_SESSION['administrador']) && $_SESSION['administrador'] == 1) || (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'])): ?>
 			<div class="row mb-3">
 				<div class="col-12">
 
@@ -296,6 +324,7 @@ include('../inc_menu.php');
 			</div>
 			<?php endif; ?>
 
+			<?php if ($bd_alma == "alma"): ?>
 			<div class="row">
 
 				<div class="col-sm-12">
@@ -330,12 +359,12 @@ include('../inc_menu.php');
 						<li class="nav-item"><a class="nav-link" href="#tutoria" role="tab" data-toggle="tab">Tutoría</a></li>
 						<?php endif; ?>
 						<li class="nav-item"><a class="nav-link" href="#mensajes" role="tab" data-toggle="tab">Mensajes<?php echo ($numeroMensajesRecibidos) ? ' <span class="badge">'.$numeroMensajesRecibidos.'</span>' : ''; ?></a></li>
-						<!-- <?php if ($estaMatriculadoBachillerato==1): ?>
+						<?php if ($estaMatriculadoBachillerato==1): ?>
 						<li class="nav-item"><a class="nav-link" href="./matriculas/matriculas_bach.php?curso=<?php echo $curso; ?>" target="_blank">Matrícula</a></li>
 						<?php endif; ?>
 						<?php if ($estaMatriculadoESO==1): ?>
 						<li class="nav-item"><a class="nav-link" href="./matriculas/matriculas.php?curso=<?php echo $curso; ?>" target="_blank">Matrícula</a></li>
-						<?php endif; ?>-->
+						<?php endif; ?>
 					</ul>
 
 					<br>
@@ -375,6 +404,7 @@ include('../inc_menu.php');
 				</div>
 
 			</div><!-- /.row -->
+			<?php endif; ?>
 
 			<!-- MODAL SUBIDA FOTOGRAFIA -->
 			<div class="modal fade" id="subirFotografia" tabindex="-1" role="dialog">

@@ -19,8 +19,7 @@ if (isset($_POST['curso'])) {
 elseif (isset($_GET['curso'])) {
 	$curso = $_GET['curso'];
 }
-?>
-<?
+
 // Divorcios
 $divorciados = array(
 array(
@@ -1500,7 +1499,7 @@ if (($claveal or $id) and $curso) {
 		<td colspan="2">
 		<div class="form-group">
 			<div class="checkbox"><label> <input type="checkbox"
-				name="analgesicos" value="1" 
+				name="analgesicos" value="1"
 				<?php if($_SESSION['ya_matricula_eso']==0 or $analgesicos == '1'){echo "checked";} ?>> Autorizo al Centro para suministrar analgésicos al alumno si este lo solicita (Paracetamol). </label></div>
 			</div>
 

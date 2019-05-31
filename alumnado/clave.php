@@ -2,6 +2,20 @@
 require_once('../bootstrap.php');
 require_once('../config.php');
 
+if (isset($_SESSION['tabla_bd'])) {
+	$bd_alma = $_SESSION['tabla_bd'];
+}
+else {
+	$bd_alma = "alma";
+}
+
+if (isset($_SESSION['tabla_bd_control'])) {
+	$bd_control = $_SESSION['tabla_bd_control'];
+}
+else {
+	$bd_control = "control";
+}
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['alumno_autenticado'] != 1) {
 	$_SESSION = array();
@@ -70,7 +84,7 @@ if (isset($_POST['submit'])) {
 					// Obtenemos el hash de la contraseña
 					$hash = sha1($codigo2);
 
-					$result = mysqli_query($db_con, "UPDATE control SET pass='$hash', correo='$correo' WHERE claveal='".$_SESSION['claveal']."'");
+					$result = mysqli_query($db_con, "UPDATE $bd_control SET pass='$hash', correo='$correo' WHERE claveal='".$_SESSION['claveal']."'");
 
 					// Comprobamos si se ha relizado la consulta a la base de datos
 					if(!$result) {
@@ -89,7 +103,7 @@ if (isset($_POST['submit'])) {
 	}
 }
 
-$result = mysqli_query($db_con, "SELECT control.claveal, control.correo, CONCAT(alma.apellidos,', ',alma.nombre) AS alumno FROM alma JOIN control ON alma.claveal = control.claveal WHERE alma.claveal='".$_SESSION['claveal']."' LIMIT 1");
+$result = mysqli_query($db_con, "SELECT $bd_alma.claveal, $bd_control.correo, CONCAT($bd_alma.apellidos,', ',$bd_alma.nombre) AS alumno FROM $bd_alma JOIN $bd_control ON $bd_alma.claveal = $bd_control.claveal WHERE $bd_alma.claveal='".$_SESSION['claveal']."' LIMIT 1");
 $row = mysqli_fetch_assoc($result);
 
 $exp_nombre = explode(', ', $row['alumno']);

@@ -8,20 +8,8 @@ if (isset($config['google_recaptcha']['site_key']) && $config['google_recaptcha'
 	$plugin_google_recaptcha = true;
 	$recaptcha_obligatorio = false;
 }
-
+$_SESSION['intentos'] = 0;
 if (! isset($_SESSION['intentos'])) $_SESSION['intentos'] = 0;
-
-// Es un alumno de Primaria
-	$al_primaria = "SELECT distinct APELLIDOS, NOMBRE, matriculas, edad, curso, claveal, unidad, dni, correo, colegio FROM alma_primaria WHERE dnitutor = '".$_POST['clave']."' or dnitutor2 = '".$_POST['clave']."' or claveal = '".$_POST['user']."'";
-	$alum_primaria = mysqli_query($db_con,$al_primaria);
-	$es_primaria = mysqli_num_rows($alum_primaria);
-
-// Es un alumno de Secundaria
-	$al_secundaria = "SELECT distinct APELLIDOS, NOMBRE, matriculas, edad, curso, claveal, unidad, dni, correo, colegio FROM alma_secundaria WHERE dnitutor = '".$_POST['clave']."' or dnitutor2 = '".$_POST['clave']."' or claveal = '".$_POST['user']."'";
-	//echo $al_secundaria;
-	$alum_secundaria = mysqli_query($db_con,$al_secundaria);
-	$es_secundaria = mysqli_num_rows($alum_secundaria);
-
 
 $_SESSION['alumno_autenticado'] = 0;
 
@@ -47,14 +35,51 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 
 	if ((! $plugin_google_recaptcha) || ($plugin_google_recaptcha && ! $recaptcha_obligatorio) || ($plugin_google_recaptcha && $recaptcha_obligatorio && $response != null && $response->success)) {
 
+    // Tabla de alumnado por defecto
+    $_SESSION['tabla_bd'] = "alma";
+    $tabla_alumno = "alma";
+    $_SESSION['tabla_bd_control'] = "control";
+    $tabla_control = "control_matriculas";
+
 		// Comprobamos si se ha introducido la clave del usuario Administrador de la Intranet
 		$result_admin = mysqli_query($db_con, "SELECT idea FROM c_profes WHERE idea = 'admin' AND pass = SHA1('$clave') LIMIT 1");
 		$esAdmin = (mysqli_num_rows($result_admin) > 0) ? 1 : 0;
 		mysqli_free_result($result_admin);
 		$_SESSION['administrador'] = $esAdmin;
 
+    // Comprobamos si estamos en periodo de matriculación
+    if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion'])) {
+      if (@file_exists("../intranet/admin/matriculas/config.php")) require_once("../intranet/admin/matriculas/config.php");
+    	if (@file_exists("../../intranet/admin/matriculas/config.php")) require_once("../../intranet/admin/matriculas/config.php");
+
+      if ($esAdmin || (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'])) {
+        // Es un alumno de Primaria
+        $result_alumno_primaria = mysqli_query($db_con, "SELECT claveal FROM alma_primaria WHERE claveal = '".$_POST['user']."' LIMIT 1");
+        $esAlumnoPrimaria = (mysqli_num_rows($result_alumno_primaria) > 0) ? 1 : 0;
+
+        // Es un alumno de Secundaria
+        $result_alumno_secundaria = mysqli_query($db_con,"SELECT claveal FROM alma_secundaria WHERE claveal = '".$_POST['user']."' LIMIT 1");
+        $esAlumnoSecundaria = (mysqli_num_rows($result_alumno_secundaria) > 0) ? 1 : 0;
+
+      	if ($esAlumnoPrimaria) {
+      		$_SESSION['alumno_primaria'] = 1;
+      		$_SESSION['tabla_bd'] = "alma_primaria";
+      		$tabla_alumno = "alma_primaria";
+          $_SESSION['tabla_bd_control'] = "control_matriculas";
+          $tabla_control = "control_matriculas";
+      	}
+      	elseif ($esAlumnoSecundaria) {
+      		$_SESSION['alumno_secundaria'] = 1;
+      		$_SESSION['tabla_bd'] = "alma_secundaria";
+      		$tabla_alumno = "alma_secundaria";
+          $_SESSION['tabla_bd_control'] = "control_matriculas";
+          $tabla_control = "control_matriculas";
+      	}
+      }
+    }
+
 		// Comprobamos si se ha introducido el DNI del primer tutor legal registrado en la matrícula
-		$result_tutor1 = mysqli_query($db_con, "SELECT dnitutor, primerapellidotutor, segundoapellidotutor, nombretutor FROM alma WHERE claveal = '$usuario' AND dnitutor = '$clave' LIMIT 1");
+		$result_tutor1 = mysqli_query($db_con, "SELECT dnitutor, primerapellidotutor, segundoapellidotutor, nombretutor FROM $tabla_alumno WHERE claveal = '$usuario' AND dnitutor = '$clave' LIMIT 1");
 		$esTutorLegal1 = (mysqli_num_rows($result_tutor1) > 0) ? 1 : 0;
 		if ($esTutorLegal1) {
 			$row_tutor1 = mysqli_fetch_array($result_tutor1);
@@ -82,10 +107,10 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 		}
 
 		if ($esAdmin || $esTutorLegal1 || $esTutorLegal2) {
-			$result = mysqli_query($db_con, "SELECT alma.claveal, alma.apellidos, alma.nombre, control.pass AS clave, alma.correo AS correo_matricula, control.correo FROM alma LEFT JOIN control ON alma.claveal = control.claveal WHERE alma.claveal='$usuario' LIMIT 1");
+			$result = mysqli_query($db_con, "SELECT $tabla_alumno.claveal, $tabla_alumno.apellidos, $tabla_alumno.nombre, $tabla_control.pass AS clave, $tabla_alumno.correo AS correo_matricula, $tabla_control.correo FROM $tabla_alumno LEFT JOIN $tabla_control ON $tabla_alumno.claveal = $tabla_control.claveal WHERE $tabla_alumno.claveal='$usuario' LIMIT 1");
 		}
 		else {
-			$result = mysqli_query($db_con, "SELECT alma.claveal, alma.apellidos, alma.nombre, control.pass AS clave, alma.correo AS correo_matricula, control.correo FROM alma LEFT JOIN control ON alma.claveal = control.claveal WHERE alma.claveal='$usuario' AND (alma.claveal='$clave' OR control.pass=SHA1('$clave')) LIMIT 1");
+			$result = mysqli_query($db_con, "SELECT $tabla_alumno.claveal, $tabla_alumno.apellidos, $tabla_alumno.nombre, $tabla_control.pass AS clave, $tabla_alumno.correo AS correo_matricula, $tabla_control.correo FROM $tabla_alumno LEFT JOIN $tabla_control ON $tabla_alumno.claveal = $tabla_control.claveal WHERE $tabla_alumno.claveal='$usuario' AND ($tabla_alumno.claveal='$clave' OR $tabla_control.pass=SHA1('$clave')) LIMIT 1");
 		}
 
 		if (mysqli_num_rows($result)) {
@@ -95,7 +120,7 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 			$usuario = mysqli_fetch_array($result);
 
 			// Comprobamos si es la primera vez que el usuario accede
-			if ((empty($usuario['clave']) && $clave == $usuario['claveal'])) {
+			if (empty($usuario['clave']) && $clave == $usuario['claveal']) {
 
 				// Registramos el acceso
 				if (isset($_SESSION['nombretutor'])) {
@@ -107,10 +132,11 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 
 				$_SESSION['alumno_autenticado'] = 1;
 				$_SESSION['claveal'] = $usuario['claveal'];
+        $_SESSION['alumno'] = $usuario['nombre'];
 				$_SESSION['cambiar_clave_alumno'] = 1;
 				unset($_SESSION['intentos']);
 
-				mysqli_query($db_con, "INSERT INTO control (claveal, pass, correo) VALUES ('".$usuario['claveal']."', SHA1($clave), '".$usuario['correo_matricula']."')");
+				mysqli_query($db_con, "INSERT INTO $tabla_control (claveal, pass, correo) VALUES ('".$usuario['claveal']."', SHA1($clave), '".$usuario['correo_matricula']."')");
 
 				header("Location:".WEBCENTROS_DOMINIO."alumnado/clave.php");
 				exit();
@@ -127,6 +153,7 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 
 				$_SESSION['alumno_autenticado'] = 1;
 				$_SESSION['claveal'] = $usuario['claveal'];
+        $_SESSION['alumno'] = $usuario['nombre'];
 				$_SESSION['cambiar_clave_alumno'] = 0;
 				unset($_SESSION['intentos']);
 
