@@ -87,6 +87,9 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 	}
 }
 
+$_SESSION['ya_matricula_eso'] = $estaMatriculadoESO;
+$_SESSION['ya_matricula_bach'] = $estaMatriculadoBachillerato;
+
 if (isset($_POST['subirFotografia'])) {
 
 	$fotografia = $_FILES['foto']['tmp_name'];
@@ -270,7 +273,7 @@ include('../inc_menu.php');
 			</div><!-- /.row -->
 			</div><!-- /.well -->
 
-			<?php if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'])): ?>
+			<?php if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin']) OR ($_SESSION['administrador']==1 and date('m')>4)): ?>
 			<div class="row mb-3">
 				<div class="col-12">
 

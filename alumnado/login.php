@@ -11,6 +11,18 @@ if (isset($config['google_recaptcha']['site_key']) && $config['google_recaptcha'
 
 if (! isset($_SESSION['intentos'])) $_SESSION['intentos'] = 0;
 
+// Es un alumno de Primaria
+	$al_primaria = "SELECT distinct APELLIDOS, NOMBRE, matriculas, edad, curso, claveal, unidad, dni, correo, colegio FROM alma_primaria WHERE dnitutor = '".$_POST['clave']."' or dnitutor2 = '".$_POST['clave']."' or claveal = '".$_POST['user']."'";
+	$alum_primaria = mysqli_query($db_con,$al_primaria);
+	$es_primaria = mysqli_num_rows($alum_primaria);
+
+// Es un alumno de Secundaria
+	$al_secundaria = "SELECT distinct APELLIDOS, NOMBRE, matriculas, edad, curso, claveal, unidad, dni, correo, colegio FROM alma_secundaria WHERE dnitutor = '".$_POST['clave']."' or dnitutor2 = '".$_POST['clave']."' or claveal = '".$_POST['user']."'";
+	//echo $al_secundaria;
+	$alum_secundaria = mysqli_query($db_con,$al_secundaria);
+	$es_secundaria = mysqli_num_rows($alum_secundaria);
+
+
 $_SESSION['alumno_autenticado'] = 0;
 
 if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['clave']) > 5)) {
@@ -39,6 +51,7 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 		$result_admin = mysqli_query($db_con, "SELECT idea FROM c_profes WHERE idea = 'admin' AND pass = SHA1('$clave') LIMIT 1");
 		$esAdmin = (mysqli_num_rows($result_admin) > 0) ? 1 : 0;
 		mysqli_free_result($result_admin);
+		$_SESSION['administrador'] = $esAdmin;
 
 		// Comprobamos si se ha introducido el DNI del primer tutor legal registrado en la matrícula
 		$result_tutor1 = mysqli_query($db_con, "SELECT dnitutor, primerapellidotutor, segundoapellidotutor, nombretutor FROM alma WHERE claveal = '$usuario' AND dnitutor = '$clave' LIMIT 1");
