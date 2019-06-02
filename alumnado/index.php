@@ -109,9 +109,10 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 		if (mysqli_num_rows($result_matricula_eso)) $estaMatriculadoESO = 1;
 		else $estaMatriculadoESO = 0;
 
-		$_curso_matricula = substr($curso, 0, 1) + 1 . " ESO";
+		$curso_siguiente = substr($curso, 0, 1) + 1;
+		$_curso_matricula = $curso_siguiente . " ESO";
 		$_form_action = "matriculas.php";
-		$_form_descripcion = substr($curso, 0, 1)."º de Educación Secundaria Obligatoria";
+		$_form_descripcion = $curso_siguiente ."º de Educación Secundaria Obligatoria";
 	}
 }
 

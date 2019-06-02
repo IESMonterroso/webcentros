@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../../bootstrap.php");
 require_once('../../config.php');
 
@@ -448,7 +448,7 @@ Dirección del Centro. <br />
 </body>
 </html>
 
-				<?
+				<?php
 			}
 			exit();
 		}
@@ -531,25 +531,6 @@ function contar(form,name) {
 
 </script>
 
-<style type="text/css">
-<!--
-table {
-	width: 991px;
-	border: 1px solid #aaa;
-	border-collapse: collapse;
-}
-
-td {
-	border: 1px solid #aaa
-}
-
-td .it {
-	padding: 4px 6px;
-	border-bottom: 1px dotted #ccc;
-	border-top: 1px dotted #ccc;
-}
--->
-</style>
 </head>
 
 <body>
@@ -646,7 +627,7 @@ if (($claveal or $id) and $curso) {
 
 <br />
 <form id="form1" name="form1" method="post" action="matriculas.php">
-<table align="center" class="table table-bordered">
+<table align="center" class="table table-bordered" style="margin-bottom: 0;">
 	<!-- CABECERA: LOGOTIPO -->
 	<thead>
 		<tr>
@@ -686,7 +667,7 @@ if (($claveal or $id) and $curso) {
 			personales del alumno o alumna</th>
 		</tr>
 		<tr>
-			<td>
+			<td style="width:25%">
 			<div
 				class="form-group <?php echo (strstr($vacios,"apellidos, ")==TRUE) ? 'has-error' : ''; ?>">
 			<label for="apellidos">Apellidos</label> <input type="text"
@@ -981,8 +962,9 @@ if (($claveal or $id) and $curso) {
 			</div>
 			</td>
 		</tr>
-
-	<?
+	</table>
+	<table class="table table-bordered" style="margin-top: 0;">
+	<?php
 	if ($n_curso < 3) {
 		?>
 	<tr>
@@ -1002,7 +984,7 @@ if (($claveal or $id) and $curso) {
 			echo " style='background-color:yellow;'";
 		} ?>>
 
-		<?
+		<?php
 			$num1="";
 			for ($i = 1; $i < 5; $i++) {
 				if (substr($curso, 0, 1) == $i) {
@@ -1042,7 +1024,7 @@ if (($claveal or $id) and $curso) {
 		}
 		?></td>
 	</tr>
-	<?
+	<?php
 	}
 	elseif ($n_curso == 3) {
 		?>
@@ -1057,7 +1039,7 @@ if (($claveal or $id) and $curso) {
 		<th class="table-active text-center" colspan="3">Materias Optativas<br /></th>
 	</tr>
 	<tr>
-		<td valign=top colspan="1"><?
+		<td valign=top colspan="1"><?php
 		echo "<div class='radio'><label><input type='radio' name = 'matematicas3' value='A' ";
 		if ($matematicas3=="A") { echo "checked";}
 		echo " required />Matemáticas Académicas (Orientadas al Bachillerato)</label><label class='radio'><input type='radio' name = 'matematicas3' value='B' ";
@@ -1067,7 +1049,7 @@ if (($claveal or $id) and $curso) {
 
 		<td style='<?php if ($opt_rep == "1" or stristr($adv, "optativa de ".$n_curso."")) {
 			echo "background-color:yellow;";
-		} ?>'><?
+		} ?>'><?php
 		$num1="";
 		for ($i = 1; $i < 8; $i++) {
 			if (substr($curso, 0, 1) == $i) {
@@ -1138,7 +1120,7 @@ if (($claveal or $id) and $curso) {
 			<?php endforeach; ?> <?php endif; ?> <?php endfor; ?>
 			</td>
 	</tr>
-	<?
+	<?php
 	}
 	else{
 		// Peculiaridades de 4º de ESO
@@ -1317,14 +1299,14 @@ if (($claveal or $id) and $curso) {
 		if ($n_curso == 4) {
 			?>
 	<tr>
-		<th class="table-active text-center text-uppercase" colspan="1"><strong>Matemáticas de 3º de ESO</strong><br />
+		<th class="table-active text-center text-uppercase"><strong>Matemáticas de 3º de ESO</strong><br />
 		<small class="text-muted text-lowercase">(selecciona una de las opciones)</small></th>
 		<th class="table-active text-center text-uppercase" colspan="3"><strong>Asignaturas
 		Optativas de 3º de ESO</strong><br />
 		<small class="text-muted text-lowercase">(marca con 1, 2, 3, etc. por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.)</small></th>
 	</tr>
 	<tr>
-			<td valign=top colspan="1"><?
+		<td valign=top  style="width:30%"><?php
 		echo "<div class='radio'><label><input type='radio' name = 'matematicas3' value='A' ";
 		if ($matematicas3=="A") { echo "checked";}
 		echo " required />Matemáticas Académicas</label><label class='radio'></label></div>
@@ -1333,43 +1315,44 @@ if (($claveal or $id) and $curso) {
 		if ($matematicas3=="B") { echo "checked";}
 		echo " required />Matemáticas Aplicadas</label></div>";
 		?>
-	</td>
-		<td class="<?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '' ; ?>"><?
+		</td>
+		<td class="<?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '' ; ?>" style="width:35%"><?php
 		$num1="";
 		for ($i = 1; $i < 8; $i++) {
 			if (substr($curso, 0, 1)-1 == $i) {
 				foreach (${opt.$i} as $opt_1){
 					$num1+=1;
 					if ($num1<5) {
-					echo ''.$opt_1.'';
+					echo '<label>'.$opt_1.'</label>';
 					echo '
-					<select class="form-control col-sm-3" name="optativa2'.$num1.'" id="" required>';
+					<select class="form-control" name="optativa2'.$num1.'" id="" required style="width:50px">';
 					echo '<option>'.${optativa2.$num1}.'</option>';
 					for ($z=1;$z<8;$z++){
 						echo '<option>'.$z.'</option>';
 					}
 					echo '</select>';
+					echo '<br>';
 					}
 				}
 			}
 		}
 		?></td>
-		<td></td>
-		<td colspan="1" class="<?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '' ; ?>"><?
+		<td colspan="2"class="<?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '' ; ?>" style="width:35%"><?php
 		$num1="";
 		for ($i = 1; $i < 8; $i++) {
 			if (substr($curso, 0, 1)-1 == $i) {
 				foreach (${opt.$i} as $opt_1){
 					$num1+=1;
 					if ($num1>4) {
-					echo ''.$opt_1.'';
+					echo '<label>'.$opt_1.'</label>';
 					echo '
-					<select class="form-control col-sm-3" name="optativa2'.$num1.'" id="" required>';
+					<select class="form-control" name="optativa2'.$num1.'" id="" required style="width:50px">';
 					echo '<option>'.${optativa2.$num1}.'</option>';
 					for ($z=1;$z<8;$z++){
 						echo '<option>'.$z.'</option>';
 					}
 					echo '</select>';
+					echo '<br>';
 					}
 				}
 			}
@@ -1395,7 +1378,7 @@ if (($claveal or $id) and $curso) {
 			<?php endforeach; ?> <?php endif; ?>
 		</td>
 	</tr>
-	<?
+	<?php
 		}
 		else{
 			?>
@@ -1421,7 +1404,7 @@ if (($claveal or $id) and $curso) {
 			echo " style='background-color:yellow;'";
 		} ?>>
 <div class="form-group form-horizontal">
-		<?
+		<?php
 			$num_cur_opta = substr($curso, 0, 1)-1;
 			$num_opta = count(${opt.$num_cur_opta})+1;
 			$num1="";
@@ -1461,7 +1444,7 @@ if (($claveal or $id) and $curso) {
 		?></td>
 	</tr>
 
-	<?
+	<?php
 	}
 	?>
 
@@ -1482,7 +1465,7 @@ if (($claveal or $id) and $curso) {
 	<tr>
 		<td colspan="4" style="background-color: #dfdfdf">
 			<div class="checkbox">
-				<label><?
+				<label><?php
 		echo '<input'; echo ' type="checkbox" name="diversificacion" value="1" '; echo " disabled"; if($diversificacion == '1'){echo "checked";} echo " />"; ?>
 		El alumno participa en el Programa de Diversificación
 			</label>
@@ -1496,7 +1479,7 @@ if (($claveal or $id) and $curso) {
 		<th class="active text-center" colspan="4"><span class="text-uppercase">Información personal relevante para el Centro</span></th>
 	</tr>
 	<tr>
-		<td colspan="2">
+		<td colspan="2" style="width:50%">
 		<div class="form-group">
 			<div class="checkbox"><label> <input type="checkbox"
 				name="analgesicos" value="1"
@@ -1509,7 +1492,7 @@ if (($claveal or $id) and $curso) {
 
 		<label for="enfermedad">Enfermedades del Alumno</label> <select
 			class="form-control" id="enfermedad" name="enfermedad"
-			onChange="dimeEnfermedad()">
+			onChange="dimeEnfermedad()"  style="width:450px">
 			<option value=""></option>
 			<?php for ($i = 0; $i < count($enfermedades); $i++): ?>
 			<option value="<?php echo $enfermedades[$i]['id']; ?>"
@@ -1517,7 +1500,7 @@ if (($claveal or $id) and $curso) {
 			<?php endfor; ?>
 		</select> &nbsp;&nbsp;&nbsp;&nbsp; <input style="<?php  if ($enfermedad == 'Otra enfermedad') { echo "visibility:visible;";}else{	echo "visibility:hidden;";}?>" id = "otraenfermedad" name="otraenfermedad" <?php if(!($otraenfermedad == 'Escribe aquí el nombre de la enfermedad')){echo "value = \"$otraenfermedad\"";} ?>type="text" class="form-control" placeholder="Escribe aquí el nombre de la enfermedad" onClick="borrar()" />
 		</td>
-			<td colspan="2">
+			<td colspan="2"  style="width:50%">
 			<p class="help-block"><small>
 			En caso de padres divorciados indicar cual es la situación legal de la Guardia y Custodia respecto al alumno.</small></p>
 			<label for="divorcio">Alumno con padres divorciados</label>
@@ -1586,7 +1569,7 @@ if (($claveal or $id) and $curso) {
 	</tr>
 	</form>
 </table>
-<?
+<?php
 }
 else{
 
