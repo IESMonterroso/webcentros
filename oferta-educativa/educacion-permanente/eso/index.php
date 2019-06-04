@@ -7,7 +7,7 @@ if ((! isset($config['educacion_permanente']) && ! isset($config['educacion_perm
 }
 
 $cursos = array();
-$result_cursos = mysqli_query($db_con, "SELECT `nomcurso` FROM `cursos` WHERE `nomcurso` LIKE '%Esa%' ORDER BY `nomcurso` ASC") or die (mysqli_error($db_con));
+$result_cursos = mysqli_query($db_con, "SELECT `nomcurso` FROM `cursos` WHERE `nomcurso` LIKE '% Esa %' ORDER BY `nomcurso` ASC") or die (mysqli_error($db_con));
 while ($row_cursos = mysqli_fetch_array($result_cursos)) {
 
   $asignaturas = array();
