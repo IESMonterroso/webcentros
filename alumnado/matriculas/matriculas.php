@@ -1039,12 +1039,14 @@ if (($claveal or $id) and $curso) {
 		<th class="table-active text-center" colspan="3">Materias Optativas<br /></th>
 	</tr>
 	<tr>
-		<td valign=top colspan="1"><?php
+		<td valign=top colspan="1" style='<?php if (stristr($adv, "matematicas de 3º")) {
+			echo "background-color:yellow;";
+		} ?>'><?php
 		echo "<div class='radio'><label><input type='radio' name = 'matematicas3' value='A' ";
 		if ($matematicas3=="A") { echo "checked";}
-		echo " required />Matemáticas Académicas (Orientadas al Bachillerato)</label><label class='radio'><input type='radio' name = 'matematicas3' value='B' ";
+		echo " />Matemáticas Académicas (Orientadas al Bachillerato)</label><label class='radio'><input type='radio' name = 'matematicas3' value='B' ";
 		if ($matematicas3=="B") { echo "checked";}
-		echo " required />Matemáticas Aplicadas (Orientadas a la Formación Profesional)</label></div>";
+		echo " />Matemáticas Aplicadas (Orientadas a la Formación Profesional)</label></div>";
 		?></td>
 
 		<td style='<?php if ($opt_rep == "1" or stristr($adv, "optativa de ".$n_curso."")) {
