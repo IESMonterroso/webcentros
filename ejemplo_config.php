@@ -264,24 +264,9 @@ $config['carousel_config']['cycle'] = false;
 // Puede añadir tantos bloques como necesite, solo debe cambiar el número del array multidimensional: [0], [1], [2],...
 
 $config['carousel'][0]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide1.jpg?uid='.uniqid();
-$config['carousel'][0]['titulo'] = 'Plazo de presentación de solicitudes de admisión en enseñanzas artísticas';
-$config['carousel'][0]['contenido'] = '<br><br><p style="display: block; padding: 8px; background-color: #e0dab0; color: #087021; font-weight: bold; text-align: center; transform: rotate(-1deg);">DEL 1 AL 31 DE MAYO</p>';
-$config['carousel'][0]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/ced/artisticas';
-
-$config['carousel'][1]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide2.jpg?uid='.uniqid();
-$config['carousel'][1]['titulo'] = 'Plazo de presentación de solicitudes de admisión en Escuelas Oficiales de Idiomas (EOI)';
-$config['carousel'][1]['contenido'] = '<br><p style="display: block; padding: 8px; background-color: #e0dab0; color: #087021; font-weight: bold; text-align: center; transform: rotate(-1deg);">DEL 1 AL 20 DE MAYO</p>';
-$config['carousel'][1]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/educacion-permanente/idiomas/requisitos';
-
-$config['carousel'][2]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide3.jpg?uid='.uniqid();
-$config['carousel'][2]['titulo'] = 'Programa de Refuerzo Educativo y Deportivo en periodo vacacional';
-$config['carousel'][2]['contenido'] = '<br><p style="display: block; padding: 8px; background-color: #e0dab0; color: #087021; font-weight: bold; text-align: center; transform: rotate(-1deg);">25 de abril al 13 de mayo</p><p style="display: block; padding: 8px; background-color: #e0dab0; color: #087021; font-weight: bold; text-align: center; transform: rotate(-1deg);">Presentación telemática</p>';
-$config['carousel'][2]['enlace'] = 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoTramite/405/';
-
-$config['carousel'][3]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide4.jpg?uid='.uniqid();
-$config['carousel'][3]['titulo'] = 'Programa de Digitalización de Centros';
-$config['carousel'][3]['contenido'] = '<p>Curso 2018/19</p>';
-$config['carousel'][3]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
+$config['carousel'][0]['titulo'] = 'Programa de Digitalización de Centros';
+$config['carousel'][0]['contenido'] = '<p>Curso 2018/19</p>';
+$config['carousel'][0]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
 
 // GOOGLE ANALYTICS
 // Consigue el ID de seguimiento para usar la API de Google Analytics en https://analytics.google.com/analytics/
