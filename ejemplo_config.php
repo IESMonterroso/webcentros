@@ -264,9 +264,24 @@ $config['carousel_config']['cycle'] = false;
 // Puede añadir tantos bloques como necesite, solo debe cambiar el número del array multidimensional: [0], [1], [2],...
 
 $config['carousel'][0]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide1.jpg?uid='.uniqid();
-$config['carousel'][0]['titulo'] = 'Programa de Digitalización de Centros';
-$config['carousel'][0]['contenido'] = '<p>Curso 2018/19</p>';
+$config['carousel'][0]['titulo'] = 'Admisión 2019/20';
+$config['carousel'][0]['contenido'] = '<p class="mb-2">OFERTA COMPLETA</p><p>Ciclos de grado medio y superior</p><p class="mb-2">Plazo de solicitudes:</p><p><a style="display: block; padding: 4px; background-color: #eaff00; color: blue; transform: rotate(-1deg); text-decoration: none; text-align: center;" href="http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-completa/grado-medio-superior/solicitudes">Del 15 de junio al 1 de julio</a>';
 $config['carousel'][0]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
+
+$config['carousel'][1]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide2.jpg?uid='.uniqid();
+$config['carousel'][1]['titulo'] = 'Admisión 2019/20';
+$config['carousel'][1]['contenido'] = '<p class="mb-2">OFERTA PARCIAL DIFERENCIADA</p><p class="mb-2">Presencial, semipresencial y distancia</p><p>Plazo de solicitudes:</p><p><a style="display: block; padding: 4px; background-color: #eaff00; color: blue; transform: rotate(-1deg); text-decoration: none; text-align: center;" href="http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-parcial/solicitudes">Del 15 de junio al 1 de julio</a>';
+$config['carousel'][1]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
+
+$config['carousel'][2]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide3.jpg?uid='.uniqid();
+$config['carousel'][2]['titulo'] = 'Admisión 2019/20';
+$config['carousel'][2]['contenido'] = '<p class="mb-2">FP BÁSICA</p><p class="mb-2">Plazo de solicitudes:</p><p><a style="display: block; padding: 4px; background-color: #eaff00; color: blue; transform: rotate(-1deg); text-decoration: none; text-align: center;" href="http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-completa/fp-basica/solicitudes">Del 1 al 10 de julio</a>';
+$config['carousel'][2]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
+
+$config['carousel'][3]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide4.jpg?uid='.uniqid();
+$config['carousel'][3]['titulo'] = 'Programa de Digitalización de Centros';
+$config['carousel'][3]['contenido'] = '<p>Curso 2018/19</p>';
+$config['carousel'][3]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
 
 // GOOGLE ANALYTICS
 // Consigue el ID de seguimiento para usar la API de Google Analytics en https://analytics.google.com/analytics/
