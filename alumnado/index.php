@@ -309,7 +309,7 @@ include('../inc_menu.php');
 			</div><!-- /.row -->
 			</div><!-- /.well -->
 
-			<?php if ((isset($_SESSION['administrador']) && $_SESSION['administrador'] == 1) || (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O")))): $_SESSION['pasa_matricula']=1; ?>
+			<?php if ((isset($_SESSION['administrador']) && $_SESSION['administrador'] == 1) || (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
 			<div class="row mb-3">
 				<div class="col-12">
 
