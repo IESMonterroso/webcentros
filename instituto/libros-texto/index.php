@@ -9,7 +9,7 @@ if (! isset($config['libros_texto']) || $config['libros_texto'] == 0) {
 $niveles = array();
 
 $libros = array();
-$result = mysqli_query($db_con, "SELECT `isbn`, `ean`, `materia`, `editorial`, `titulo`, `nivel`, `programaGratuidad` FROM `libros_texto` ORDER BY `nivel` ASC, `materia` ASC");
+$result = mysqli_query($db_con, "SELECT `isbn`, `ean`, `materia`, `editorial`, `titulo`, `nivel`, `programaGratuidad` FROM `libros_texto` ORDER BY SUBSTR(`nivel`, 2, 9) ASC, `materia` ASC");
 while ($row = mysqli_fetch_array($result)) {
 
     $libro = array(
@@ -75,7 +75,7 @@ include("../../inc_menu.php");
                 </tbody>
             </table>
             <?php endforeach; ?>
-            
+
         </div>
     </div>
 
