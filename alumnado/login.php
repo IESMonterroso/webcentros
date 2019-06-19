@@ -39,7 +39,7 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
     $_SESSION['tabla_bd'] = "alma";
     $tabla_alumno = "alma";
     $_SESSION['tabla_bd_control'] = "control";
-    $tabla_control = "control_matriculas";
+    $tabla_control = "control";
 
 		// Comprobamos si se ha introducido la clave del usuario Administrador de la Intranet
 		$result_admin = mysqli_query($db_con, "SELECT idea FROM c_profes WHERE idea = 'admin' AND pass = SHA1('$clave') LIMIT 1");
@@ -49,7 +49,7 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 
     // Comprobamos si estamos en periodo de matriculación
     if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion'])) {
-      if (@file_exists("../intranet/admin/matriculas/config.php")) require_once("../intranet/admin/matriculas/config.php");
+    	if (@file_exists("../intranet/admin/matriculas/config.php")) require_once("../intranet/admin/matriculas/config.php");
     	if (@file_exists("../../intranet/admin/matriculas/config.php")) require_once("../../intranet/admin/matriculas/config.php");
 
       if ($esAdmin || (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'])) {
@@ -65,15 +65,15 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
       		$_SESSION['alumno_primaria'] = 1;
       		$_SESSION['tabla_bd'] = "alma_primaria";
       		$tabla_alumno = "alma_primaria";
-          $_SESSION['tabla_bd_control'] = "control_matriculas";
-          $tabla_control = "control_matriculas";
+            $_SESSION['tabla_bd_control'] = "control_matriculas";
+            $tabla_control = "control_matriculas";
       	}
       	elseif ($esAlumnoSecundaria) {
       		$_SESSION['alumno_secundaria'] = 1;
       		$_SESSION['tabla_bd'] = "alma_secundaria";
       		$tabla_alumno = "alma_secundaria";
-          $_SESSION['tabla_bd_control'] = "control_matriculas";
-          $tabla_control = "control_matriculas";
+         	$_SESSION['tabla_bd_control'] = "control_matriculas";
+          	$tabla_control = "control_matriculas";
       	}
       }
     }
@@ -132,7 +132,7 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 
 				$_SESSION['alumno_autenticado'] = 1;
 				$_SESSION['claveal'] = $usuario['claveal'];
-        $_SESSION['alumno'] = $usuario['nombre'];
+        		$_SESSION['alumno'] = $usuario['nombre'];
 				$_SESSION['cambiar_clave_alumno'] = 1;
 				unset($_SESSION['intentos']);
 
