@@ -114,6 +114,7 @@
     .form-control:focus { border: 1px solid <?php echo cmykcolor($config['color_primario'], 'rgb'); ?>; }
     .form-control:focus+.input-group-addon, .form-control:focus~.input-group-addon { border: 1px solid <?php echo cmykcolor($config['color_primario'], 'rgb'); ?>; }
     .input-group-focus .input-group-addon { border-color: <?php echo cmykcolor($config['color_primario'], 'rgb'); ?>; }
+    .carousel-indicators li { background-color: <?php echo cmykcolor($config['color_primario'], 'rgb'); ?> !important;}
     .page-header[filter-data="login"] {
       background: rgba(44, 44, 44, 0.2);
       background: -webkit-linear-gradient(90deg, rgba(44, 44, 44, 0.2), <?php echo cmykcolor($config['color_primario'], 'rgb'); ?>);

@@ -89,24 +89,15 @@
     </script>
     <?php endif; ?>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js" type="text/javascript"></script>
     <script>
-    $(".carousel").swipe({
+    $(".carousel").carousel({
+      touch: true,
+      pause: "hover",
+      interval: 15000
+    });
 
-      swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
-
-        if (direction == 'left') $(this).carousel('next');
-        if (direction == 'right') $(this).carousel('prev');
-        if (direction == null){
-          var currentItem = $("#carousel .carousel-item.active");
-          if (currentItem.data('href')) {
-            window.open(currentItem.data('href'));
-          }
-        }
-
-      },
-      threshold: 0,
-      allowPageScroll: "vertical",
+    $(".carousel-image-item").click(function() {
+      window.open($(this).data('href'));
     });
     </script>
 

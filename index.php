@@ -143,9 +143,9 @@ include("inc_menu.php");
                     <?php if ($carouselEstado): ?>
                     <div id="carousel" class="carousel slide" <?php echo (isset($config['carousel_config']['cycle']) && empty($config['carousel_config']['cycle'])) ? 'data-wrap=""' : ''; ?> data-ride="carousel">
                       <ol class="carousel-indicators">
-                        <?php $i = 1; ?>
+                        <?php $i = 0; ?>
                         <?php foreach ($config['carousel'] as $carousel): ?>
-                        <li data-target="#carousel" data-slide-to="<?php echo $i; ?>"<?php echo ($i == 1) ? 'class="active"' : ''; ?>></li>
+                        <li data-target="#carousel" data-slide-to="<?php echo $i; ?>"<?php echo ($i == 0) ? 'class="active"' : ''; ?>></li>
                         <?php $i++; ?>
                         <?php endforeach; ?>
                         <?php unset($i); ?>
@@ -171,7 +171,7 @@ include("inc_menu.php");
                           $esClaro = ($promedioDecimal >= $umbral) ? 1 : 0;
                         }
                         ?>
-                        <div class="carousel-item <?php echo ($i == 1) ? 'active' : ''; ?>"<?php echo (isset($carousel['enlace']) && ! empty($carousel['enlace']) && $carousel['enlace'] != "#") ? ' data-href="'.$carousel['enlace'].'"' : ''; ?> data-interval="10000" style="cursor: pointer;">
+                        <div class="carousel-item <?php echo ($i == 1) ? 'active' : ''; ?>">
                           <div class="row" style="background-color: rgb(<?php echo $rgbImagen['r'].','.$rgbImagen['g'].','.$rgbImagen['b']; ?>);">
                             <?php $contenidoCarousel = 0; ?>
                             <?php if ((isset($carousel['titulo']) && ! empty($carousel['titulo'])) || ((isset($carousel['contenido']) && ! empty($carousel['contenido'])))): ?>
@@ -185,7 +185,7 @@ include("inc_menu.php");
                             <?php endif; ?>
                             <div class="<?php echo ($contenidoCarousel) ? 'col-xl-8' : 'col-12'; ?>">
                               <?php if (stristr($carousel['imagen'], ".jpg") == TRUE || stristr($carousel['imagen'], ".jpeg") == TRUE || stristr($carousel['imagen'], ".png") == TRUE): ?>
-                              <img class="d-block w-100" src="<?php echo $carousel['imagen']; ?>" alt="<?php echo $carousel['titulo']; ?>" draggable="false" style="-moz-user-select: none;">
+                              <img class="d-block w-100 carousel-image-item" src="<?php echo $carousel['imagen']; ?>" alt="<?php echo $carousel['titulo']; ?>" <?php echo (isset($carousel['enlace']) && ! empty($carousel['enlace']) && $carousel['enlace'] != "#") ? 'data-href="'.$carousel['enlace'].'"' : ''; ?> draggable="false" style="-moz-user-select: none; cursor: pointer;">
                               <?php else: ?>
                               <iframe class="d-block w-100" width="100%" height="227" src="<?php echo $carousel['imagen']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                               <?php endif; ?>
