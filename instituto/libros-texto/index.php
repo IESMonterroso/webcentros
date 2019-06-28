@@ -9,7 +9,7 @@ if (! isset($config['libros_texto']) || $config['libros_texto'] == 0) {
 $niveles = array();
 
 $libros = array();
-$result = mysqli_query($db_con, "SELECT `isbn`, `ean`, `materia`, `editorial`, `titulo`, `nivel`, `programaGratuidad` FROM `libros_texto` ORDER BY SUBSTR(`nivel`, 2, 9) ASC, `materia` ASC");
+$result = mysqli_query($db_con, "SELECT `isbn`, `ean`, `materia`, `editorial`, `titulo`, `nivel`, `programaGratuidad`, SUBSTR(`nivel`, 0, 1) AS `curso` FROM `libros_texto` ORDER BY SUBSTR(`nivel`, 6, 6) ASC, SUBSTR(`nivel`, 1, 1) ASC, `materia` ASC");
 while ($row = mysqli_fetch_array($result)) {
 
     $libro = array(
