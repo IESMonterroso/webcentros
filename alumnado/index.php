@@ -2,6 +2,11 @@
 require_once("../bootstrap.php");
 require_once('../config.php');
 
+if (isset($config['alumnado']['pasen']) && $config['alumnado']['pasen'] == true) {
+	header('Location:https://www.juntadeandalucia.es/educacion/portalseneca/web/pasen/inicio');
+	exit();
+}
+
 if (file_exists('../intranet/config.php')) {
 	include('../config.php');
 }

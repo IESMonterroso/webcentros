@@ -41,6 +41,9 @@ $config['web_biblioteca'] = "http://www.juntadeandalucia.es/averroes/centros-tic
 $config['web_imagenes']   = "";
 
 // PÁGINA DE ALUMNADO
+// Comentar / Descomentar la línea para utilizar o no, respectivamente, Pasen como página de Alumnado
+// $config['alumnado']['pasen']  = 1;
+
 // Si se establece estas variables a 1 o true, el alumno podrá ver y descargar los informes de tareas y tutoría
 $config['alumnado']['ver_informes_tareas']  = 0;
 $config['alumnado']['ver_informes_tutoria'] = 0;

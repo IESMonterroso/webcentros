@@ -298,10 +298,16 @@ a{color:#fff !important}
                   </li>
                   <?php endforeach; ?>
                   <?php endif; ?>
+                  <?php if (isset($config['alumnado']['pasen']) && $config['alumnado']['pasen'] == true): ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://www.juntadeandalucia.es/educacion/portalseneca/web/pasen/inicio" target="_blank">Alumnado</a>
+                  </li>
+                  <?php else: ?>
                   <?php if (file_exists(WEBCENTROS_DIRECTORY.'/alumnado') && is_dir(WEBCENTROS_DIRECTORY.'/alumnado')): ?>
                   <li class="nav-item">
                       <a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>alumnado">Alumnado</a>
                   </li>
+                  <?php endif; ?>
                   <?php endif; ?>
                   <li class="nav-item">
                       <a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>intranet" target="_blank">Profesorado</a>

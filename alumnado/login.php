@@ -2,6 +2,11 @@
 require_once("../bootstrap.php");
 require_once('../config.php');
 
+if (isset($config['alumnado']['pasen']) && $config['alumnado']['pasen'] == true) {
+	header('Location:https://www.juntadeandalucia.es/educacion/portalseneca/web/pasen/inicio');
+	exit();
+}
+
 $plugin_google_recaptcha = false;
 if (isset($config['google_recaptcha']['site_key']) && $config['google_recaptcha']['site_key'] != 'YOUR_SITE_KEY' && isset($config['google_recaptcha']['secret']) && $config['google_recaptcha']['secret'] != 'YOUR_SECRET_CODE') {
     require_once('../plugins/recaptchalib.php');
