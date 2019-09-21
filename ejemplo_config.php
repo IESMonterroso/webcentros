@@ -267,29 +267,18 @@ $config['carousel_config']['cycle'] = false;
 // Puede añadir tantos bloques como necesite, solo debe cambiar el número del array multidimensional: [0], [1], [2],...
 
 $config['carousel'][0]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide1.jpg?uid='.uniqid();
-$config['carousel'][0]['titulo'] = 'Sobre de matrícula electrónica';
-$config['carousel'][0]['contenido'] = '<p class="text-center">Educación Secundaria Obligatoria</p><p class="mb-1"><a class="highlight text-center" href="https://www.juntadeandalucia.es/educacion/secretariavirtual/">Del 1 al 10 de julio</a></p><p class="mb-1"><a class="highlight text-center" href="https://www.youtube.com/watch?v=V0U7eX0L7ro">Videotutorial</a></p><p class="mb-1"><a class="highlight text-center" href="https://www.juntadeandalucia.es/educacion/portals/abaco-portlet/content/ab15b87c-6004-459d-a1d4-f4407e62f13b">Manual de Usuario</a></p>';
-$config['carousel'][0]['enlace'] = 'https://www.juntadeandalucia.es/educacion/secretariavirtual/';
+$config['carousel'][0]['titulo'] = 'Inicio del curso escolar 2019/2020';
+$config['carousel'][0]['contenido'] = '<p class="mt-4 mb-2 text-center"><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/delegate/content/206a3822-8ad1-4b40-af66-9e332788b245/Dossier%20inicio%20de%20curso%2019-20" target="_blank">Dossier inicio de curso</a></p><p class="mb-2"><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/delegate/content/630d5087-3b19-4807-aa53-5941931bd115/Datos%20y%20cifras%20inicio%20curso%202019_2020" target="_blank">Datos y cifras inicio de curso</a></p>';
 
 $config['carousel'][1]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide2.jpg?uid='.uniqid();
 $config['carousel'][1]['titulo'] = 'Admisión 2019/20';
-$config['carousel'][1]['contenido'] = '<p class="mb-2">OFERTA COMPLETA</p><p>Ciclos de grado medio y superior</p><p class="mb-2">Plazo de solicitudes:</p><p><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-completa/grado-medio-superior/solicitudes">Del 15 de junio al 1 de julio</a></p>';
-$config['carousel'][1]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-completa/grado-medio-superior/solicitudes';
+$config['carousel'][1]['contenido'] = '<p>Nuevo portal de Escolarización segura del alumnado con enfermedades crónicas</p><p class="mb-2">Alergias &middot; Diabetes &middot; Epilepsia &middot; Cardiopatías &middot; Asma &middot; Cáncer</p>';
+$config['carousel'][1]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/escolarizacion-segura/inicio';
 
 $config['carousel'][2]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide3.jpg?uid='.uniqid();
-$config['carousel'][2]['titulo'] = 'Admisión 2019/20';
-$config['carousel'][2]['contenido'] = '<p class="mb-2">OFERTA PARCIAL DIFERENCIADA</p><p class="mb-2">Presencial, semipresencial y distancia</p><p>Plazo de solicitudes:</p><p><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-parcial/solicitudes">Del 15 de junio al 1 de julio</a></p>';
-$config['carousel'][2]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-parcial/solicitudes';
-
-$config['carousel'][3]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide4.jpg?uid='.uniqid();
-$config['carousel'][3]['titulo'] = 'Admisión 2019/20';
-$config['carousel'][3]['contenido'] = '<p class="mb-2">FP BÁSICA</p><p class="mb-2">Plazo de solicitudes:</p><p><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-completa/fp-basica/solicitudes">Del 1 al 10 de julio</a></p>';
-$config['carousel'][3]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/formacion-profesional-andaluza/escolarizacion/oferta-completa/fp-basica/solicitudes';
-
-$config['carousel'][4]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide5.jpg?uid='.uniqid();
-$config['carousel'][4]['titulo'] = 'Programa de Digitalización de Centros';
-$config['carousel'][4]['contenido'] = '<p>Curso 2018/19</p>';
-$config['carousel'][4]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
+$config['carousel'][2]['titulo'] = 'Programa de Digitalización de Centros';
+$config['carousel'][2]['contenido'] = '<p>Curso 2019/20</p>';
+$config['carousel'][2]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
 
 // GOOGLE ANALYTICS
 // Consigue el ID de seguimiento para usar la API de Google Analytics en https://analytics.google.com/analytics/
