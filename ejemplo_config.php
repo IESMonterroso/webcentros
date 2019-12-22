@@ -68,7 +68,7 @@ $config['menu_superior'][1]['enlace'] = "";
 // Comentar / Descomentar este bloque para mostrar o no mostrar, respectivamente, los iconos en la barra lateral
 $config['sidebar_icon'][0]['imagen']   = WEBCENTROS_DOMINIO."/ui-theme/img/png-icons/seneca.png";
 $config['sidebar_icon'][0]['titulo']   = "Ir a Portal Séneca";
-$config['sidebar_icon'][0]['enlace']   = "http://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio";
+$config['sidebar_icon'][0]['enlace']   = "https://www.juntadeandalucia.es/educacion/senecav2/seneca/jsp/portal/";
 
 $config['sidebar_icon'][1]['imagen']   = WEBCENTROS_DOMINIO.'/ui-theme/img/png-icons/pasen.png';
 $config['sidebar_icon'][1]['titulo']   = "Ir a Portal Pasen";
