@@ -52,13 +52,13 @@
     <script src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/js/snowfall.jquery.js" type="text/javascript"></script>
     <script>
     $(document).ready(function(){
-        $(document).snowfall({
+        $('.navbar-lg').snowfall({
             deviceorientation: false,
             round: true,
             minSize: 1,
-            maxSize:8,
+            maxSize:6,
             flakeColor: '#f6f6f6',
-            flakeCount: 250
+            flakeCount: 50
         });
     });
     </script>

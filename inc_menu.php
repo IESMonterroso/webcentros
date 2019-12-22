@@ -131,6 +131,11 @@
 a{color:#fff !important}
     </style>
     <?php endif; ?>
+    <?php if ((date('d') >= 17 && date('m') == 12) || (date('d') <= 6 && date('m') == 1)): ?>
+    <style type="text/css">
+    .navbar-lg{background-color:#003349 !important;color:#fff !important}
+    </style>
+    <?php endif; ?>
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -156,6 +161,9 @@ a{color:#fff !important}
                 </a>
                 <?php if ((date('m') == 10 && date('d') >= 22) || (date('m') == 11 && date('d') <= 2)): ?>
                 <?php include(WEBCENTROS_DIRECTORY . "/plugins/festivos/todoslossantos.php"); ?>
+                <?php endif; ?>
+                <?php if ((date('d') >= 17 && date('m') == 12) || (date('d') <= 6 && date('m') == 1)): ?>
+                <?php include(WEBCENTROS_DIRECTORY . "/plugins/festivos/navidad.php"); ?>
                 <?php endif; ?>
                 <?php if (date('m-d') >= '03-29' && date('m-d') <= '03-30'): ?>
                 <?php include(WEBCENTROS_DIRECTORY . "/plugins/festivos/horadelplaneta.php"); ?>
