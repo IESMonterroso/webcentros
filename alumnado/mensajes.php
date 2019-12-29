@@ -2,8 +2,8 @@
 
 if(isset($_POST['enviar'])) {
 
-	$asunto = limpiarInput(trim($_POST['asunto']), 'alphanumericspecial');
-	$mensaje = limpiarInput(trim($_POST['mensaje']), 'alphanumericspecial');
+	$asunto = attributeContextCleaner(limpiarInput(trim($_POST['asunto']), 'alphanumericspecial'));
+	$mensaje = attributeContextCleaner(limpiarInput(trim($_POST['mensaje']), 'alphanumericspecial'));
 	$adjunto = $_FILES['adjunto'];
 	$dir_subida = "../intranet/varios/externos/"; // Añadir / al final
 
