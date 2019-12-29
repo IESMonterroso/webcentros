@@ -5,7 +5,7 @@ require_once("../../config.php");
 $query_sql = "";
 
 if ( isset($_GET['q']) && (strlen(trim($_GET['q'])) > 3) ) {
-    $query = isset($_GET['q']) ? xss_clean(trim($_GET['q'])) : '';
+    $query = isset($_GET['q']) ? limpiarInput(trim($_GET['q']), 'alphanumericspecial') : '';
     $query = mysqli_real_escape_string($db_con, $query);
     $query_sql = "AND (titulo LIKE '$query%' OR titulo LIKE '% $query%' OR contenido LIKE '$query%' OR contenido LIKE '% $query%')";
 }

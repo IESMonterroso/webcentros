@@ -7,7 +7,7 @@ if (! isset($config['educacion_cfgb']) && ! isset($config['educacion_cfgm']) && 
     include("../../error404.php");
 }
 
-$alias = strip_tags($_GET['alias']);
+$alias = limpiarInput($_GET['alias'], 'alphanumericspecial');
 
 $tieneCFGB = 0;
 if (isset($config['educacion_cfgb'])) {

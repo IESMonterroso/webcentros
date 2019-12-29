@@ -46,9 +46,9 @@ function validarCorreo($correo) {
 // VALIDAMOS EL FORMULARIO
 if (isset($_POST['submit'])) {
 
-	$codigo2 = xss_clean($_POST['codigo2']);
-	$codigo3 = xss_clean($_POST['codigo3']);
-	$correo  = xss_clean($_POST['correo']);
+	$codigo2 = limpiarInput(trim($_POST['codigo2']), 'alphanumericspecial');
+	$codigo3 = limpiarInput(trim($_POST['codigo3']), 'alphanumericspecial');
+	$correo  = limpiarInput(trim($_POST['correo']), 'alphanumericspecial');
 
 	$codigo2_has_error = 0;
 	$codigo3_has_error = 0;

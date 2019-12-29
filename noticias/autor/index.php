@@ -5,7 +5,7 @@ require_once("../../config.php");
 $autor = '';
 
 if (isset($_GET['alias'])) {
-    $alias = strip_tags($_GET['alias']);
+    $alias = limpiarInput($_GET['alias'], 'alphanumericspecial');
 
     // Obtenemos el nombre del autor a partir del alias
     $result = mysqli_query($db_con, "SELECT DISTINCT REPLACE(autor, ',', '') AS autor_sin_coma, autor FROM noticias ORDER BY autor ASC");

@@ -5,7 +5,7 @@ require_once("../../config.php");
 $categoria = '';
 
 if (isset($_GET['alias'])) {
-    $alias = strip_tags($_GET['alias']);
+    $alias = limpiarInput($_GET['alias'], 'alphanumericspecial');
 
     // Obtenemos el nombre de la categoria a partir del alias
     $result = mysqli_query($db_con, "SELECT DISTINCT categoria FROM noticias ORDER BY categoria ASC");

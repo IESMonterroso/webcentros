@@ -20,8 +20,8 @@ $_SESSION['alumno_autenticado'] = 0;
 
 if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['clave']) > 5)) {
 
-	$usuario	= xss_clean($_POST['user']);
-	$clave		= xss_clean($_POST['clave']);
+	$usuario	= limpiarInput($_POST['user'], 'alphanumeric');
+	$clave		= limpiarInput($_POST['clave'], 'alphanumericspecial');
 
 	if ($plugin_google_recaptcha && $_SESSION['intentos'] > 4) {
 		$recaptcha_obligatorio = true;

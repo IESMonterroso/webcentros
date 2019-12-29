@@ -2,7 +2,7 @@
 require_once("../bootstrap.php");
 require_once("../config.php");
 
-$id = htmlspecialchars($_GET['id']);
+$id = limpiarInput($_GET['id'], 'numeric');
 $result = mysqli_query($db_con, "SELECT id, titulo, contenido, autor, fechapub, categoria FROM noticias WHERE id = $id AND pagina LIKE '%2%' LIMIT 1");
 if (! mysqli_num_rows($result)) {
     include("../error404.php");

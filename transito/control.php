@@ -26,19 +26,19 @@ Informe de Tránsito para Alumnos de Primaria.</h3>
 <?
 
 // Se ha enviado la clave
-$clave = $_POST['clave'];
-$cole = $_POST['user'];
-$colegi = $_POST['colegi'];
-$unidad = $_POST['unidad'];
+$clave = limpiarInput($_POST['clave'],'alphanumericspecial');
+$cole = limpiarInput($_POST['user'],'alphanumericspecial');
+$colegi = limpiarInput($_POST['colegi'],'alphanumericspecial');
+$unidad = limpiarInput($_POST['unidad'],'alphanumericspecial');
 
 if (isset($_POST['alumno'])) {
-	$alumno = $_POST['alumno'];
+	$alumno = limpiarInput($_POST['alumno'],'alphanumericspecial');
 	$tr_al = explode(":",$_POST['alumno']);
 	$claveal = $tr_al[0];
 	$nombre_al = $tr_al[1];
 }
 
-$auth = $_POST['auth'];
+$auth = limpiarInput($_POST['auth'], 'numeric');
 
 
 $cod_sha = sha1($clave);

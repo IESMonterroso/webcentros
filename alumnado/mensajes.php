@@ -2,8 +2,8 @@
 
 if(isset($_POST['enviar'])) {
 
-	$asunto = trim(mysqli_real_escape_string($db_con,	$_POST['asunto']));
-	$mensaje = trim(mysqli_real_escape_string($db_con, $_POST['mensaje']));
+	$asunto = limpiarInput(trim($_POST['asunto']), 'alphanumericspecial');
+	$mensaje = limpiarInput(trim($_POST['mensaje']), 'alphanumericspecial');
 	$adjunto = $_FILES['adjunto'];
 	$dir_subida = "../intranet/varios/externos/"; // Añadir / al final
 

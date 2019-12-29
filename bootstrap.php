@@ -601,4 +601,55 @@ function navegadorSoportado() {
 	elseif ($plataforma == 'Android' && $plataforma_version > 4.4) return true;
 	else return false;
 }
+
+function limpiarInput($input, $type = 'alphanumeric') {
+
+	switch ($type) {
+		// ALLOW NUMBERS
+		case 'numeric':
+			if (! intval($input)) {
+				$output = preg_replace('([^0-9])', '', $input);
+			}
+			else {
+				$output = intval($input);
+			}
+
+			break;
+		
+		// ALLOW MAYUS
+		case 'mayus':
+			$output = preg_replace('([^A-Z])', '', $input);
+
+			break;
+
+		// ALLOW MINUS
+		case 'minus':
+			$output = preg_replace('([^a-z])', '', $input);
+
+			break;
+
+		// ALLOW LETTERS (MAYUS AND MINUS)
+		case 'alpha':
+			$output = preg_replace('([^A-Za-z])', '', $input);
+
+			break;
+
+		// ALLOW ALPHANUMERIC
+		case 'alphanumeric':
+			$output = preg_replace('([^A-Za-z0-9])', '', $input);
+
+			break;
+
+		// ALLOW ALPHANUMERIC AND SPECIAL CHARS: space,  !"#$%&'()*+,-./:;»=>?@[\]^_`{|}~
+		case 'alphanumericspecial':
+		default:
+			$output = preg_replace('([^A-Za-z0-9 !"#$%&\'()*+,-./:;»=>?@[\]^_`{|}~])', '', $input);
+
+			break;
+
+	}
+
+	return $output;
+}
+
 // Fin de archivo bootstrap.php
