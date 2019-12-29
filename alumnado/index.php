@@ -182,7 +182,7 @@ include('../inc_menu.php');
 ?>
 
 	<div class="section">
-		<div class="container">
+		<div class="container-fluid">
 
 			<?php if (isset($_SESSION['dnitutor'])): ?>
 			<div class="alert alert-info">
