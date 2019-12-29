@@ -74,7 +74,7 @@ if(isset($_POST['enviar'])) {
 }
 
 if(isset($_POST['leido'])){
-	$verifica = $_POST['verifica'];
+	$verifica = limpiarInput($_POST['verifica'], 'numeric');
 
 	$result = mysqli_query("SELECT recibidoprofe FROM mens_profes WHERE id_profe = '".$_POST['verifica']."'");
 	$row = mysqli_fetch_array($result);
