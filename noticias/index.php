@@ -10,10 +10,10 @@ if (! mysqli_num_rows($result)) {
 
 $noticia = mysqli_fetch_array($result);
 $exp_autor = explode(', ', $noticia['autor']);
-$autor = xss_clean(trim($exp_autor[1].' '.$exp_autor[0]));
-$alias_autor = xss_clean(mb_strtolower(str_replace($acentos, $no_acentos, $noticia['autor'])));
-$alias_categoria = xss_clean(mb_strtolower(str_replace($acentos, $no_acentos, $noticia['categoria'])));
-$alias = xss_clean(mb_strtolower(str_replace($acentos, $no_acentos, $noticia['titulo'])));
+$autor = urlContextCleaner(trim($exp_autor[1].' '.$exp_autor[0]));
+$alias_autor = urlContextCleaner(mb_strtolower(str_replace($acentos, $no_acentos, $noticia['autor'])));
+$alias_categoria = urlContextCleaner(mb_strtolower(str_replace($acentos, $no_acentos, $noticia['categoria'])));
+$alias = urlContextCleaner(mb_strtolower(str_replace($acentos, $no_acentos, $noticia['titulo'])));
 
 // Obtenemos las imágenes del artículo
 $result_imagenes = preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $noticia['contenido'], $imagenes);

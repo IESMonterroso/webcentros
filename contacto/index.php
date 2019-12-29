@@ -10,10 +10,10 @@ if (isset($config['google_recaptcha']['site_key']) && $config['google_recaptcha'
 }
 
 if (isset($_POST['submit'])) {
-    $contacto_nombre = xss_clean(trim($_POST['nombre']));
-    $contacto_apellidos = xss_clean(trim($_POST['apellidos']));
-	  $contacto_correo = xss_clean(trim($_POST['email']));
-    $contacto_mensaje = xss_clean(trim($_POST['mensaje']));
+    $contacto_nombre = attributeContextCleaner(limpiarInput(trim($_POST['nombre']), 'alphanumericspecial'));
+    $contacto_apellidos = attributeContextCleaner(limpiarInput(trim($_POST['apellidos']), 'alphanumericspecial'));
+	$contacto_correo = attributeContextCleaner(limpiarInput(trim($_POST['email']), 'alphanumericspecial'));
+    $contacto_mensaje = attributeContextCleaner(limpiarInput(trim($_POST['mensaje']), 'alphanumericspecial'));
     $contacto_nombre_completo = $contacto_nombre.' '.$contacto_apellidos;
 
     if ($plugin_google_recaptcha) {

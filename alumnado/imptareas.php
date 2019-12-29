@@ -24,7 +24,7 @@ if (! isset($config['alumnado']['ver_informes_tareas']) || ! $config['alumnado']
 	exit();
 }
 elseif(isset($_POST['id']) && !empty($_POST['id'])) {
-	$id = $_POST['id'];
+	$id = limpiarInput($_POST['id'], 'numeric');
 }
 else {
 	header('Location:'.'index.php');
