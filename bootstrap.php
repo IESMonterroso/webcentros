@@ -103,6 +103,8 @@ function ofuscarEmail($email) {
 function rgpdNombreProfesor($nombre) {
 	global $db_con;
 
+	$nombre = limpiarInput($nombre, 'alphanumericspecial');
+
 	$result = mysqli_query($db_con, "SELECT `rgpd_mostrar_nombre` FROM `c_profes` WHERE `profesor` = '$nombre' LIMIT 1");
 	if (mysqli_num_rows($result)) {
 		$row = mysqli_fetch_array($result);
@@ -130,6 +132,8 @@ function rgpdNombreProfesor($nombre) {
 function nombreProfesor($nombre) {
 	global $db_con;
 
+	$nombre = limpiarInput($nombre, 'alphanumericspecial');
+
 	$result = mysqli_query($db_con, "SELECT `profesor` FROM `c_profes` WHERE UPPER(`profesor`) = UPPER('$nombre') LIMIT 1");
 	if (mysqli_num_rows($result)) {
 		$row = mysqli_fetch_array($result);
@@ -140,6 +144,9 @@ function nombreProfesor($nombre) {
 
 function obtenerHoraTutoria($dia, $hora) {
 	global $db_con;
+
+	$dia = limpiarInput($dia, 'numeric');
+	$hora = limpiarInput($hora, 'numeric');
 
 	if (empty($dia) && empty($hora)) {
 		return false;
@@ -173,6 +180,8 @@ function obtenerHoraTutoria($dia, $hora) {
 
 function sistemaPuntos($claveal) {
 	global $db_con, $config;
+
+	$claveal = limpiarInput($claveal, 'numeric');
 
   $fecha_hoy = date('Y-m-d');
 
