@@ -1,37 +1,113 @@
 <?php if (! defined("WEBCENTROS_DOMINIO")) die ('No direct script access allowed');
 
-function xss_clean($data)
-{
-// Fix &entity\n;
-$data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
-$data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
-$data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
-$data = html_entity_decode($data, ENT_COMPAT, 'UTF-8');
-
-// Remove any attribute starting with "on" or xmlns
-$data = preg_replace('#(<[^>]+?[\x00-\x20"\'])(?:on|xmlns)[^>]*+>#iu', '$1>', $data);
-
-// Remove javascript: and vbscript: protocols
-$data = preg_replace('#([a-z]*)[\x00-\x20]*=[\x00-\x20]*([`\'"]*)[\x00-\x20]*j[\x00-\x20]*a[\x00-\x20]*v[\x00-\x20]*a[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#iu', '$1=$2nojavascript...', $data);
-$data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*v[\x00-\x20]*b[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#iu', '$1=$2novbscript...', $data);
-$data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*-moz-binding[\x00-\x20]*:#u', '$1=$2nomozbinding...', $data);
-
-// Only works in IE: <span style="width: expression(alert('Ping!'));"></span>
-$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?expression[\x00-\x20]*\([^>]*+>#i', '$1>', $data);
-$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?behaviour[\x00-\x20]*\([^>]*+>#i', '$1>', $data);
-$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:*[^>]*+>#iu', '$1>', $data);
-
-// Remove namespaced elements (we do not need them)
-$data = preg_replace('#</*\w+:\w[^>]*+>#i', '', $data);
-
-do
-{
-	// Remove really unwanted tags
-	$old_data = $data;
-	$data = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $data);
+/**
+ * XSS protection function for HTML context only
+ * @usecases
+ * <title>use this function if output reflects here or as a content of any HTML tag.</title>
+ * e.g.,  <span>use this function if output reflects here</span>
+ * e.g., <div>use this function if output reflects here</div>
+ * @description
+ * Sanitize/Filter < and > so that attacker can not leverage them for JavaScript execution.
+ * @author Ashar Javed
+ * @Link https://twitter.com/soaj1664ashar
+ * @demo http://xssplaygroundforfunandlearn.netai.net/final.html
+ */
+function htmlContextCleaner($input) {
+    $bad_chars = array("<", ">");
+    $safe_chars = array("&lt;", "&gt;");
+    $output = str_replace($bad_chars, $safe_chars, $input);
+    return stripslashes($output);
 }
-while ($old_data !== $data);
-
-// we are done...
-return $data;
+/**
+ * XSS protection function for script context only
+ * @usecases
+ * @double quoted case e.g.,
+ * <script> var searchquery = "use this function if output reflects here"; </script>
+ * @single quoted case e.g.,
+ * <script> var searchquery = 'use this function if output reflects here'; </script>
+ * @description
+ * Sanitize/Filter meta or control characters that attacker may use to break the context e.g.,
+ * "; confirm(1); " OR '; prompt(1); // OR </script><script>alert(1)</script>
+ * \ and % are filtered because they may break the page e.g., \n or %0a
+ * & is sanitized because of complex or nested context (if in use)
+ * @author Ashar Javed
+ * @Link https://twitter.com/soaj1664ashar
+ * @demo http://xssplaygroundforfunandlearn.netai.net/final.html
+ */
+function scriptContextCleaner($input) {
+    $bad_chars = array("\"", "<", "'", "\\\\", "%", "&");
+    $safe_chars = array("&quot;", "&lt;", "&apos;", "&bsol;", "&percnt;", "&amp;");
+    $output = str_replace($bad_chars, $safe_chars, $input);
+    return stripslashes($output);
+}
+/**
+ * XSS protection function for an attribute context only
+ * @usecases
+ * @double quoted case e.g.,
+ * <div class="use this function if output reflects here">attribute context</div>
+ * In above example class attribute have been used but it can be any like id or alt etc.
+ * @single quoted case e.g.,
+ * <input type='text' value='use this function if output reflects here'>
+ * @description
+ * Sanitize/Filter meta or control characters that attacker may use to break the context e.g.,
+ * "onmouseover="alert(1) OR 'onfocus='confirm(1) OR ``onmouseover=prompt(1)
+ * back-tick i.e., `` is filtered because old IE browsers treat it as a valid separator.
+ * @author Ashar Javed
+ * @Link https://twitter.com/soaj1664ashar
+ * @demo http://xssplaygroundforfunandlearn.netai.net/final.html
+ */
+function attributeContextCleaner($input) {
+    $bad_chars = array("\"", "'",  "`");
+    $safe_chars = array("&quot;", "&apos;", "&grave;");
+    $output = str_replace($bad_chars, $safe_chars, $input);
+    return stripslashes($output);
+}
+/**
+ * XSS protection function for style context only
+ * @usecases
+ * @double quoted case e.g.,
+ * <span style="use this function if output reflects here"></span>
+ * @single quoted case e.g.,
+ * <div style='use this function if output reflects here'></div>
+ * OR <style>use this function if output reflects here</style>
+ * @description
+ * Sanitize/Filter meta or control characters that attacker may use to execute JavaScript e.g.,
+ * ( is filtered because width:expression(alert(1))
+ * & is filtered in order to stop decimal + hex + HTML5 entity encoding
+ * < is filtered in case developers are using <style></style> tags instead of style attribute.
+ * < is filtered because attacker may close the </style> tag and then execute JavaScript.
+ * The function allows simple styles e.g., color:red, height:100px etc.
+ * @author Ashar Javed
+ * @Link https://twitter.com/soaj1664ashar
+ * @demo http://xssplaygroundforfunandlearn.netai.net/final.html
+ */
+function styleContextCleaner($input) {
+    $bad_chars = array("\"", "'", "``", "(", "\\\\", "<", "&");
+    $safe_chars = array("&quot;", "&apos;", "&grave;", "&lpar;", "&bsol;", "&lt;", "&amp;");
+    $output = str_replace($bad_chars, $safe_chars, $input);
+    return stripslashes($output);
+}
+/**
+ * XSS protection function for URL context
+ * @usecases
+ * <a href="use this function if output reflects here">click</a>
+ * <img src="use this function if output reflects here">
+ * <iframe src="use this function if output reflects here">
+ * @description
+ * Only allows URLs that start with http(s) or ftp. e.g.,
+ * https://www.google.com
+ * Protection against JavaScript, VBScript and Data URI JavaScript code execution etc.
+ * @author Ashar Javed
+ * @Link https://twitter.com/soaj1664ashar
+ * @demo http://xssplaygroundforfunandlearn.netai.net/final.html
+ */
+function urlContextCleaner($url) {
+    if(preg_match("#^(?:(?:https?|ftp):{1})\/\/[^\"\s\\\\]*.[^\"\s\\\\]*$#iu",(string)$url,$match))
+    {
+        return $match[0];
+    }
+    else {
+        $noxss='javascript:void(0)';
+        return $noxss;
+    }
 }

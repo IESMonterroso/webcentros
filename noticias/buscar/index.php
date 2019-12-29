@@ -5,7 +5,7 @@ require_once("../../config.php");
 $query_sql = "";
 
 if ( isset($_GET['q']) && (strlen(trim($_GET['q'])) > 3) ) {
-    $query = isset($_GET['q']) ? limpiarInput(trim($_GET['q']), 'alphanumericspecial') : '';
+    $query = isset($_GET['q']) ? attributeContextCleaner(limpiarInput(trim($_GET['q']), 'alphanumericspecial')) : '';
     $query = mysqli_real_escape_string($db_con, $query);
     $query_sql = "AND (titulo LIKE '$query%' OR titulo LIKE '% $query%' OR contenido LIKE '$query%' OR contenido LIKE '% $query%')";
 }
@@ -75,7 +75,7 @@ include("../../inc_menu.php");
                             <span class="input-group-addon">
                                 <i class="now-ui-icons ui-1_zoom-bold"></i>
                             </span>
-                            <input type="text" id="buscar" name="q" class="form-control" placeholder="Buscar una noticia" value="<?php echo (isset($_GET['q'])) ? xss_clean($_GET['q']) : ''; ?>" autocomplete="off">
+                            <input type="text" id="buscar" name="q" class="form-control" placeholder="Buscar una noticia" value="<?php echo (isset($_GET['q'])) ? $query : ''; ?>" autocomplete="off">
                         </div>
                     </form>
 
@@ -112,29 +112,29 @@ include("../../inc_menu.php");
                             <?php if ($pag < 1): ?>
                             <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">&laquo;</a></li>
                             <?php else: ?>
-                            <li class="page-item"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo ($pag - 1); ?><?php echo (isset($_GET['q'])) ? '&amp;q='.htmlspecialchars(strip_tags(trim($_GET['q'])), ENT_QUOTES, 'UTF-8') : ''; ?>">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo ($pag - 1); ?><?php echo (isset($_GET['q'])) ? '&amp;q='.$query : ''; ?>">&laquo;</a></li>
                             <?php endif; ?>
                             <?php if ($total_pags < 10): ?>
                             <?php for ($num = 1; $num <= $total_pags; $num++): ?>
-                            <li class="page-item<?php echo ($pag == $num || $pag == 0 && $num == 1) ? ' active' : ''; ?>"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo $num; ?><?php echo (isset($_GET['q'])) ? '&amp;q='.htmlspecialchars(strip_tags(trim($_GET['q'])), ENT_QUOTES, 'UTF-8') : ''; ?>"><?php echo $num; ?></a></li>
+                            <li class="page-item<?php echo ($pag == $num || $pag == 0 && $num == 1) ? ' active' : ''; ?>"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo $num; ?><?php echo (isset($_GET['q'])) ? '&amp;q='.$query : ''; ?>"><?php echo $num; ?></a></li>
                             <?php endfor; ?>
                             <?php else: ?>
                             <?php if ($pag < 7): ?>
                             <?php for ($num = 1; $num <= 10; $num++): ?>
-                            <li class="page-item<?php echo ($pag == $num || $pag == 0 && $num == 1) ? ' active' : ''; ?>"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo $num; ?><?php echo (isset($_GET['q'])) ? '&amp;q='.htmlspecialchars(strip_tags(trim($_GET['q'])), ENT_QUOTES, 'UTF-8') : ''; ?>"><?php echo $num; ?></a></li>
+                            <li class="page-item<?php echo ($pag == $num || $pag == 0 && $num == 1) ? ' active' : ''; ?>"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo $num; ?><?php echo (isset($_GET['q'])) ? '&amp;q='.$query : ''; ?>"><?php echo $num; ?></a></li>
                             <?php endfor; ?>
                             <?php elseif (($total_pags - $pag) <= 4): ?>
                             <?php for ($num = ($pag-5); $num <= $total_pags; $num++): ?>
-                            <li class="page-item<?php echo ($pag == $num || $pag == 0 && $num == 1) ? ' active' : ''; ?>"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo $num; ?><?php echo (isset($_GET['q'])) ? '&amp;q='.htmlspecialchars(strip_tags(trim($_GET['q'])), ENT_QUOTES, 'UTF-8') : ''; ?>"><?php echo $num; ?></a></li>
+                            <li class="page-item<?php echo ($pag == $num || $pag == 0 && $num == 1) ? ' active' : ''; ?>"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo $num; ?><?php echo (isset($_GET['q'])) ? '&amp;q='.$query : ''; ?>"><?php echo $num; ?></a></li>
                             <?php endfor; ?>
                             <?php else: ?>
                             <?php for ($num = ($pag-5); $num <= ($pag+4); $num++): ?>
-                            <li class="page-item<?php echo ($pag == $num || $pag == 0 && $num == 1) ? ' active' : ''; ?>"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo $num; ?><?php echo (isset($_GET['q'])) ? '&amp;q='.htmlspecialchars(strip_tags(trim($_GET['q'])), ENT_QUOTES, 'UTF-8') : ''; ?>"><?php echo $num; ?></a></li>
+                            <li class="page-item<?php echo ($pag == $num || $pag == 0 && $num == 1) ? ' active' : ''; ?>"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo $num; ?><?php echo (isset($_GET['q'])) ? '&amp;q='.$query : ''; ?>"><?php echo $num; ?></a></li>
                             <?php endfor; ?>
                             <?php endif; ?>
                             <?php endif; ?>
                             <?php if ($pag < $total_pags): ?>
-                            <li class="page-item"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo ($pag + 1); ?><?php echo (isset($_GET['q'])) ? '&amp;q='.htmlspecialchars(strip_tags(trim($_GET['q'])), ENT_QUOTES, 'UTF-8') : ''; ?>">&raquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="<?php echo WEBCENTROS_DOMINIO; ?>noticias/buscar/?p=<?php echo ($pag + 1); ?><?php echo (isset($_GET['q'])) ? '&amp;q='.$query : ''; ?>">&raquo;</a></li>
                             <?php else: ?>
                             <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">&raquo;</a></li>
                             <?php endif; ?>
