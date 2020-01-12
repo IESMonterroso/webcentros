@@ -8,6 +8,8 @@ if (! mysqli_num_rows($result)) {
     include("../error404.php");
 }
 
+mysqli_query($db_con, "UPDATE `noticias` SET `vistas` = `vistas` + 1 WHERE `id` = ".$id." LIMIT 1");
+
 $noticia = mysqli_fetch_array($result);
 $exp_autor = explode(', ', $noticia['autor']);
 $autor = trim($exp_autor[1].' '.$exp_autor[0]);

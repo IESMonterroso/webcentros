@@ -60,6 +60,17 @@ else {
 mysqli_free_result($result_libros_texto);
 
 // FUNCIONES GENERALES
+function add_security_header() {
+	header_remove("X-Powered-By");
+	header("Strict-Transport-Security:max-age=31536000;includeSubDomains; preload");
+    header("X-Content-Type-Options: nosniff");
+    header("X-Frame-Options: SAMEORIGIN");
+    header("Referrer-Policy: strict-origin-when-cross-origin");
+    header("Feature-Policy: accelerometer 'none'; camera 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; payment 'none'; usb 'none'");
+    header("X-XSS-Protection: 1;mode=block");
+    header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' stackpath.bootstrapcdn.com code.jquery.com cdnjs.cloudflare.com cdn.jsdelivr.net www.google.com maps.googleapis.com www.googletagmanager.com www.google-analytics.com www.gstatic.com platform.twitter.com syndication.twitter.com cdn.syndication.twimg.com; style-src 'self' 'unsafe-inline' stackpath.bootstrapcdn.com cdnjs.cloudflare.com fonts.googleapis.com fonts.gstatic.com platform.twitter.com syndication.twitter.com cdn.syndication.twimg.com ton.twimg.com; img-src 'self' www.google-analytics.com maps.gstatic.com maps.googleapis.com stats.g.doubleclick.net *.googleusercontent.com ton.twimg.com pbs.twimg.com platform.twitter.com syndication.twitter.com data:; font-src 'self' fonts.googleapis.com fonts.gstatic.com; frame-src www.youtube.com *.google.com maps.gstatic.com maps.googleapis.com platform.twitter.com syndication.twitter.com");
+}
+
 function getRealIP() {
     if (!empty($_SERVER['HTTP_CLIENT_IP']))
         return $_SERVER['HTTP_CLIENT_IP'];
@@ -661,4 +672,5 @@ function limpiarInput($input, $type = 'alphanumeric') {
 	return $output;
 }
 
+add_security_header();
 // Fin de archivo bootstrap.php
