@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row justify-content-around">
               <div class="col-sm-3 pb-3 pb-sm-0 text-center">
-                <a href="https://www.mecd.gob.es/educacion/mc/fse/fse.html" target="_blank">
+                <a href="https://www.educacionyfp.gob.es/educacion/mc/fse/fse.html" target="_blank">
                   <img src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/img/png-icons/fse_horizontal.png" alt="">
                 </a>
               </div>
