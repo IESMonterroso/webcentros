@@ -76,11 +76,11 @@ if(isset($_POST['enviar'])) {
 if(isset($_POST['leido'])){
 	$verifica = limpiarInput($_POST['verifica'], 'numeric');
 
-	$result = mysqli_query("SELECT recibidoprofe FROM mens_profes WHERE id_profe = '".$_POST['verifica']."'");
+	$result = mysqli_query("SELECT recibidoprofe FROM mens_profes WHERE id_profe = '".$verifica."'");
 	$row = mysqli_fetch_array($result);
 
 	if (! $row['recibidoprofe']) {
-		mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '".$_POST['verifica']."'");
+		mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '".$verifica."'");
 
 		$asunto_confirmacion = "Mensaje de confirmación";
 		$mensaje = "El mensaje enviado a $nombrepil $apellido con el asunto \"$asunto\" ha sido entregado y leído en la web del centro.";
