@@ -36,7 +36,7 @@ function nombremes($mes)
 			<th class="text-center text-info"><?php echo nombremes($row['mes']).', '.$row['anio']; ?></th>
 		</thead>
 		<tbody>
-			<?php $result_actividad = mysqli_query($db_con, "SELECT nombre, descripcion, fechaini, horaini, fechafin, horafin, departamento, profesores FROM calendario WHERE unidades LIKE '%$unidad%' AND MONTH(fechaini)='".$row['mes']."' AND confirmado=1 ORDER BY fechaini DESC"); ?>
+			<?php $result_actividad = mysqli_query($db_con, "SELECT nombre, descripcion, fechaini, horaini, fechafin, horafin, departamento, profesores FROM calendario WHERE unidades LIKE '%$unidad%' AND MONTH(fechaini)='".$row['mes']."' AND confirmado=1 AND fechaini > '".$config['curso_inicio']."' ORDER BY fechaini DESC"); ?>
 			<?php while ($row_actividad = mysqli_fetch_array($result_actividad)): ?>
 			<tr>
 				<td>
