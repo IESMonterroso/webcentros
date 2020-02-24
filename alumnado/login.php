@@ -46,11 +46,17 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
     $_SESSION['tabla_bd_control'] = "control";
     $tabla_control = "control";
 
-		// Comprobamos si se ha introducido la clave del usuario Administrador de la Intranet
-		$result_admin = mysqli_query($db_con, "SELECT idea FROM c_profes WHERE idea = 'admin' AND pass = SHA1('$clave') LIMIT 1");
-		$esAdmin = (mysqli_num_rows($result_admin) > 0) ? 1 : 0;
-		mysqli_free_result($result_admin);
-		$_SESSION['administrador'] = $esAdmin;
+    // Comprobamos si se ha introducido la clave del usuario Administrador de la Intranet
+	$result_admin = mysqli_query($db_con, "SELECT pass FROM c_profes WHERE idea = 'admin' LIMIT 1");
+	$claveAdmin = mysqli_fetch_array($result_admin);
+    if (password_verify($clave, $claveAdmin['pass'])) {
+    	$esAdmin = 1;
+		$_SESSION['administrador'] = 1;
+	}
+	else {
+		$esAdmin = 0;
+		$_SESSION['administrador'] = 0;
+	}
 
     // Comprobamos si estamos en periodo de matriculación
     if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion'])) {

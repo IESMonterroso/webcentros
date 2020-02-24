@@ -668,7 +668,7 @@ function limpiarInput($input, $type = 'alphanumeric') {
 		// ALLOW ALPHANUMERIC AND SPECIAL CHARS: space,  !"#$%&'()*+,-./:;»=>?@[\]^_`{|}~
 		case 'alphanumericspecial':
 		default:
-			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñ0-9 !"#$%&\'()*+,-./:;»=>?@[\]^_`{|}~])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñºª0-9 !"#$%&\'()*+,-./:;»=>?@[\]^_`{|}~])', '', $input);
 
 			break;
 

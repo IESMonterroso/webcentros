@@ -153,6 +153,10 @@ a:hover.navbar-brand-lg {
   text-decoration: none !important;
 }
 
+.pt-1 {
+  padding-top: .35rem!important;
+}
+
 @media screen and (max-width: 991px) {
     .navbar-nav {
         padding-left: 0;
@@ -277,7 +281,7 @@ a:hover.navbar-brand-lg {
     width:100%;
     position:absolute;
     padding-left:5px;
-    font-family:verdana;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
     font-size:12px;
     padding: 5px 15px;
 }
