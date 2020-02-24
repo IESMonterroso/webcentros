@@ -129,7 +129,7 @@ include("inc_menu.php");
 
                 <div class="col-md-8">
 
-                    <h2 class="h3 title">Novedades en el instituto</h2>
+                    <h2 class="h3 title mb-2">Novedades en el instituto</h2>
 
                     <?php if (isset($config['carousel']) && count($config['carousel'])): ?>
                     <?php
