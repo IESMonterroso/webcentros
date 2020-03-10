@@ -2,6 +2,36 @@
 require_once("bootstrap.php");
 require_once("config.php");
 
+// FEED RSS TRAMITES TELEMATICOS
+function obtenerTramitesTelematicos() {
+    $titulo_feed = '';
+    $rss_novedades = array();
+    $numero_novedades = 1;
+
+    $feed = new SimplePie();
+
+    $feed->set_feed_url("http://www.juntadeandalucia.es/educacion/portals/delegate/rss/ced/escolarizacion/escolarizacion/-/-/false/OR/true/ishare_noticefrom/DESC/");
+    $feed->set_output_encoding('UTF-8');
+    $feed->enable_cache(false);
+    $feed->set_cache_duration(600);
+    $feed->init();
+    $feed->handle_content_type();
+
+    $titulo_feed = ($feed->get_title()) ? $feed->get_title() : 'Novedad - Consejería de Educación';
+
+    for ($x = 0; $x < $feed->get_item_quantity($numero_novedades); $x++) {
+        array_push($rss_novedades, $feed->get_item($x));
+    }
+
+    return array(
+        'titulo'    => $titulo_feed,
+        'contenido' => $rss_novedades
+    );
+}
+$tramites_telematicos = obtenerTramitesTelematicos();
+
+
+// NOTICIAS DESTACADAS
 $noticias_destacadas = array();
 $result = mysqli_query($db_con, "SELECT id, titulo, contenido, autor, fechapub, categoria from noticias where pagina like '%2%' and fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC");
 while ($row = mysqli_fetch_array($result)) {
@@ -210,6 +240,31 @@ include("inc_menu.php");
 
                     <?php echo $content_html_top['html']; ?>
                     <?php endforeach; ?>
+                    <?php endif; ?>
+
+                    <?php if (count($tramites_telematicos)): ?>
+                    <section>
+                        <?php foreach ($tramites_telematicos['contenido'] as $tramite): ?>
+                        <?php if (strpos($tramite->get_permalink(), 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoTramite/') !== false): ?>
+                        <article>
+                            <div class="media bg-secondary">
+                                <div class="media-body" style="margin: 20px;">
+                                    <div class="float-left" style="width: 120px; height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                      <img src="<?php echo WEBCENTROS_DOMINIO . 'ui-theme/img/secretaria-virtual.jpg' ; ?>" alt="Imagen de la noticia: <?php echo substr($tramite->get_title(), 13); ?>">
+                                    </div>
+                                    <h5 class="mt-0"><a href="<?php echo $tramite->get_permalink(); ?>" target="_blank">[Secretaría Virtual] <?php echo substr($tramite->get_title(), 13); ?></a></h5>
+
+                                    <div>
+                                        <a href="<?php echo $tramite->get_permalink(); ?>" target="_blank" class="btn btn-primary">Acceder al trámite</a>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </article>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    </section>
                     <?php endif; ?>
 
                     <?php if (count($noticias_destacadas) || count($noticias)): ?>

@@ -267,18 +267,18 @@ $config['carousel_config']['cycle'] = false;
 // Puede añadir tantos bloques como necesite, solo debe cambiar el número del array multidimensional: [0], [1], [2],...
 
 $config['carousel'][0]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide1.jpg?uid='.uniqid();
-$config['carousel'][0]['titulo'] = 'Inicio del curso escolar 2019/2020';
-$config['carousel'][0]['contenido'] = '<p class="mt-4 mb-2 text-center"><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/delegate/content/206a3822-8ad1-4b40-af66-9e332788b245/Dossier%20inicio%20de%20curso%2019-20" target="_blank">Dossier inicio de curso</a></p><p class="mb-2"><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/delegate/content/630d5087-3b19-4807-aa53-5941931bd115/Datos%20y%20cifras%20inicio%20curso%202019_2020" target="_blank">Datos y cifras inicio de curso</a></p>';
+$config['carousel'][0]['titulo'] = 'Escolarización 2020/21';
+$config['carousel'][0]['contenido'] = '<p>Plazo de escolarización<br>1 al 31 de marzo</p>';
+$config['carousel'][0]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/escolarizacion/infantil-a-bachillerato';
 
 $config['carousel'][1]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide2.jpg?uid='.uniqid();
-$config['carousel'][1]['titulo'] = 'Admisión 2019/20';
-$config['carousel'][1]['contenido'] = '<p>Nuevo portal de Escolarización segura del alumnado con enfermedades crónicas</p><p class="mb-2">Alergias &middot; Diabetes &middot; Epilepsia &middot; Cardiopatías &middot; Asma &middot; Cáncer</p>';
-$config['carousel'][1]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/escolarizacion-segura/inicio';
+$config['carousel'][1]['titulo'] = 'Inicio del curso escolar 2019/2020';
+$config['carousel'][1]['contenido'] = '<p class="mt-4 mb-2 text-center"><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/delegate/content/206a3822-8ad1-4b40-af66-9e332788b245/Dossier%20inicio%20de%20curso%2019-20" target="_blank">Dossier inicio de curso</a></p><p class="mb-2"><a class="highlight text-center" href="http://www.juntadeandalucia.es/educacion/portals/delegate/content/630d5087-3b19-4807-aa53-5941931bd115/Datos%20y%20cifras%20inicio%20curso%202019_2020" target="_blank">Datos y cifras inicio de curso</a></p>';
 
 $config['carousel'][2]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide3.jpg?uid='.uniqid();
-$config['carousel'][2]['titulo'] = 'Programa de Digitalización de Centros';
-$config['carousel'][2]['contenido'] = '<p>Curso 2019/20</p>';
-$config['carousel'][2]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/prodig/';
+$config['carousel'][2]['titulo'] = 'Admisión 2019/20';
+$config['carousel'][2]['contenido'] = '<p>Nuevo portal de Escolarización segura del alumnado con enfermedades crónicas</p><p class="mb-2">Alergias &middot; Diabetes &middot; Epilepsia &middot; Cardiopatías &middot; Asma &middot; Cáncer</p>';
+$config['carousel'][1]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/escolarizacion-segura/inicio';
 
 // GOOGLE ANALYTICS
 // Consigue el ID de seguimiento para usar la API de Google Analytics en https://analytics.google.com/analytics/
