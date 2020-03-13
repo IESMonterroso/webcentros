@@ -6,7 +6,7 @@ require_once("config.php");
 function obtenerTramitesTelematicos() {
     $titulo_feed = '';
     $rss_novedades = array();
-    $numero_novedades = 1;
+    $numero_novedades = 6;
 
     $feed = new SimplePie();
 
@@ -17,7 +17,7 @@ function obtenerTramitesTelematicos() {
     $feed->init();
     $feed->handle_content_type();
 
-    $titulo_feed = ($feed->get_title()) ? $feed->get_title() : 'Novedad - Consejería de Educación';
+    $titulo_feed = 'Consejería de Educación y Deporte';
 
     for ($x = 0; $x < $feed->get_item_quantity($numero_novedades); $x++) {
         array_push($rss_novedades, $feed->get_item($x));
@@ -245,18 +245,28 @@ include("inc_menu.php");
                     <?php if (count($tramites_telematicos)): ?>
                     <section>
                         <?php foreach ($tramites_telematicos['contenido'] as $tramite): ?>
-                        <?php if (strpos($tramite->get_permalink(), 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoTramite/') !== false): ?>
+                        <?php $tramite_anio = strftime('%Y',strtotime($tramite->get_date('j M Y, g:i a'))); ?>
+                        <?php $tramite_mes = strftime('%m',strtotime($tramite->get_date('j M Y, g:i a'))); ?>
+                        <?php if ((strpos($tramite->get_permalink(), 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoTramite/') !== false) && $tramite_anio >= date('Y') && $tramite_mes >= date('m')): ?>
                         <article>
                             <div class="media bg-secondary">
                                 <div class="media-body" style="margin: 20px;">
-                                    <div class="float-left" style="width: 120px; height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                    <h5 class="mt-0"><a href="<?php echo $tramite->get_permalink(); ?>" target="_blank"><?php echo substr($tramite->get_title(), 13); ?> <span class="badge">Secretaría Virtual</span></a></h5>
+                                    <h6 class="text-muted">
+                                        <a href="http://www.juntadeandalucia.es/educacion/portals/web/ced" target="_blank"><?php echo $tramites_telematicos['titulo']; ?></a>
+                                        &nbsp;&nbsp;/&nbsp;&nbsp;
+                                        <a href="http://www.juntadeandalucia.es/educacion/portals/web/ced/contenidos/-/busqueda/categoria/regimen-general" target="_blank">Régimen General</a>
+                                        &nbsp;&nbsp;/&nbsp;&nbsp;
+                                        <?php echo strftime('%e %b %Y',strtotime($tramite->get_date('j M Y, g:i a'))); ?>
+                                    </h6>
+
+                                    <div class="float-left" style="width: 120px; max-height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
                                       <img src="<?php echo WEBCENTROS_DOMINIO . 'ui-theme/img/secretaria-virtual.jpg' ; ?>" alt="Imagen de la noticia: <?php echo substr($tramite->get_title(), 13); ?>">
                                     </div>
-                                    <h5 class="mt-0"><a href="<?php echo $tramite->get_permalink(); ?>" target="_blank">[Secretaría Virtual] <?php echo substr($tramite->get_title(), 13); ?></a></h5>
 
-                                    <div>
-                                        <a href="<?php echo $tramite->get_permalink(); ?>" target="_blank" class="btn btn-primary">Acceder al trámite</a>
-                                    </div>
+                                    <p><?php echo $tramite->get_description(); ?></p>
+                                    <a href="<?php echo $tramite->get_permalink(); ?>" target="_blank" class="btn btn-primary">Acceder al trámite</a>
+                                    
 
                                     <div class="clearfix"></div>
                                 </div>
@@ -283,7 +293,7 @@ include("inc_menu.php");
                                 </h6>
                                 <?php $result_imagenes = preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $noticia['contenido'], $imagenes); ?>
                                 <?php if ((isset($result_imagenes) && $result_imagenes) && isset($imagenes[1])): ?>
-                                <div class="float-left" style="width: 150px; height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                <div class="float-left" style="width: 120px; max-height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
                                   <?php if (strpos($imagenes[1], 'data:image') !== false): ?>
                                   <?php
                                     $exp_datos_base64 = explode(',', $imagenes[1]);
@@ -344,7 +354,7 @@ include("inc_menu.php");
                                 </h6>
                                 <?php $result_imagenes = preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $noticia['contenido'], $imagenes); ?>
                                 <?php if ((isset($result_imagenes) && $result_imagenes) && isset($imagenes[1])): ?>
-                                <div class="float-left" style="width: 150px; height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                <div class="float-left" style="width: 120px; max-height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
                                   <?php if (strpos($imagenes[1], 'data:image') !== false): ?>
                                   <?php
                                     $exp_datos_base64 = explode(',', $imagenes[1]);
