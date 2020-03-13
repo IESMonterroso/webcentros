@@ -443,6 +443,23 @@ function obtenerColorImagen($imagen) {
 
 }
 
+function obtenerNumeroMes($mes) {
+    switch ($mes) {
+        case 'enero':       return '01'; break;
+        case 'febrero':     return '02'; break;
+        case 'marzo':       return '03'; break;
+        case 'abril':       return '04'; break;
+        case 'mayo':        return '05'; break;
+        case 'junio':       return '06'; break;
+        case 'julio':       return '07'; break;
+        case 'agosto':      return '08'; break;
+        case 'septiembre':  return '09'; break;
+        case 'octubre':     return '10'; break;
+        case 'noviembre':   return '11'; break;
+        case 'diciembre':   return '12'; break;
+    }
+}
+
 function getBrowser($u_agent) {
   if (empty($u_agent)) {
       $u_agent = 'Agente de usuario no detectado';

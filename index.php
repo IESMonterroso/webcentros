@@ -139,6 +139,33 @@ function sort_by_orden ($a, $b) {
     return strcmp($a['fechaini'], $b['fechaini']);
 }
 
+// FEED RSS ESCOLARIZACIÓN
+function obtenerCalendarioEscolarizacion() {
+    $titulo_feed = '';
+    $rss_novedades = array();
+
+    $feed = new SimplePie();
+
+    $feed->set_feed_url("http://www.juntadeandalucia.es/educacion/portals/delegate/rss/escolarizacion/escolarizacion/regimen-general/abaco_evento/-/false/OR/false/abaco_fechainicio/DESC/");
+    $feed->set_output_encoding('UTF-8');
+    $feed->enable_cache(false);
+    $feed->set_cache_duration(600);
+    $feed->init();
+    $feed->handle_content_type();
+
+    $titulo_feed = substr($feed->get_title(), 9);
+
+    for ($x = 0; $x < $feed->get_item_quantity(); $x++) {
+        array_push($rss_novedades, $feed->get_item($x));
+    }
+
+    return array(
+        'titulo'    => $titulo_feed,
+        'contenido' => $rss_novedades
+    );
+}
+$calendarioEscolarizacion = obtenerCalendarioEscolarizacion();
+
 
 // SEO
 //$pagina['meta']['robots'] = 0;
@@ -247,7 +274,20 @@ include("inc_menu.php");
                         <?php foreach ($tramites_telematicos['contenido'] as $tramite): ?>
                         <?php $tramite_anio = strftime('%Y',strtotime($tramite->get_date('j M Y, g:i a'))); ?>
                         <?php $tramite_mes = strftime('%m',strtotime($tramite->get_date('j M Y, g:i a'))); ?>
-                        <?php if ((strpos($tramite->get_permalink(), 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoTramite/') !== false) && $tramite_anio >= date('Y') && $tramite_mes >= date('m')): ?>
+                        <?php
+                        $esTramite = 0;
+                        $esConsulta = 0;
+                        $textoBoton = '';
+                        if (strpos($tramite->get_permalink(), 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoTramite/') !== false) {
+                            $esTramite = 1;
+                            $textoBoton = 'Acceder al trámite';
+                        }
+                        elseif (strpos($tramite->get_permalink(), 'https://www.juntadeandalucia.es/educacion/secretariavirtual/accesoConsultas/') !== false) {
+                            $esConsulta = 1;
+                            $textoBoton = 'Acceder a la consulta';
+                        }
+                        ?>
+                        <?php if (($esTramite || $esConsulta) && $tramite_anio >= date('Y') && $tramite_mes >= date('m')): ?>
                         <article>
                             <div class="media bg-secondary">
                                 <div class="media-body" style="margin: 20px;">
@@ -255,7 +295,7 @@ include("inc_menu.php");
                                     <h6 class="text-muted">
                                         <a href="http://www.juntadeandalucia.es/educacion/portals/web/ced" target="_blank"><?php echo $tramites_telematicos['titulo']; ?></a>
                                         &nbsp;&nbsp;/&nbsp;&nbsp;
-                                        <a href="http://www.juntadeandalucia.es/educacion/portals/web/ced/contenidos/-/busqueda/categoria/regimen-general" target="_blank">Régimen General</a>
+                                        <a href="http://www.juntadeandalucia.es/educacion/portals/web/escolarizacion" target="_blank">Escolarización</a>
                                         &nbsp;&nbsp;/&nbsp;&nbsp;
                                         <?php echo strftime('%e %b %Y',strtotime($tramite->get_date('j M Y, g:i a'))); ?>
                                     </h6>
@@ -265,7 +305,7 @@ include("inc_menu.php");
                                     </div>
 
                                     <p><?php echo $tramite->get_description(); ?></p>
-                                    <a href="<?php echo $tramite->get_permalink(); ?>" target="_blank" class="btn btn-primary">Acceder al trámite</a>
+                                    <a href="<?php echo $tramite->get_permalink(); ?>" target="_blank" class="btn btn-primary"><?php echo $textoBoton; ?> <i class="fas fa-external-link-alt ml-1"></i></a>
                                     
 
                                     <div class="clearfix"></div>
@@ -521,6 +561,57 @@ include("inc_menu.php");
                             </div>
                         </div>
                     </div>
+
+                    <?php if (date('m') >= '02' && date('m') <= '09' && count($calendarioEscolarizacion)): ?>
+                    <div class="calendario pt-15">
+                        <div class="card-box border-primary">
+                            <h5 class="card-title"><?php echo $calendarioEscolarizacion['titulo']; ?></h5>
+                            
+                            <?php foreach ($calendarioEscolarizacion['contenido'] as $evento): ?>
+                            <?php 
+                            $exp_fechas = explode(' al ', strip_tags($evento->get_description()));
+                            $replaceA = array('Del ', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'); 
+                            $replaceB = array('', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'); 
+                            $fecha_desde = trim(str_replace($replaceA, $replaceB, trim($exp_fechas[0])));
+                            $fecha_hasta = trim(str_replace($replaceA, $replaceB, trim($exp_fechas[1])));
+
+                            $exp_fecha_desde = explode(' ', $fecha_desde);
+                            $exp_fecha_hasta = explode(' ', $fecha_hasta);
+                            ?>
+                            <?php if (date('Y') >= $exp_fecha_desde[5] && date('m') <= get_month_number($exp_fecha_desde[3]) && date('m') + 1 >= get_month_number($exp_fecha_desde[3])): ?>
+
+                            <?php 
+                            $eventoDisponible = 0;
+                            if (date('Y') >= $exp_fecha_desde[5] && date('m') >= get_month_number($exp_fecha_desde[3]) && date('d') >= $exp_fecha_desde[1] && date('Y') <= $exp_fecha_hasta[5] && date('m') <= get_month_number($exp_fecha_hasta[3]) && date('d') <= $exp_fecha_hasta[1]) {
+                                $eventoDisponible = 1;
+                            }
+                            ?>
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="h6 text-center<?php echo ($eventoDisponible) ? ' text-success': ''; ?>">
+                                        <span><?php echo $exp_fecha_desde[1]; ?></span><br>
+                                        <small><?php echo substr($exp_fecha_desde[3], 0, 3); ?></small>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <h6 class="card-text text-wrap<?php echo ($eventoDisponible) ? ' text-success': ''; ?>"><?php echo $evento->get_title(); ?></h6>
+                                    <?php if ($exp_fecha_desde[1] . ' de ' . $exp_fecha_desde[3] == $exp_fecha_hasta[1] . ' de ' . $exp_fecha_hasta[3]): ?>
+                                    <p class="card-text text-muted"><?php echo $exp_fecha_desde[1] . ' de ' . $exp_fecha_desde[3]; ?></p>
+                                    <?php else: ?>
+                                    <p class="card-text text-muted">Del <?php echo $exp_fecha_desde[1] . ' de ' . $exp_fecha_desde[3]; ?> al <?php echo $exp_fecha_hasta[1] . ' de ' . $exp_fecha_hasta[3]; ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <hr>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
+
+                            <div class="text-center">
+                                <a href="http://www.juntadeandalucia.es/educacion/portals/web/escolarizacion" target="_blank" class="btn btn-primary">Portal de Escolarización <i class="fas fa-external-link-alt ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
 
                     <br>
 
