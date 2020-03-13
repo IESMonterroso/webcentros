@@ -578,11 +578,11 @@ include("inc_menu.php");
                             $exp_fecha_desde = explode(' ', $fecha_desde);
                             $exp_fecha_hasta = explode(' ', $fecha_hasta);
                             ?>
-                            <?php if (date('Y') >= $exp_fecha_desde[5] && date('m') <= get_month_number($exp_fecha_desde[3]) && date('m') + 1 >= get_month_number($exp_fecha_desde[3])): ?>
+                            <?php if (date('Y') >= $exp_fecha_desde[5] && date('m') <= obtenerNumeroMes($exp_fecha_desde[3]) && date('m') + 1 >= obtenerNumeroMes($exp_fecha_desde[3])): ?>
 
                             <?php 
                             $eventoDisponible = 0;
-                            if (date('Y') >= $exp_fecha_desde[5] && date('m') >= get_month_number($exp_fecha_desde[3]) && date('d') >= $exp_fecha_desde[1] && date('Y') <= $exp_fecha_hasta[5] && date('m') <= get_month_number($exp_fecha_hasta[3]) && date('d') <= $exp_fecha_hasta[1]) {
+                            if (date('Y') >= $exp_fecha_desde[5] && date('m') >= obtenerNumeroMes($exp_fecha_desde[3]) && date('d') >= $exp_fecha_desde[1] && date('Y') <= $exp_fecha_hasta[5] && date('m') <= obtenerNumeroMes($exp_fecha_hasta[3]) && date('d') <= $exp_fecha_hasta[1]) {
                                 $eventoDisponible = 1;
                             }
                             ?>
