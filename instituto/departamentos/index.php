@@ -66,10 +66,19 @@ $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos
 while ($row = mysqli_fetch_array($result)) {
 
         $componentes = array();
-        $result_componentes = mysqli_query($db_con, "SELECT nombre, cargo FROM departamentos WHERE departamento = '".$row['departamento']."' ORDER BY nombre ASC");
+        $result_componentes = mysqli_query($db_con, "SELECT `departamentos`.`nombre`, `departamentos`.`cargo`, `c_profes`.`correo` FROM `departamentos` JOIN `c_profes` ON `departamentos`.`idea` = `c_profes`.`idea` WHERE `departamentos`.`departamento` = '".$row['departamento']."' ORDER BY `departamentos`.`nombre` ASC");
         while ($row_componente = mysqli_fetch_array($result_componentes)) {
+
+            if (strpos($row_componente['correo'], '@'.'juntadeandalucia.es') !== false || strpos($row_componente['correo'], '@'.$_SERVER['SERVER_NAME']) !== false) {
+                $correo = $row_componente['correo'];
+            }
+            else {
+                $correo = "";
+            }
+
             $componente = array(
                 'nombre'    => rgpdNombreProfesor($row_componente['nombre']),
+                'correo'    => $correo,
                 'esJefe'    => ((stristr($row_componente['cargo'], '4') == true) ? '1' : '0')
             );
 
@@ -140,7 +149,14 @@ include("../../inc_menu.php");
                         <hr>
                         <ul class="fa-ul">
                             <?php foreach ($departamento['componentes'] as $componente): ?>
-                            <li><span class="fa-li far fa-user"></span> <?php echo $componente['nombre']; ?><?php echo ($componente['esJefe'] == 1) ? ' <span class="text-muted"><strong>(Jefe/a de departamento)</strong></span>' : ''; ?></li>
+                            <li>
+                                <span class="fa-li far fa-user"></span> <?php echo $componente['nombre']; ?><?php echo ($componente['esJefe'] == 1) ? ' <span class="text-muted"><strong>(Jefe/a de departamento)</strong></span>' : ''; ?>
+                                <?php if (! empty($componente['correo'])): ?>
+                                <div class="text-muted" style="font-size: 0.8rem;">
+                                    <a href="mailto:<?php echo $componente['correo']; ?>"><i class="fas fa-envelope fa-fw fa-lg"></i> Correo electrónico</a></small>
+                                </div>
+                                <?php endif; ?>
+                            </li>
                             <?php endforeach; ?>
                         </ul>
 

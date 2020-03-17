@@ -85,6 +85,10 @@ a:hover.navbar-brand-lg {
     margin-top: 150px;
 }
 
+li {
+  margin-bottom: 0.5rem;
+}
+
 .carousel-indicators {
   max-width: 100px;
   margin-right: auto;
