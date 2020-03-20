@@ -1514,9 +1514,7 @@ if (headers_sent()) {
 	$str .= ft_make_sidebar();
 	$str .= ft_make_body();
 }
-?>
 
-<?php
 $pagina['titulo'] = 'Documentos';
 
 // SEO

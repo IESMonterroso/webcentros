@@ -314,7 +314,7 @@ include('../inc_menu.php');
 			</div><!-- /.row -->
 			</div><!-- /.well -->
 
-			<?php if ((isset($_SESSION['administrador']) && $_SESSION['administrador'] == 1) || (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
+			<?php if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
 			<div class="row mb-3">
 				<div class="col-12">
 
@@ -372,6 +372,10 @@ include('../inc_menu.php');
 						<li class="nav-item"><a class="nav-link" href="#tutoria" role="tab" data-toggle="tab">Tutoría</a></li>
 						<?php endif; ?>
 						<li class="nav-item"><a class="nav-link" href="#mensajes" role="tab" data-toggle="tab">Mensajes<?php echo ($numeroMensajesRecibidos) ? ' <span class="badge">'.$numeroMensajesRecibidos.'</span>' : ''; ?></a></li>
+						<?php $rutaRecursos = $config['mod_documentos_dir'] . "/Recursos/" . $row['unidad']; ?>
+						<?php if (file_exists($rutaRecursos)): ?>
+						<li class="nav-item"><a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>/documentos/index.php?dir=/Recursos/<?php echo $row['unidad']; ?>">Recursos</a></li>
+						<?php endif; ?>
 						<?php /*if ($estaMatriculadoBachillerato==1): ?>
 						<li class="nav-item"><a class="nav-link" href="./matriculas/matriculas_bach.php?curso=<?php echo $curso; ?>" target="_blank">Matrícula</a></li>
 						<?php endif; ?>
@@ -381,6 +385,7 @@ include('../inc_menu.php');
 					</ul>
 
 					<br>
+					
 
 					<div class="tab-content">
 						<div class="tab-pane active" id="asistencia">
@@ -411,6 +416,9 @@ include('../inc_menu.php');
 						<?php endif; ?>
 						<div class="tab-pane" id="mensajes">
 						<?php include("mensajes.php"); ?>
+						</div>
+						<div class="tab-pane" id="recursos">
+						<?php include("recursos.php"); ?>
 						</div>
 					</div>
 
