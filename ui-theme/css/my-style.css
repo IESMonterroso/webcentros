@@ -85,7 +85,7 @@ a:hover.navbar-brand-lg {
     margin-top: 150px;
 }
 
-li {
+p + ul > li, p + ol > li {
   margin-bottom: 0.5rem;
 }
 
