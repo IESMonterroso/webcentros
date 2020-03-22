@@ -56,19 +56,42 @@ if ($claveal) {
 
 
 	if ($row1 = mysqli_fetch_array($result1)) {
-	  $unidad = $row1['unidad'];
-	  $curso = $row1['curso'];
-	  $claveal1 = $row1['claveal1'];
-	  $apellido = $row1['apellidos'];
-	  $nombrepil = $row1['nombre'];
-	  $dni_responsable_legal = $row1['dnitutor'];
+		$unidad = $row1['unidad'];
+		$curso = $row1['curso'];
+		$claveal1 = $row1['claveal1'];
+		$apellido = $row1['apellidos'];
+		$nombrepil = $row1['nombre'];
+		$dni_responsable_legal = $row1['dnitutor'];
 		if (isset($row1['combasi'])) {
 			$combasi = $row1['combasi'];
 		}
 		if (! isset($_SESSION['alumno'])) {
 			$_SESSION['alumno'] = $nombrepil;
 		}
-  }
+
+		if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
+			$nombre_o = str_replace("Á", "A", $row1['nombre']);
+			$apellidos_o = str_replace("Á", "A", $row1['apellidos']);
+			$iniciales = strtolower(substr($nombre_o, 0,1).substr($apellidos_o, 0,1));
+			$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
+			$nombre = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $nombre_o);
+			$apellidos = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $apellidos_o);
+
+			$correo_gsuite = "al.".$row1['claveal'].'@'.$config['dominio'];
+			$pass_gsuite = $iniciales.".".$row1['claveal'];
+
+			$usuario_moodle = $row1['claveal'];
+			$pass_moodle = substr(sha1($row1['claveal']),0,8);
+		}
+		else {
+			$correo_gsuite = $row1['claveal'].'.alumno@'.$config['dominio'];
+			$pass_gsuite = substr(sha1($row1['claveal']),0,8);
+
+			$usuario_moodle = $row1['claveal'];
+			$pass_moodle = substr(sha1($row1['claveal']),0,8);
+		}
+	}
+
 }
 
 // Módulo de matriculación
@@ -202,7 +225,7 @@ include('../inc_menu.php');
 			<?php $exp_tutor = explode(", ",$row_tutor['tutor']); ?>
 			<?php $tutor = trim($exp_tutor[1]." ".$exp_tutor[0]); ?>
 			<!-- SCAFFOLDING -->
-			<div class="card-box border-primary">
+			<div class="card-box border-primary pb-0">
 			<div class="row">
 
 				<!-- COLUMNA IZQUIERDA -->
@@ -309,6 +332,46 @@ include('../inc_menu.php');
 
 					</div><!-- /.row -->
 
+					<button class="btn btn-link btn-block" id="collapseButtonCredenciales" type="button" data-toggle="collapse" data-target="#collapseCredenciales" aria-expanded="false" aria-controls="collapseCredenciales"><span class="h6 mb-0 pb-0">Mostrar más <i class="fas fa-chevron-down fa-fw"></i></span></button>
+
+					<div class="collapse pb-3" id="collapseCredenciales">
+						<hr>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<h6 class="mb-3">
+									Acceso a plataforma Moodle del Centro <a href="http://www.juntadeandalucia.es/averroes/centros-tic/<?php echo $config['centro_codigo']; ?>/moodle2/" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+								</h6>
+
+								<dl class="row">
+									<dt class="col-sm-5">Usuario</dt>
+									<dd class="col-sm-7"><?php echo $usuario_moodle; ?></dd>
+
+									<dt class="col-sm-5">Contraseña</dt>
+									<dd class="col-sm-7"><?php echo $pass_moodle; ?></dd>
+								</dl>
+							</div>
+
+							<div class="col-sm-6">
+								<h6 class="mb-3">
+									Acceso a Google Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> / Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+								</h6>
+
+								<dl class="row">
+									<dt class="col-sm-5">Usuario</dt>
+									<dd class="col-sm-7"><?php echo $correo_gsuite; ?></dd>
+
+									<dt class="col-sm-5">Contraseña</dt>
+									<dd class="col-sm-7"><?php echo $pass_gsuite; ?></dd>
+								</dl>
+							</div>
+
+							<div class="col-sm-12">
+								<small class="text-muted">Las credenciales que aparecen en esta página son de carácter informativo. Es posible que el Centro educativo no le haya dado de alta en todas las plataformas.</small>
+							</div>
+						</div>
+					</div>
+
 				</div><!-- /.col-sm-10 -->
 
 			</div><!-- /.row -->
@@ -376,12 +439,13 @@ include('../inc_menu.php');
 						<?php if (file_exists($rutaRecursos)): ?>
 						<li class="nav-item"><a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>/documentos/index.php?dir=/Recursos/<?php echo $row['unidad']; ?>">Recursos</a></li>
 						<?php endif; ?>
-						<?php /*if ($estaMatriculadoBachillerato==1): ?>
+						<?php if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && date('m') >= 6 && date('m') <= 10): ?>
+						<?php if (isset($estaMatriculadoBachillerato) && $estaMatriculadoBachillerato == 1): ?>
 						<li class="nav-item"><a class="nav-link" href="./matriculas/matriculas_bach.php?curso=<?php echo $curso; ?>" target="_blank">Matrícula</a></li>
-						<?php endif; ?>
-						<?php if ($estaMatriculadoESO==1): ?>
+						<?php elseif (isset($estaMatriculadoESO) && $estaMatriculadoESO == 1): ?>
 						<li class="nav-item"><a class="nav-link" href="./matriculas/matriculas.php?curso=<?php echo $curso; ?>" target="_blank">Matrícula</a></li>
-						<?php endif; */?>
+						<?php endif; ?>
+						<?php endif; ?>
 					</ul>
 
 					<br>
@@ -485,6 +549,15 @@ include('../inc_menu.php');
 		<?php elseif (isset($_GET['mod']) && $_GET['mod'] == 'mensajes'): ?>
 		$('#nav_alumno a[href="#mensajes"]').tab('show');
 		<?php endif; ?>
+
+		$(document).ready(function() {
+			$('#collapseCredenciales').on('show.bs.collapse', function () {
+			  $('#collapseButtonCredenciales').html('<span class="h6 mb-0 pb-0">Mostrar menos <i class="fas fa-chevron-up fa-fw"></i></span>');
+			});
+			$('#collapseCredenciales').on('hidden.bs.collapse', function () {
+			  $('#collapseButtonCredenciales').html('<span class="h6 mb-0 pb-0">Mostrar más <i class="fas fa-chevron-down fa-fw"></i></span>');
+			});
+		});
 	</script>
 
 </body>

@@ -300,8 +300,8 @@ include("inc_menu.php");
                                         <?php echo strftime('%e %b %Y',strtotime($tramite->get_date('j M Y, g:i a'))); ?>
                                     </h6>
 
-                                    <div class="float-left" style="width: 120px; max-height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
-                                      <img src="<?php echo WEBCENTROS_DOMINIO . 'ui-theme/img/secretaria-virtual.jpg' ; ?>" alt="Imagen de la noticia: <?php echo substr($tramite->get_title(), 13); ?>">
+                                    <div class="float-left" style="width: 120px; max-height: 127px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                      <img src="<?php echo WEBCENTROS_DOMINIO . 'ui-theme/img/secretaria-virtual.png' ; ?>" alt="Imagen de la noticia: <?php echo substr($tramite->get_title(), 13); ?>">
                                     </div>
 
                                     <p><?php echo $tramite->get_description(); ?></p>
@@ -325,15 +325,15 @@ include("inc_menu.php");
                             <div class="media-body" style="margin: 20px;">
                                 <h5 class="mt-0"><a href="<?php echo $url_noticia; ?>"><?php echo $noticia['titulo']; ?></a></h5>
                                 <h6 class="text-muted">
-                                    <a href="<?php echo WEBCENTROS_DOMINIO."noticias/autor/".$noticia['alias_autor']; ?>" class="text-muted"><?php echo $noticia['autor']; ?></a>
+                                    <a href="<?php echo WEBCENTROS_DOMINIO."noticias/autor/".$noticia['alias_autor']; ?>"><?php echo $noticia['autor']; ?></a>
                                     &nbsp;&nbsp;/&nbsp;&nbsp;
-                                    <a href="<?php echo WEBCENTROS_DOMINIO."noticias/categoria/".$noticia['alias_categoria']; ?>" class="text-muted"><?php echo $noticia['categoria']; ?></a>
+                                    <a href="<?php echo WEBCENTROS_DOMINIO."noticias/categoria/".$noticia['alias_categoria']; ?>"><?php echo $noticia['categoria']; ?></a>
                                     &nbsp;&nbsp;/&nbsp;&nbsp;
                                     <?php echo strftime('%e %b %Y', strtotime($noticia['fechapub'])); ?>
                                 </h6>
                                 <?php $result_imagenes = preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $noticia['contenido'], $imagenes); ?>
                                 <?php if ((isset($result_imagenes) && $result_imagenes) && isset($imagenes[1])): ?>
-                                <div class="float-left" style="width: 120px; max-height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                <div class="float-left" style="width: 120px; max-height: 127px; margin: 5px 15px 15px 0; overflow: hidden;">
                                   <?php if (strpos($imagenes[1], 'data:image') !== false): ?>
                                   <?php
                                     $exp_datos_base64 = explode(',', $imagenes[1]);
@@ -394,7 +394,7 @@ include("inc_menu.php");
                                 </h6>
                                 <?php $result_imagenes = preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $noticia['contenido'], $imagenes); ?>
                                 <?php if ((isset($result_imagenes) && $result_imagenes) && isset($imagenes[1])): ?>
-                                <div class="float-left" style="width: 120px; max-height: 120px; margin: 5px 15px 15px 0; overflow: hidden;">
+                                <div class="float-left" style="width: 120px; max-height: 127px; margin: 5px 15px 15px 0; overflow: hidden;">
                                   <?php if (strpos($imagenes[1], 'data:image') !== false): ?>
                                   <?php
                                     $exp_datos_base64 = explode(',', $imagenes[1]);

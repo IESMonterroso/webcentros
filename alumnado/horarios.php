@@ -76,11 +76,18 @@ mysqli_query($db_con,"DROP TABLE asig_tmp");
 		<?php $combasi = mysqli_fetch_array($result); ?>
 		<?php $exp_combasi = explode(":", $combasi['combasi']); ?>
 		<?php foreach($exp_combasi as $codigo): ?>
-		<?php $result = mysqli_query($db_con, "SELECT DISTINCT materia, profesor FROM profesores, asignaturas WHERE materia= nombre AND grupo = '".$combasi['unidad']."' AND codigo = '$codigo' AND abrev NOT LIKE '%\_%' AND curso = '".$combasi['curso']."' ORDER BY materia ASC"); ?>
+		<?php $result = mysqli_query($db_con, "SELECT DISTINCT `profesores`.`materia`, `profesores`.`profesor`, `c_profes`.`correo` FROM `profesores`, `asignaturas`, `c_profes` WHERE `profesores`.`profesor` = `c_profes`.`profesor` AND `profesores`.`materia`= `asignaturas`.`nombre` AND `profesores`.`grupo` = '".$combasi['unidad']."' AND `asignaturas`.`codigo` = '$codigo' AND `asignaturas`.`abrev` NOT LIKE '%\_%' AND `asignaturas`.`curso` = '".$combasi['curso']."' ORDER BY `profesores`.`materia` ASC"); ?>
 			<?php while($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo $row['materia']; ?></td>
-				<td class="text-info"><?php echo $row['profesor']; ?></td>
+				<td class="text-info">
+					<?php echo $row['profesor']; ?>
+					<?php if (strpos($row['correo'], '@'.'juntadeandalucia.es') !== false || strpos($row['correo'], '@'.$_SERVER['SERVER_NAME']) !== false): ?>
+					<div class="text-muted mt-2" style="font-size: 0.8rem;">
+						<a href="mailto:<?php echo $row['correo']; ?>"><i class="fas fa-envelope fa-fw"></i> <?php echo $row['correo']; ?></a>
+					</div>
+					<?php endif; ?>
+				</td>
 			</tr>
 			<?php endwhile; ?>
 		<?php endforeach; ?>
