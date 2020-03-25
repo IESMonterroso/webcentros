@@ -332,6 +332,7 @@ include('../inc_menu.php');
 
 					</div><!-- /.row -->
 
+					<?php if ((isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']) || (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) || (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
 					<button class="btn btn-link btn-block" id="collapseButtonCredenciales" type="button" data-toggle="collapse" data-target="#collapseCredenciales" aria-expanded="false" aria-controls="collapseCredenciales"><span class="h6 mb-0 pb-0">Mostrar más <i class="fas fa-chevron-down fa-fw"></i></span></button>
 
 					<div class="collapse pb-3" id="collapseCredenciales">
@@ -376,12 +377,11 @@ include('../inc_menu.php');
 									<dd class="col-sm-7"><?php echo $pass_gsuite; ?></dd>
 								</dl>
 							</div>
+							<?php endif; ?>
 
-							<div class="col-sm-12">
-								<small class="text-muted">Las credenciales que aparecen en esta página son de carácter informativo. Es posible que el Centro educativo no le haya dado de alta en todas las plataformas.</small>
-							</div>
 						</div>
 					</div>
+					<?php endif; ?>
 
 				</div><!-- /.col-sm-10 -->
 
