@@ -34,6 +34,30 @@
 
     </div><!-- ./wrapper -->
 
+    <?php if (isset($config['facebook_chat']['page_id']) && ! empty($config['facebook_chat']['page_id']) && $config['facebook_chat']['page_id'] != 'YOUR_PAGE_ID' && isset($config['facebook_chat']['theme_color']) && ! empty($config['facebook_chat']['theme_color']) && isset($config['facebook_chat']['welcome_message']) && ! empty($config['facebook_chat']['welcome_message'])): ?>
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+      FB.init({
+        xfbml            : true,
+        version          : 'v6.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- Your customer chat code -->
+    <div class="fb-customerchat" attribution=setup_tool page_id="<?php echo $config['facebook_chat']['page_id']; ?>" theme_color="<?php echo $config['facebook_chat']['theme_color']; ?>" logged_in_greeting="<?php echo $config['facebook_chat']['welcome_message']; ?>" logged_out_greeting="<?php echo $config['facebook_chat']['welcome_message']; ?>"></div>
+    <?php endif; ?>
+
     <!-- Core JS Files -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

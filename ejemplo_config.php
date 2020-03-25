@@ -303,6 +303,12 @@ $config['carousel'][3]['enlace'] = 'http://www.juntadeandalucia.es/educacion/por
 //$config['google_recaptcha']['site_key'] = 'YOUR_SITE_KEY';
 //$config['google_recaptcha']['secret'] = 'YOUR_SECRET_CODE';
 
+// Facebook Customer Chat
+// https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/
+$config['facebook_chat']['page_id'] = 'YOUR_PAGE_ID';
+$config['facebook_chat']['theme_color'] = '#0084ff';
+$config['facebook_chat']['welcome_message'] = '¡Hola! ¿En qué te podemos ayudar?';
+
 // Por último, renombra este fichero como config.php
 
 // Fin de archivo config.php
