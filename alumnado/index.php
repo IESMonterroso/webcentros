@@ -338,6 +338,7 @@ include('../inc_menu.php');
 						<hr>
 
 						<div class="row">
+							<?php if (isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']): ?>
 							<div class="col-sm-6">
 								<h6 class="mb-3">
 									Acceso a plataforma Moodle del Centro <a href="http://www.juntadeandalucia.es/averroes/centros-tic/<?php echo $config['centro_codigo']; ?>/moodle2/" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
@@ -351,10 +352,20 @@ include('../inc_menu.php');
 									<dd class="col-sm-7"><?php echo $pass_moodle; ?></dd>
 								</dl>
 							</div>
+							<?php endif; ?>
 
+							<?php if ((isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) || (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
 							<div class="col-sm-6">
 								<h6 class="mb-3">
-									Acceso a Google Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> / Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']): ?>
+									Acceso a Google Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php endif; ?>
+									<?php if ((isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) && (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
+									&nbsp;/&nbsp;
+									<?php endif; ?>
+									<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?> 
+									Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php endif; ?>
 								</h6>
 
 								<dl class="row">
