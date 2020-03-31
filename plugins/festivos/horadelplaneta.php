@@ -7,7 +7,7 @@
       </svg>
     </div>
     <div style="color: #adb5bd; position: absolute; top: 30px; margin-left: 490px; width: 180px; z-index: 10; text-align: center;">
-      <span style="font-family: Futura; font-weight: bold; font-size: 18px; color: #c0a259;">30 MARZO</span><br>
+      <span style="font-family: Futura; font-weight: bold; font-size: 18px; color: #c0a259;">28 MARZO</span><br>
       <span style="font-family: Futura; color: #c0a259;">LA HORA DEL PLANETA</span>
     </div>
   </div>
@@ -18,7 +18,7 @@
       </svg>
     </div>
     <div style="color: #adb5bd; position: absolute; top: 30px; margin-left: 490px; width: 85px; z-index: 10; text-align: left;">
-      <p style="font-family: Futura; font-weight: bold; font-size: 12px; color: #c0a259;" class="mb-0">30 MARZO</p>
+      <p style="font-family: Futura; font-weight: bold; font-size: 12px; color: #c0a259;" class="mb-0">28 MARZO</p>
       <p style="font-family: Futura; font-size: 11px; color: #c0a259;">LA HORA<br>DEL PLANETA</p>
     </div>
   </div>
