@@ -30,10 +30,18 @@ $notas1 = "select notas1, notas2, notas3, notas4, unidad, notas0 from alma, nota
 $result1 = mysqli_query($db_con, $notas1);
 $row1 = mysqli_fetch_array($result1);
 $asignatura_1 = substr($row1[0], 0, strlen($row1[0])-1);
+$asignatura_2 = substr($row1[1], 0, strlen($row1[1])-1);
+$asignatura_3 = substr($row1[2], 0, strlen($row1[2])-1);
 $inicial = substr($row1[5], 0, strlen($row1[5])-1);
 
 if (strlen($asignatura_1) > 0) {
 	$trozos = explode(";", $asignatura_1);
+}
+elseif (strlen($asignatura_2) > 0) {
+	$trozos = explode(";", $asignatura_2);
+}
+elseif (strlen($asignatura_3) > 0) {
+	$trozos = explode(";", $asignatura_3);
 }
 elseif(strlen($inicial) > 0) {
 	$trozos = explode(";", $inicial);
