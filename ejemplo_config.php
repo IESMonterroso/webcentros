@@ -273,7 +273,7 @@ $config['carousel'][0]['enlace'] = 'http://www.juntadeandalucia.es/educacion/por
 
 $config['carousel'][1]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide2.jpg?uid='.uniqid();
 $config['carousel'][1]['titulo'] = 'Escolarización 2020/21';
-$config['carousel'][1]['contenido'] = '<p>Plazo de escolarización<br>1 al 31 de marzo</p>';
+$config['carousel'][1]['contenido'] = '<p>Plazo de escolarización<br>1 al 30 de abril</p>';
 $config['carousel'][1]['enlace'] = 'http://www.juntadeandalucia.es/educacion/portals/web/escolarizacion/infantil-a-bachillerato';
 
 $config['carousel'][2]['imagen'] = WEBCENTROS_DOMINIO . 'ui-theme/img/slide/slide3.jpg?uid='.uniqid();
