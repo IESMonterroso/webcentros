@@ -588,13 +588,13 @@ include("inc_menu.php");
                             ?>
                             <div class="row">
                                 <div class="col-2">
-                                    <div class="h6 text-center<?php echo ($eventoDisponible) ? ' text-success': ''; ?>">
+                                    <div class="h6 text-center<?php echo ($eventoDisponible) ? ' text-info': ''; ?>">
                                         <span><?php echo $exp_fecha_desde[1]; ?></span><br>
                                         <small><?php echo substr($exp_fecha_desde[3], 0, 3); ?></small>
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <h6 class="card-text text-wrap<?php echo ($eventoDisponible) ? ' text-success': ''; ?>"><?php echo $evento->get_title(); ?></h6>
+                                    <h6 class="card-text text-wrap<?php echo ($eventoDisponible) ? ' text-info': ''; ?>"><?php echo $evento->get_title(); ?></h6>
                                     <?php if ($exp_fecha_desde[1] . ' de ' . $exp_fecha_desde[3] == $exp_fecha_hasta[1] . ' de ' . $exp_fecha_hasta[3]): ?>
                                     <p class="card-text text-muted"><?php echo $exp_fecha_desde[1] . ' de ' . $exp_fecha_desde[3]; ?></p>
                                     <?php else: ?>
