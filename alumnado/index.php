@@ -332,14 +332,12 @@ include('../inc_menu.php');
 
 					</div><!-- /.row -->
 
-					<?php if ((isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']) || (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) || (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
 					<button class="btn btn-link btn-block" id="collapseButtonCredenciales" type="button" data-toggle="collapse" data-target="#collapseCredenciales" aria-expanded="false" aria-controls="collapseCredenciales"><span class="h6 mb-0 pb-0">Mostrar más <i class="fas fa-chevron-down fa-fw"></i></span></button>
 
 					<div class="collapse pb-3" id="collapseCredenciales">
 						<hr>
 
 						<div class="row">
-							<?php if (isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']): ?>
 							<div class="col-sm-6">
 								<h6 class="mb-3">
 									Acceso a plataforma Moodle del Centro <a href="http://www.juntadeandalucia.es/averroes/centros-tic/<?php echo $config['centro_codigo']; ?>/moodle2/" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
@@ -353,20 +351,10 @@ include('../inc_menu.php');
 									<dd class="col-sm-7"><?php echo $pass_moodle; ?></dd>
 								</dl>
 							</div>
-							<?php endif; ?>
 
-							<?php if ((isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) || (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
 							<div class="col-sm-6">
 								<h6 class="mb-3">
-									<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']): ?>
-									Acceso a Google Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
-									<?php endif; ?>
-									<?php if ((isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) && (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
-									&nbsp;/&nbsp;
-									<?php endif; ?>
-									<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?> 
-									Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
-									<?php endif; ?>
+									Acceso a Google Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> / Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
 								</h6>
 
 								<dl class="row">
@@ -377,11 +365,12 @@ include('../inc_menu.php');
 									<dd class="col-sm-7"><?php echo $pass_gsuite; ?></dd>
 								</dl>
 							</div>
-							<?php endif; ?>
 
+							<div class="col-sm-12">
+								<small class="text-muted">Las credenciales que aparecen en esta página son de carácter informativo. Es posible que el Centro educativo no le haya dado de alta en todas las plataformas.</small>
+							</div>
 						</div>
 					</div>
-					<?php endif; ?>
 
 				</div><!-- /.col-sm-10 -->
 
@@ -432,15 +421,22 @@ include('../inc_menu.php');
 					}
 					</style>
 
-					<ul id="nav_alumno" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
+					<?php
+					if (isset($_GET['anio']) AND isset($_GET['mes'])) {
+						$link_active_faltas = "";
+						$link_active_calendario = "active";
+					}
+					else{
+						$link_active_faltas = "active";
+						$link_active_calendario = "";
+					}
+					?>
+					<ul id="nav_alumno" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-milanored" role="tablist">
 						<?php $tab1 = 1; ?>
-						<li class="nav-item"><a class="nav-link active" href="#asistencia" role="tab" data-toggle="tab">Asistencia</a></li>
+						<li class="nav-item"><a class="nav-link <?php echo $link_active_faltas; ?>" href="#asistencia" role="tab" data-toggle="tab">Asistencia</a></li>
 						<li class="nav-item"><a class="nav-link" href="#convivencia" role="tab" data-toggle="tab">Convivencia</a></li>
 						<li class="nav-item"><a class="nav-link" href="#evaluaciones" role="tab" data-toggle="tab">Calificaciones</a></li>
-						<li class="nav-item"><a class="nav-link" href="#actividades" role="tab" data-toggle="tab">Extraescolares</a></li>
-						<?php if ($muestra_evaluables == 1): ?>
-						<li class="nav-item"><a class="nav-link" href="#evaluables" role="tab" data-toggle="tab">Actividades</a></li>
-						<?php endif; ?>
+						<li class="nav-item"><a class="nav-link <?php echo $link_active_calendario; ?>" href="#evaluables" role="tab" data-toggle="tab">Actividades</a></li>
 						<li class="nav-item"><a class="nav-link" href="#horario" role="tab" data-toggle="tab">Horario</a></li>
 						<?php if (isset($config['alumnado']['ver_informes_tutoria']) && $config['alumnado']['ver_informes_tutoria']): ?>
 						<li class="nav-item"><a class="nav-link" href="#tutoria" role="tab" data-toggle="tab">Tutoría</a></li>
@@ -463,7 +459,7 @@ include('../inc_menu.php');
 					
 
 					<div class="tab-content">
-						<div class="tab-pane active" id="asistencia">
+						<div class="tab-pane <?php echo $link_active_faltas; ?>" id="asistencia">
 						<?php include("faltas.php"); ?>
 						<?php include("faltasd.php"); ?>
 						</div>
@@ -473,11 +469,8 @@ include('../inc_menu.php');
 						<div class="tab-pane" id="evaluaciones">
 						<?php include("notas.php"); ?>
 						</div>
-						<div class="tab-pane" id="actividades">
-						<?php include("actividades.php"); ?>
-						</div>
 						<?php if ($muestra_evaluables == 1): ?>
-						<div class="tab-pane" id="evaluables">
+						<div class="tab-pane <?php echo $link_active_calendario; ?>" id="evaluables">
 						<?php include("evaluables.php"); ?>
 						</div>
 						<?php endif; ?>

@@ -126,7 +126,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
               }
               
               if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-                echo '<div class="badge badge-pill badge-primary label" data-bs="tooltip" title="'.$eventos['descripcion'].'"><p><strong>'.$hora_evento.': '.$nomasignatura.'</strong></p>'.$eventos['nombre'].'</div>';
+                echo '<div class="badge badge-pill badge-primary label" data-toggle="tooltip" title="'.$eventos['descripcion'].'"><p><strong>'.$hora_evento.': '.$nomasignatura.'</strong></p>'.$eventos['nombre'].'</div>';
               }
               
               unset($nomasignatura);
@@ -144,7 +144,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
         $result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
         while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
           
-          $result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, horaini, fechafin, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%' ORDER BY horaini ASC, horafin ASC");
+          $result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, horaini, fechafin, horafin, departamento, observaciones FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%' ORDER BY horaini ASC, horafin ASC");
           
           while ($eventos = mysqli_fetch_assoc($result_eventos)) {
             
@@ -165,7 +165,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
             }
             
             if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-              echo '<div class="badge badge-success label" data-bs="tooltip" title="'.$eventos['descripcion'].'"><p><strong>'.$hora_evento.'</strong></p>'.$eventos['nombre'].'</div>';
+              echo '<div class="badge badge-success label" data-toggle="tooltip" data-html="true" title="<p class=text-left>'.$eventos['descripcion'].'</p>"><p><strong>'.$hora_evento.'</strong></p>'.$eventos['nombre'].'</div>';
             }
             
             unset($horaini);
@@ -180,7 +180,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
         while ($festivo = mysqli_fetch_assoc($result)) {
           
           if ($festivo['fecha'] == $anio.'-'.$mes.'-'.$dia0) {
-            echo '<div class="badge badge-info label" data-bs="tooltip" title="'.$festivo['nombre'].'">'.$festivo['nombre'].'</div>';
+            echo '<div class="badge badge-info label" data-toggle="tooltip" title="'.$festivo['nombre'].'">'.$festivo['nombre'].'</div>';
           }
         }
         mysqli_free_result($result);
@@ -219,22 +219,84 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
       margin-bottom: 0;
     }
     
-    </style>
-
-    <!-- TITULO DE LA PAGINA -->
-      <h3>Calendario de actividades de <?php echo $unidad; ?> <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h3>    
+    </style> 
     
     <!-- SCAFFOLDING -->
     <div class="row">
       
       <!-- COLUMNA CENTRAL -->
       <div class="col-md-12">
-        
-        <div class="clearfix"></div>
-        <br class="hidden-print">
-        
-        <?php vista_mes($calendario, $dia, $mes, $anio, $unidad); ?>
-        
+
+          <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
+            <li class="nav-item"><a class="nav-link active" href="#calendario_act" role="tab" data-toggle="tab">Calendario de actividades</a></li>
+            <li class="nav-item"><a class="nav-link" href="#resultados_act" role="tab" data-toggle="tab">Resultados de las actividades</a></li>
+          </ul>
+
+          <br>         
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="calendario_act">
+              
+              <!-- TITULO DE LA PAGINA -->
+              <br>
+              <h3>Calendario de actividades de <?php echo $unidad; ?></h3>   
+
+              <a name="calendario_act"></a>
+             
+              <div class="float-left">
+                <legend class="text-muted"><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></legend>  
+              </div>  
+
+            <div class="float-right">           
+              <div class="btn-group">
+                <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>&unidad=<?php echo $unidad; ?>#evaluables" class="btn btn-default">&laquo;</a>
+                <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>&unidad=<?php echo $unidad; ?>#evaluables" class="btn btn-default">Hoy</a>
+                <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>&unidad=<?php echo $unidad; ?>#evaluables" class="btn btn-default">&raquo;</a>
+              </div>            
+            </div>
+
+            <div class="clearfix"></div>
+            <br class="hidden-print">
+          
+            <?php vista_mes($calendario, $dia, $mes, $anio, $unidad); ?>
+            
+          </div>
+
+          <div class="tab-pane" id="resultados_act">
+            
+            <a name="resultados_act"></a>
+            <br>
+            <h3>Resultados de actividades evaluables</h3>
+
+            <?php if(mysqli_num_rows($query_evaluables)): ?> 
+            <table class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Actividad</th>
+                  <th>Asignatura</th>
+                  <th>Fecha</th>
+                  <th>Calificación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php while ($actividad = mysqli_fetch_array($query_evaluables)): ?>
+                <tr>
+                  <td><?php echo $actividad['nomactividad'];  ?></td>
+                  <td><?php echo $actividad['nomasignatura']; ?></td>
+                  <td><?php echo $actividad['fecactividad'];  ?></td>
+                  <?php
+                  $query_calificacion = mysqli_query($db_con, "SELECT nota FROM datos WHERE claveal='$claveal' AND id='".$actividad['idactividad']."'");
+                  $actividad_nota = mysqli_fetch_array($query_calificacion);
+                  ?>
+                  <td><?php echo $actividad_nota['nota']; ?></td>
+                </tr>
+                <?php endwhile; ?>
+              </tbody>
+            </table>
+            </div>
+
+          </div><!-- /.tab-content -->
+
       </div><!-- /.col-md-12 -->
       
     </div><!-- /.row -->
@@ -247,35 +309,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 
 <?php endif; ?>
 
-<br>
-<br>
-<h3>Resultados de actividades evaluables</h3>
 
-<?php if(mysqli_num_rows($query_evaluables)): ?> 
-<table class="table table-bordered table-striped">
-  <thead class="thead-dark">
-    <tr>
-      <th>Actividad</th>
-      <th>Asignatura</th>
-      <th>Fecha</th>
-      <th>Calificación</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php while ($actividad = mysqli_fetch_array($query_evaluables)): ?>
-    <tr>
-      <td><?php echo $actividad['nomactividad'];  ?></td>
-      <td><?php echo $actividad['nomasignatura']; ?></td>
-      <td><?php echo $actividad['fecactividad'];  ?></td>
-      <?php
-      $query_calificacion = mysqli_query($db_con, "SELECT nota FROM datos WHERE claveal='$claveal' AND id='".$actividad['idactividad']."'");
-      $actividad_nota = mysqli_fetch_array($query_calificacion);
-      ?>
-      <td><?php echo $actividad_nota['nota']; ?></td>
-    </tr>
-    <?php endwhile; ?>
-  </tbody>
-</table>
 
 <?php else: ?>
 
