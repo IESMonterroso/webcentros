@@ -192,13 +192,15 @@ function ft_clean_settings($settings) {
  * Run all system actions based on the value of $_REQUEST['act'].
  */
 function ft_do_action() {
-	if (!empty($_REQUEST['act'])) {
+	$action = limpiarInput($_REQUEST['action'], 'alpha');
+
+	if (!empty($action)) {
 
     // Only one callback action is allowed. So only the first hook that acts on an action is run.
-    ft_invoke_hook('action', $_REQUEST['act']);
+    ft_invoke_hook('action', $action);
 
 		# mkdir
-		if ($_REQUEST['act'] == "createdir" && CREATE === TRUE) {
+		if ($action == "createdir" && CREATE === TRUE) {
 		  $_POST['newdir'] = trim($_POST['newdir']);
 			// Create directory.
 			// Check input.
@@ -219,7 +221,7 @@ function ft_do_action() {
 				umask($oldumask);
       // }
 		# Move
-		} elseif ($_REQUEST['act'] == "move" && ft_check_fileactions() === TRUE) {
+		} elseif ($action == "move" && ft_check_fileactions() === TRUE) {
 			// Check that both file and newvalue are set.
 			$file = trim(ft_stripslashes($_REQUEST['file']));
 			$dir = trim(ft_stripslashes($_REQUEST['newvalue']));
@@ -257,7 +259,7 @@ function ft_do_action() {
 				ft_redirect("dir={$_REQUEST['dir']}");
 			}
 		# Delete
-		} elseif ($_REQUEST['act'] == "delete" && ft_check_fileactions() === TRUE) {
+		} elseif ($action == "delete" && ft_check_fileactions() === TRUE) {
 			// Check that file is set.
 			$file = ft_stripslashes($_REQUEST['file']);
 			if (!empty($file) && ft_check_file($file)) {
@@ -284,16 +286,16 @@ function ft_do_action() {
 				ft_redirect("dir={$_REQUEST['dir']}");
 			}
 		# Rename && Duplicate && Symlink
-		} elseif ($_REQUEST['act'] == "rename" || $_REQUEST['act'] == "duplicate" && ft_check_fileactions() === TRUE) {
+		} elseif ($action == "rename" || $action == "duplicate" && ft_check_fileactions() === TRUE) {
 			// Check that both file and newvalue are set.
 			$old = trim(ft_stripslashes($_REQUEST['file']));
 			$new = trim(ft_stripslashes($_REQUEST['newvalue']));
-			if ($_REQUEST['act'] == 'rename') {
+			if ($action == 'rename') {
 			  $m['typefail'] = t("!old was not renamed to !new (type not allowed).", array('!old' => $old, '!new' => $new));
 			  $m['writefail'] = t("!old could not be renamed (write failed).", array('!old' => $old));
 			  $m['destfail'] = t("File could not be renamed to !new since it already exists.", array('!new' => $new));
 			  $m['emptyfail'] = t("File could not be renamed since you didn't specify a new name.");
-			} elseif ($_REQUEST['act'] == 'duplicate') {
+			} elseif ($action == 'duplicate') {
 			  $m['typefail'] = t("!old was not duplicated to !new (type not allowed).", array('!old' => $old, '!new' => $new));
 			  $m['writefail'] = t("!old could not be duplicated (write failed).", array('!old' => $old));
 			  $m['destfail'] = t("File could not be duplicated to !new since it already exists.", array('!new' => $new));
@@ -305,7 +307,7 @@ function ft_do_action() {
 					if (!file_exists(ft_get_dir()."/".$new)) {
 						// Check that file exists.
 						if (is_writeable(ft_get_dir()."/".$old)) {
-							if ($_REQUEST['act'] == "rename") {
+							if ($action == "rename") {
 								if (@rename(ft_get_dir()."/".$old, ft_get_dir()."/".$new)) {
 									// Success.
 									ft_redirect("dir={$_REQUEST['dir']}");
@@ -345,7 +347,7 @@ function ft_do_action() {
 				ft_redirect("dir={$_REQUEST['dir']}");
 			}
 		# upload
-		} elseif ($_REQUEST['act'] == "upload" && ft_check_upload() === TRUE && (LIMIT <= 0 || LIMIT > ROOTDIRSIZE)) {
+		} elseif ($action == "upload" && ft_check_upload() === TRUE && (LIMIT <= 0 || LIMIT > ROOTDIRSIZE)) {
 			// If we are to upload a file we will do so.
 			$msglist = 0;
 			foreach ($_FILES as $k => $c) {
@@ -472,10 +474,12 @@ function ft_get_dirsize($dirname) {
  * @return The current directory.
  */
 function ft_get_dir() {
-	if (empty($_REQUEST['dir'])) {
+	$dir = limpiarInput($_REQUEST['dir'], 'alphanumericspecial');
+
+	if (empty($dir)) {
 		return ft_get_root();
 	} else {
-		return ft_get_root().$_REQUEST['dir'];
+		return ft_get_root().$dir;
 	}
 }
 /**
@@ -751,6 +755,7 @@ function ft_invoke_hook() {
  */
 function ft_make_body() {
 	$str = "";
+	$action = limpiarInput($_REQUEST['act'], 'alpha');
 
   // Make system messages.
 	$status = '';
@@ -769,13 +774,13 @@ function ft_make_body() {
 	}
 
 	// Invoke page hook if an action has been set.
-	if (!empty($_REQUEST['act'])) {
-    return $str . '<div id="main">'.implode("\r\n", ft_invoke_hook('page', $_REQUEST['act'])).'</div>';
+	if (!empty($action)) {
+    return $str . '<div id="main">'.implode("\r\n", ft_invoke_hook('page', $action)).'</div>';
 	}
 
 	// If no action has been set, show a list of files.
 
-	if (empty($_REQUEST['act']) && (empty($_REQUEST['status']) || $_REQUEST['status'] != "dirfail")) { // No action set - we show a list of files if directory has been proven openable.
+	if (empty($action) && (empty($_REQUEST['status']) || $_REQUEST['status'] != "dirfail")) { // No action set - we show a list of files if directory has been proven openable.
     $totalsize = 0;
     // Set sorting type. Default to 'name'.
     $sort = 'name';
@@ -941,10 +946,12 @@ function ft_make_header() {
 	$str = '<nav aria-label="breadcrumb">';
   $str .= '<ol class="breadcrumb">';
   $str .= '<li class="breadcrumb-item">'.ft_make_link(t("Home"), '', t("Go to home folder")).'</li>';
-	if (! empty($_REQUEST['dir'])) {
+  $dir = limpiarInput($_REQUEST['dir'], 'alphanumericspecial');
+
+	if (! empty($dir)) {
 		// Get breadcrumbs.
-		if (!empty($_REQUEST['dir'])) {
-			$crumbs = explode("/", $_REQUEST['dir']);
+		if (!empty($dir)) {
+			$crumbs = explode("/", $dir);
 			// Remove first empty element.
 			unset($crumbs[0]);
 			// Output breadcrumbs.
@@ -1223,6 +1230,9 @@ function ft_redirect($query = '') {
  * Clean user input in $_REQUEST.
  */
 function ft_sanitize_request() {
+
+	$action = limpiarInput($_REQUEST['action'], 'alpha');
+
   // Kill null bytes
   foreach ($_REQUEST as $k => $v) {
     $_REQUEST[$k] = str_replace("\0", 'NULL', $_REQUEST[$k]);
@@ -1253,7 +1263,7 @@ function ft_sanitize_request() {
 	if (!empty($_REQUEST['file'])) {
 		$_REQUEST['file'] = trim(str_replace("/", "", $_REQUEST['file']));
 	}
-	if (!empty($_REQUEST['act']) && $_REQUEST['act'] != "move") {
+	if (!empty($action) && $action != "move") {
 		if (!empty($_REQUEST['newvalue'])) {
 			$_REQUEST['newvalue'] = str_replace("/", "", $_REQUEST['newvalue']);
 			// Nuke ../ for 'newvalue' when not moving files.
