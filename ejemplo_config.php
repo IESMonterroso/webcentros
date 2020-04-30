@@ -252,6 +252,10 @@ $config['sidebar_html'][2]['titulo'] = "";
 $config['sidebar_html'][2]['html'] = '';
 */
 
+// ESCOLARIZACION
+$config['escolarizacion']['tramites'] = true;
+$config['escolarizacion']['calendario'] = true;
+
 // CAROUSEL
 // Use el valor true si desea que el carousel cambie automaticamente las imágenes o false si desea que permanezca estático.
 $config['carousel_config']['cycle'] = false;
