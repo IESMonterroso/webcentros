@@ -2,6 +2,7 @@
 require_once("../bootstrap.php");
 require_once('../config.php');
 
+
 if (isset($config['alumnado']['pasen']) && $config['alumnado']['pasen'] == true) {
 	header('Location:https://www.juntadeandalucia.es/educacion/portalseneca/web/pasen/inicio');
 	exit();
@@ -104,6 +105,9 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 
 	$dia_matricula_ini = strftime('%d %B', strtotime($config['matriculas']['fecha_inicio']));
 	$dia_matricula_fin = strftime('%d %B', strtotime($config['matriculas']['fecha_fin']));
+	$dia_audiencia_ini = strftime('%d %B', strtotime(substr($config['curso_fin'],0,4)."-06-01"));
+	$dia_audiencia_fin = strftime('%d %B', strtotime(substr($config['curso_fin'],0,4)."-06-10"));
+	
 
 	// Comprobamos si el centro ofrece estudios de Bachillerato
 	$result = mysqli_query($db_con, "SELECT nomcurso FROM cursos WHERE nomcurso LIKE '%Bachillerato%' LIMIT 1");
@@ -354,7 +358,7 @@ include('../inc_menu.php');
 
 							<div class="col-sm-6">
 								<h6 class="mb-3">
-									Acceso a Google Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> / Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									Acceso a Gmail / Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> / Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
 								</h6>
 
 								<dl class="row">
@@ -377,7 +381,9 @@ include('../inc_menu.php');
 			</div><!-- /.row -->
 			</div><!-- /.well -->
 
-			<?php if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
+			<?php if ($claveal == "3605006" OR ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima."))))): $_SESSION['pasa_matricula']=1; ?>
+
+			<?php //if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
 			<div class="row mb-3">
 				<div class="col-12">
 
@@ -399,6 +405,33 @@ include('../inc_menu.php');
 				</div>
 			</div>
 			<?php endif; ?>
+
+			<?php if (($claveal == "3605006") OR (date('m')=='06') AND date('Y-m-d')<=$config['curso_fin'] AND $_SESSION['alumno_primaria'] <> 1 AND $_SESSION['alumno_secundaria'] <> 1): $_SESSION['pasa_audiencia']=1; ?>
+
+			<?php //if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
+			<div class="row mb-3">
+				<div class="col-12">
+
+					<form class="" action="./audiencia.php" method="post" target="_blank">
+						<table class="table table-bordered">
+							<tbody>
+								<tr class="d-flex">
+									<td class="col-md-2 align-middle"><strong><?php echo $dia_audiencia_ini; ?> - <?php echo $dia_audiencia_fin; ?></strong></td>
+									<td class="col-md-8 align-middle"><button type="submit" name="rellenarAudiencia" class="btn btn-link btn-sm m-0">Trámite de audiencia para la evaluación ordinaria del alumno</button></td>
+									<td class="d-none d-md-table-cell col-md-2 text-center align-middle"><button type="submit" name="rellenarAudiencia" class="btn btn-secondary btn-sm m-0">Rellenar</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+
+				</div>
+			</div>
+			<?php endif; ?>
+
+
+
+
+
 
 			<?php if ($bd_alma == "alma"): ?>
 			<div class="row">

@@ -393,11 +393,8 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 			$ya_esta1 = mysqli_query($db_con,"select id from matriculas where $extra");
 			$ya_id = mysqli_fetch_array($ya_esta1);
 			$id = $ya_id[0];
-			if ($nuevo=="1") {
-				include("imprimir.php");
-			}
-			else{
-				?>
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -417,7 +414,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 
 	<!-- Fonts and icons -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.13.0-web/css/all.css">
+	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.11.2-web/css/all.css">
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
@@ -428,31 +425,36 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 <br />
 <br />
 <br />
-<div class="alert alert-success"
-	style="width: 500px; margin: auto; text-align: justify;"><br />
-Los datos de la Matrícula se han registrado correctamente. En los
-próximos días, el Director del Colegio o Tutor entregará la
-documentación al alumno. Este la llevará a casa para ser firmada por sus
-padres o tutores legales. Una vez firmada se entregará en la
-Administración del Centro con los documentos complementarios (fotocopia
-del DNI o Libro de Familia, etc.). Si tienen alguna duda o surge algún
-problema, no duden en ponerse en contacto con la Administración o
-Dirección del Centro. <br />
-<br />
-<form action="../index.php" method="post"
-	enctype="multipart/form-data">
-<center><input type="submit"
-	value="Volver a la página personal del alumno"
-	class="btn btn-warning btn-block btn-lg" /></center>
-</form>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="alert alert-success"><br />
+			Los datos de la Matrícula se han registrado correctamente. En los
+			próximos días, el Director del Colegio o Tutor entregará la
+			documentación al alumno. Este la llevará a casa para ser firmada por sus
+			padres o tutores legales. Una vez firmada se entregará en la
+			Administración del Centro con los documentos complementarios (fotocopia
+			del DNI o Libro de Familia, etc.). Si tienen alguna duda o surge algún
+			problema, no duden en ponerse en contacto con la Administración o
+			Dirección del Centro. <br />
+			<br />
+			<form action="../index.php" method="post"
+				enctype="multipart/form-data">
+			<center><input type="submit"
+				value="Volver a la página personal del alumno"
+				class="btn btn-warning btn-block btn-lg" /></center>
+			</form>
 
+			</div>
+		</div>
+	</div>
 </div>
-<br />
+
 </body>
 </html>
 
-				<?php
-			}
+<?php
+			
 			exit();
 		}
 	}
@@ -477,14 +479,15 @@ Dirección del Centro. <br />
 
 	<!-- Fonts and icons -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.13.0-web/css/all.css">
+	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.11.2-web/css/all.css">
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
 
-<script type="text/javascript">
+<script language="javascript">
+
 function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n Los datos que estás a punto de enviar pueden ser modificados a través de esta página hasta el próximo día 16 de Junio, fecha en la que se procederá al bloqueo del formulario para imprimirlo y entregarlo a los alumnos. Si necesitas cambiar los datos después de esa fecha deberás hacerlo a través de la Jefatura de Estudios. \nSi estás seguro que los datos son correctos y las opciones elegidas son las adecuadas, pulsa el botón ACEPTAR. De lo contrario, el boton CANCELAR te devuelve al formulario de matriculación, donde podrás realizar los cambios que consideres oportunos.")
+	var answer = confirm("MATRICULACIÓN EN IES MONTERROSO:\n Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.\nLa tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará con anterioridad al 30 de septiembre, una vez comenzadas las clases y por el procedimiento que se determine llegado el momento")
 	if (answer){
 return true;
 	}
@@ -492,9 +495,16 @@ return true;
 return false;
 	}
 }
-</script>
 
-<script language="javascript">
+function imprimeCaratula() {
+	var answer = confirm("ATENCIÓN:\n El documento que se va a generar contiene los datos que el alumno o sus tutores legales han registrado en la preinscripción de la matrícula.\nEs importante tener en cuenta que este documento no es la matrícula del alumno, sino una impresión de sus datos más importantes.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
 
 function dameColegio(){
    	var indice = document.form1.colegio.selectedIndex
@@ -1486,7 +1496,6 @@ if (($claveal or $id) and $curso) {
 	<tr>
 		<td colspan="2" style="width:50%">
 		<div class="form-group">
-			<?php echo "Analgesicos: ".$_SESSION['ya_matricula_eso']; ?>
 			<div class="checkbox"><label> <input type="checkbox"
 				name="analgesicos" value="1"
 				<?php if((isset($_SESSION['ya_matricula_eso']) and $_SESSION['ya_matricula_eso']!==1) or $analgesicos==1){echo "checked";} ?>> Autorizo al Centro para suministrar analgésicos al alumno si este lo solicita (Paracetamol). </label></div>
@@ -1556,17 +1565,24 @@ if (($claveal or $id) and $curso) {
 			value="<?php echo $curso_matricula;?>" /> <input type="hidden"
 			name="claveal" <?php echo "value = \"$claveal\""; ?> />
 			<input type="hidden" name="letra_grupo" value="<?php echo $letra_grupo;?>" />
+
 			<?php
 			if (stristr($colegio,$nombre_corto)==TRUE) {
-				if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") {
-				echo '<input type="submit" name="enviar" value="Enviar los datos de la Matrícula" onClick="return confirmacion();" class="no_imprimir btn btn-primary btn-lg" />';
+				if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
+				<input onClick="return confirmacion()" type="submit" name="enviar" value="Enviar los datos de la Matrícula" class="no_imprimir btn btn-primary btn-lg" />
+			<?php	
 			}
 			}
 			else{
 
-			if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") {
-				echo '<input type="submit" name="enviar" value="Enviar los datos de la Matrícula" onClick="return confirmacion();" class="no_imprimir btn btn-primary btn-lg" />';
+			if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
+				<input onClick="return confirmacion()" type="submit" name="enviar" value="Enviar los datos de la Matrícula"  class="no_imprimir btn btn-primary btn-lg" />
+			<?php
+				}
 			}
+
+			if($_SESSION['ya_matricula_eso']==1){ 
+					echo '&nbsp;&nbsp;&nbsp;<a onClick="return imprimeCaratula()" href="caratulas.php?id='.$id.'&curso='.$curso.'" class="btn btn-danger btn-lg" target="_blank">Imprimir documento</a>';			
 			}
 		 ?>
 		<br />
@@ -1665,4 +1681,6 @@ else{
 		});
 
 	});
+
 	</script>
+

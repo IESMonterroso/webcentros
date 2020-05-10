@@ -460,10 +460,8 @@ if(isset($_POST['enviar'])){
 			$ya_esta1 = mysqli_query($db_con,"select id from matriculas_bach where $extra");
 			$ya_id = mysqli_fetch_array($ya_esta1);
 			$id = $ya_id[0];
-			if ($nuevo=="1") {
-			}
-			else{
-				?>
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -490,32 +488,41 @@ if(isset($_POST['enviar'])){
 
 </head>
 <body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<br><br>
+			<div class="alert alert-success"><br />
+			Los datos de la Matrícula se han registrado correctamente. En los
+			próximos días, el Director del Colegio o Tutor entregará la
+			documentación al alumno. Este la llevará a casa para ser firmada por sus
+			padres o tutores legales. Una vez firmada se entregará en la
+			Administración del Centro con los documentos complementarios (fotocopia
+			del DNI o Libro de Familia, etc.). Si tienen alguna duda o surge algún
+			problema, no duden en ponerse en contacto con la Administración o
+			Dirección del Centro. <br />
+			<br />
+			<form action="../index.php" method="post"
+				enctype="multipart/form-data">
+			<center><input type="submit"
+				value="Volver a la página personal del alumno"
+				class="btn btn-warning btn-block btn-lg" /></center>
+			</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
 <br />
-<br />
-<br />
-<br />
-<div class="alert alert-success"
-	style="width: 600px; margin: auto; text-align: justify;"><br />
-Los datos de la Matrícula se han registrado correctamente. En los
-próximos días, el Director del Centro o Tutor entregará la documentación
-al alumno. Este la llevará a casa para ser firmada por sus padres o
-tutores legales. Una vez firmada se entregará en la Administración del
-Centro con los documentos complementarios (fotocopia del DNI o Libro de
-Familia, etc.). Si tienen alguna duda o surge algún problema, no duden
-en ponerse en contacto con la Administración o Dirección del Centro. <br />
-<br />
-<form action="../index.php" method="post"
-	enctype="multipart/form-data">
-<center><input type="submit"
-	value="Volver a la página personal del alumno"
-	class="btn btn-primary btn-block btn-lg" /></center>
-</form>
+</body>
+</html>
 				<?php
 				exit();
-			}
 		}
 	}
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -541,9 +548,10 @@ en ponerse en contacto con la Administración o Dirección del Centro. <br />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
 
-<script type="text/javascript">
+<script language="javascript">
+
 function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n Los datos que estás a punto de enviar pueden ser modificados a través de esta página hasta el próximo día 16 de Junio, fecha en la que se procederá al bloqueo del formulario para imprimirlo y entregarlo a los alumnos. Si necesitas cambiar los datos después de esa fecha deberás hacerlo a través de la Jefatura de Estudios. \nSi estás seguro que los datos son correctos y las opciones elegidas son las adecuadas, pulsa el botón ACEPTAR. De lo contrario, el boton CANCELAR te devuelve al formulario de matriculación, donde podrás realizar los cambios que consideres oportunos.")
+	var answer = confirm("MATRICULACIÓN EN IES MONTERROSO:\n Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.\nLa tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará con anterioridad al 30 de septiembre, una vez comenzadas las clases y por el procedimiento que se determine llegado el momento")
 	if (answer){
 return true;
 	}
@@ -551,9 +559,16 @@ return true;
 return false;
 	}
 }
-</script>
 
-<script language="javascript">
+function imprimeCaratula() {
+	var answer = confirm("ATENCIÓN:\n El documento que se va a generar contiene los datos que el alumno o sus tutores legales han registrado en la preinscripción de la matrícula.\nEs importante tener en cuenta que este documento no es la matrícula del alumno, sino una impresión de sus datos más importantes.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
 
 function dameColegio(){
    	var indice = document.form1.colegio.selectedIndex
@@ -610,15 +625,15 @@ if ($claveal or $id) {
 	$ya = mysqli_query($db_con,"select apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre,
 	dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma1, idioma2, religion,
 	itinerario1, itinerario2, optativa1, optativa2, optativa2b1, optativa2b2, optativa2b3,
-	optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, observaciones, curso, fecha,
-	promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, itinerario1, itinerario2, repite, foto, enfermedad, otraenfermedad, bilinguismo, divorcio, religion1b, opt_aut21, opt_aut22, opt_aut23, opt_aut24, opt_aut25, opt_aut26, opt_aut27, nsegsocial, parcial, correo_alumno, analgesicos from matriculas_bach where ". $conditio ."");
+	optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, observaciones, curso, fecha,
+	promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, itinerario1, itinerario2, repite, foto, enfermedad, otraenfermedad, bilinguismo, divorcio, religion1b, opt_aut21, opt_aut22, opt_aut23, opt_aut24, opt_aut25, opt_aut26, opt_aut27, nsegsocial, parcial, correo_alumno, analgesicos, id from matriculas_bach where ". $conditio ."");
 
 	// Ya se ha matriculado
 	if (mysqli_num_rows($ya) > 0) {
 		$datos_ya = mysqli_fetch_object($ya);
 		$naci = explode("-",$datos_ya->nacimiento);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacido; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $repetidor = $datos_ya->repite; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2; $foto = $datos_ya->foto; $enfermedad = $datos_ya->enfermedad; $otraenfermedad = $datos_ya->otraenfermedad; $bilinguismo = $datos_ya->bilinguismo; $divorcio = $datos_ya->divorcio; $religion1b = $datos_ya->religion1b;$opt_aut21 = $datos_ya->opt_aut21; $opt_aut22 = $datos_ya->opt_aut22; $opt_aut23 = $datos_ya->opt_aut23; $opt_aut24 = $datos_ya->opt_aut24; $opt_aut25 = $datos_ya->opt_aut25; $opt_aut26 = $datos_ya->opt_aut26; $opt_aut27 = $datos_ya->opt_aut27; $segsocial = $datos_ya->nsegsocial; $parcial = $datos_ya->parcial; $correo_alumno = $datos_ya->correo_alumno; $analgesicos = $datos_ya->analgesicos;
+		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacido; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $repetidor = $datos_ya->repite; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2; $foto = $datos_ya->foto; $enfermedad = $datos_ya->enfermedad; $otraenfermedad = $datos_ya->otraenfermedad; $bilinguismo = $datos_ya->bilinguismo; $divorcio = $datos_ya->divorcio; $religion1b = $datos_ya->religion1b;$opt_aut21 = $datos_ya->opt_aut21; $opt_aut22 = $datos_ya->opt_aut22; $opt_aut23 = $datos_ya->opt_aut23; $opt_aut24 = $datos_ya->opt_aut24; $opt_aut25 = $datos_ya->opt_aut25; $opt_aut26 = $datos_ya->opt_aut26; $opt_aut27 = $datos_ya->opt_aut27; $segsocial = $datos_ya->nsegsocial; $parcial = $datos_ya->parcial; $correo_alumno = $datos_ya->correo_alumno; $analgesicos = $datos_ya->analgesicos;
 		$n_curso = substr($curso,0,1);
 		if ($ruta_error == '1') {
 			$ruta_este = "";
@@ -1496,19 +1511,28 @@ if ($claveal or $id) {
 			type="hidden" name="nuevo" value="<?php echo $nuevo;?>" /> <input
 			type="hidden" name="curso_matricula"
 			value="<?php echo $curso_matricula;?>" /> <input type="hidden"
-			name="claveal" <?php echo "value = \"$claveal\""; ?> /> <?php
+			name="claveal" <?php echo "value = \"$claveal\""; ?> /> 
+
+		 <?php
 			if (stristr($colegio,$nombre_corto)==TRUE) {
-				if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['administrador']=="1") {
-				echo '<input type="submit" name="enviar" value="Enviar los datos de la Matrícula" onClick="return confirmacion();" class="no_imprimir btn btn-primary btn-lg" />';
+				if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
+				<input onClick="return confirmacion()" type="submit" name="enviar" value="Enviar los datos de la Matrícula" class="no_imprimir btn btn-primary btn-lg" />
+			<?php	
 			}
 			}
 			else{
 
-			if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['administrador']=="1") {
-				echo '<input type="submit" name="enviar" value="Enviar los datos de la Matrícula" onClick="return confirmacion();" class="no_imprimir btn btn-primary btn-lg" />';
+			if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
+				<input onClick="return confirmacion()" type="submit" name="enviar" value="Enviar los datos de la Matrícula"  class="no_imprimir btn btn-primary btn-lg" />
+			<?php
+				}
 			}
+
+			if($_SESSION['ya_matricula_bach']==1){ 
+					echo '&nbsp;&nbsp;&nbsp;<a onClick="return imprimeCaratula()" href="caratulas_bach.php?id='.$id.'&curso='.$curso.'" class="btn btn-danger btn-lg" target="_blank">Imprimir documento</a>';			
 			}
-		 ?>
+			?>
+
 		<br />
 		</center>
 		</td>
