@@ -269,7 +269,7 @@ include("inc_menu.php");
                     <?php endforeach; ?>
                     <?php endif; ?>
 
-                    <?php if (count($tramites_telematicos)): ?>
+                    <?php if (isset($config['escolarizacion']['tramites']) && $config['escolarizacion']['tramites'] === true && count($tramites_telematicos)): ?>
                     <section>
                         <?php foreach ($tramites_telematicos['contenido'] as $tramite): ?>
                         <?php $tramite_anio = strftime('%Y',strtotime($tramite->get_date('j M Y, g:i a'))); ?>
@@ -562,7 +562,7 @@ include("inc_menu.php");
                         </div>
                     </div>
 
-                    <?php if (date('m') >= '02' && date('m') <= '09' && count($calendarioEscolarizacion)): ?>
+                    <?php if (isset($config['escolarizacion']['calendario']) && $config['escolarizacion']['calendario'] === true && (date('m') >= '02' && date('m') <= '09') && count($calendarioEscolarizacion)): ?>
                     <div class="calendario pt-15">
                         <div class="card-box border-primary">
                             <h5 class="card-title"><?php echo $calendarioEscolarizacion['titulo']; ?></h5>
@@ -577,12 +577,17 @@ include("inc_menu.php");
 
                             $exp_fecha_desde = explode(' ', $fecha_desde);
                             $exp_fecha_hasta = explode(' ', $fecha_hasta);
+
+                            $str_fecha_desde = $exp_fecha_desde[5].'-'.obtenerNumeroMes($exp_fecha_desde[3]).'-'.$exp_fecha_desde[1];
+                            $time_fecha_desde = strtotime($str_fecha_desde);
+                            $str_fecha_hasta = $exp_fecha_hasta[5].'-'.obtenerNumeroMes($exp_fecha_hasta[3]).'-'.$exp_fecha_hasta[1];
+                            $time_fecha_hasta = strtotime($str_fecha_hasta);
                             ?>
-                            <?php if (date('Y') >= $exp_fecha_desde[5] && date('m') <= obtenerNumeroMes($exp_fecha_desde[3]) && date('m') + 1 >= obtenerNumeroMes($exp_fecha_desde[3])): ?>
+                            <?php if ($time_fecha_desde >= strtotime(date('Y-m-d')) && $time_fecha_desde <= strtotime(date('Y-m-d').' + 15 days')): ?>
 
                             <?php 
                             $eventoDisponible = 0;
-                            if (date('Y') >= $exp_fecha_desde[5] && date('m') >= obtenerNumeroMes($exp_fecha_desde[3]) && date('d') >= $exp_fecha_desde[1] && date('Y') <= $exp_fecha_hasta[5] && date('m') <= obtenerNumeroMes($exp_fecha_hasta[3]) && date('d') <= $exp_fecha_hasta[1]) {
+                            if (($time_fecha_desde >= strtotime(date('Y-m-d')) && $time_fecha_hasta <= strtotime(date('Y-m-d'))) || $time_fecha_desde == strtotime(date('Y-m-d'))) {
                                 $eventoDisponible = 1;
                             }
                             ?>
