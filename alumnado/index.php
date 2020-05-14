@@ -105,8 +105,8 @@ if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 
 	$dia_matricula_ini = strftime('%d %B', strtotime($config['matriculas']['fecha_inicio']));
 	$dia_matricula_fin = strftime('%d %B', strtotime($config['matriculas']['fecha_fin']));
-	$dia_audiencia_ini = strftime('%d %B', strtotime(substr($config['curso_fin'],0,4)."-06-01"));
-	$dia_audiencia_fin = strftime('%d %B', strtotime(substr($config['curso_fin'],0,4)."-06-10"));
+	$dia_audiencia_ini = strftime('%d %B', strtotime(substr($config['curso_fin'],0,4)."-06-08"));
+	$dia_audiencia_fin = strftime('%d %B', strtotime(substr($config['curso_fin'],0,4)."-06-12"));
 	
 
 	// Comprobamos si el centro ofrece estudios de Bachillerato
@@ -384,6 +384,7 @@ include('../inc_menu.php');
 			<?php if ($claveal == "3605006" OR ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima."))))): $_SESSION['pasa_matricula']=1; ?>
 
 			<?php //if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
+			<br>
 			<div class="row mb-3">
 				<div class="col-12">
 
@@ -394,7 +395,7 @@ include('../inc_menu.php');
 						<table class="table table-bordered">
 							<tbody>
 								<tr class="d-flex">
-									<td class="col-md-2 align-middle"><strong><?php echo $dia_matricula_ini; ?> - <?php echo $dia_matricula_fin; ?></strong></td>
+									<td class="col-md-2 align-middle bg-secondary text-white"><strong><?php echo $dia_matricula_ini; ?> - <?php echo $dia_matricula_fin; ?></strong></td>
 									<td class="col-md-8 align-middle"><button type="submit" name="rellenarMatricula" class="btn btn-link btn-sm m-0">Solicitud de matrícula en <?php echo $_form_descripcion; ?></button></td>
 									<td class="d-none d-md-table-cell col-md-2 text-center align-middle"><button type="submit" name="rellenarMatricula" class="btn btn-secondary btn-sm m-0">Rellenar</button></td>
 								</tr>
@@ -406,7 +407,7 @@ include('../inc_menu.php');
 			</div>
 			<?php endif; ?>
 
-			<?php if (($claveal == "3605006") OR (date('m')=='06') AND date('Y-m-d')<=$config['curso_fin'] AND $_SESSION['alumno_primaria'] <> 1 AND $_SESSION['alumno_secundaria'] <> 1): $_SESSION['pasa_audiencia']=1; ?>
+			<?php if ($claveal == "3605006" OR ($_SESSION['alumno_primaria'] <> 1 AND $_SESSION['alumno_secundaria'] <> 1 AND date('m')=='06' AND date('d')>='08' AND date('d')<='12')): $_SESSION['pasa_audiencia']=1; ?>
 
 			<?php //if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
 			<div class="row mb-3">
@@ -416,7 +417,7 @@ include('../inc_menu.php');
 						<table class="table table-bordered">
 							<tbody>
 								<tr class="d-flex">
-									<td class="col-md-2 align-middle"><strong><?php echo $dia_audiencia_ini; ?> - <?php echo $dia_audiencia_fin; ?></strong></td>
+									<td class="col-md-2 align-middle bg-secondary text-white"><strong><?php echo $dia_audiencia_ini; ?> - <?php echo $dia_audiencia_fin; ?></strong></td>
 									<td class="col-md-8 align-middle"><button type="submit" name="rellenarAudiencia" class="btn btn-link btn-sm m-0">Trámite de audiencia para la evaluación ordinaria del alumno</button></td>
 									<td class="d-none d-md-table-cell col-md-2 text-center align-middle"><button type="submit" name="rellenarAudiencia" class="btn btn-secondary btn-sm m-0">Rellenar</button></td>
 								</tr>
@@ -426,12 +427,8 @@ include('../inc_menu.php');
 
 				</div>
 			</div>
+			<br>
 			<?php endif; ?>
-
-
-
-
-
 
 			<?php if ($bd_alma == "alma"): ?>
 			<div class="row">

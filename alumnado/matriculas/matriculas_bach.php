@@ -493,13 +493,8 @@ if(isset($_POST['enviar'])){
 		<div class="col-md-6 col-md-offset-3">
 			<br><br>
 			<div class="alert alert-success"><br />
-			Los datos de la Matrícula se han registrado correctamente. En los
-			próximos días, el Director del Colegio o Tutor entregará la
-			documentación al alumno. Este la llevará a casa para ser firmada por sus
-			padres o tutores legales. Una vez firmada se entregará en la
-			Administración del Centro con los documentos complementarios (fotocopia
-			del DNI o Libro de Familia, etc.). Si tienen alguna duda o surge algún
-			problema, no duden en ponerse en contacto con la Administración o
+			Los datos de la Matrícula se han registrado correctamente. Si tiene alguna duda o surge algún
+			problema, no dude en ponerse en contacto con la Administración o
 			Dirección del Centro. <br />
 			<br />
 			<form action="../index.php" method="post"

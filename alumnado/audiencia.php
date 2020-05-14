@@ -78,7 +78,7 @@ if (isset($_POST['enviar'])) {
 		$texto_a = $audien['texto'];
 	}
 	else{
-		$texto_a = "D/Dª ------------------------------------, como padre/madre/tutor-a legal del alumno/a ".$datos['nombre']." ".$datos['apellidos']." que cursa ".$datos['curso']." en el grupo ".$datos['unidad'].", de cara a la sesión de evaluación ordinaria del curso 2018-19 y según aparece en el punto 3.2. de nuestro Reglamento de Organización y Funcionamiento que establece los criterios y procedimientos que garanticen el rigor y la transparencia en la toma de decisiones en los procesos de evaluación que habla sobre la posibilidad  de trámite de audiencia previo a la sesión de evaluación ordinaria y a la toma de decisión de la promoción y/o titulación, \n\nCOMUNICA:";
+		$texto_a = "D/Dª ------------------------------------, como padre/madre/tutor-a legal del alumno/a ".$datos['nombre']." ".$datos['apellidos']." que cursa ".$datos['curso']." en el grupo ".$datos['unidad'].", de cara a la sesión de evaluación ordinaria del curso ".$config['curso_actual']." y según aparece en el punto 3.2. de nuestro Reglamento de Organización y Funcionamiento que establece los criterios y procedimientos que garanticen el rigor y la transparencia en la toma de decisiones en los procesos de evaluación que habla sobre la posibilidad  de trámite de audiencia previo a la sesión de evaluación ordinaria y a la toma de decisión de la promoción y/o titulación, \n\nCOMUNICA:";
 	}
 ?>
     <div class="section">
@@ -90,10 +90,10 @@ if (isset($_POST['enviar'])) {
 
 					<div class="card">
 					  <div class="card-header">
-					    <h6>Trámite de audiencia previo a la toma de decisión de la promoción o titulación</h6>
+					    <h6>Trámite de audiencia previo a la toma de decisión sobre la promoción o titulación</h6>
 					  </div>
 					  <div class="card-body">
-					    <p class="card-text">Según el <strong>Reglamento de Organización y Funcionamiento (R.O.F.)</strong> de nuestro centro, en Educación Secundaria Obligatoria <em>es preceptivo el trámite de audiencia de padres y madres antes de la toma de decisión de la promoción o titulación del alumnado</em>. Los tutores y tutoras cumplirán debidamente con el preceptivo trámite de audiencia con los padres, madres o tutores legales; debiendo tener lugar antes de la evaluación ordinaria. </p><p class="card-text">Para ello, cada familia transmitirá al tutor del alumno la información que considere oportuna y deba tenerse en cuenta en la evaluación ordinaria antes del 10 de junio. Dadas las circunstancias actuales, en las que será muy difícil comunicar personalmente esa información al tutor, ponemos a disposición de los tutores legales de nuestros alumnos este formulario con el fin de transmitir la información relevante al equipo de profesores del alumno</p>
+					    <p class="card-text text-justify">Atendiendo a lo dispuesto en las Órdenes de 14 de julio de 2016 del currículo en ESO (artículo 22.5) y Bachillerato (25.2), así como en el reglamento de organización y funcionamiento del Centro, se abre el plazo para que las familias puedan trasladar al tutor/a y equipo docente con anterioridad a la evaluación Ordinaria, las circunstancias que consideren relevantes de cara a la toma de decisiones relacionadas con la promoción/titulación de sus hijos e hijas. </p><p class="card-text text-jleft"><em>Para el cumplimiento de este trámite, dispondrán del lunes 8 al viernes 12 de junio.</em></p>
 					  </div>
 					  <div class="card-footer text-muted">
 					    <a href="https://iesmonterroso.org/plan-de-centro/ROF/32_transparencia.pdf" target = "_blank" class="btn btn-primary">Ver R.O.F.</a>
