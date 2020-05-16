@@ -287,7 +287,7 @@ include("inc_menu.php");
                             $textoBoton = 'Acceder a la consulta';
                         }
                         ?>
-                        <?php if (($esTramite || $esConsulta) && $tramite_anio >= date('Y') && $tramite_mes <= date('m') && ($tramite_mes != 1) ? $tramite_mes-1 : $tramite_mes >= date('m')): ?>
+                        <?php if (($esTramite || $esConsulta) && ($tramite_anio >= date('Y') && $tramite_mes <= date('m') && ($tramite_mes != 1) ? $tramite_mes-1 : $tramite_mes >= date('m'))): ?>
                         <article>
                             <div class="media bg-secondary">
                                 <div class="media-body" style="margin: 20px;">
