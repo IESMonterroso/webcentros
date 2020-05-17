@@ -481,7 +481,7 @@ if(isset($_POST['enviar'])){
 
 	<!-- Fonts and icons -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.13.0-web/css/all.css">
+	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.11.2-web/css/all.css">
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
@@ -538,32 +538,12 @@ if(isset($_POST['enviar'])){
 
 	<!-- Fonts and icons -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.13.0-web/css/all.css">
+	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.11.2-web/css/all.css">
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
 
 <script language="javascript">
-
-function confirmacion() {
-	var answer = confirm("MATRICULACIÓN EN IES MONTERROSO:\n Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.\nLa tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará con anterioridad al 30 de septiembre, una vez comenzadas las clases y por el procedimiento que se determine llegado el momento")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-
-function imprimeCaratula() {
-	var answer = confirm("ATENCIÓN:\n El documento que se va a generar contiene los datos que el alumno o sus tutores legales han registrado en la preinscripción de la matrícula.\nEs importante tener en cuenta que este documento no es la matrícula del alumno, sino una impresión de sus datos más importantes.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
 
 function dameColegio(){
    	var indice = document.form1.colegio.selectedIndex
@@ -1511,20 +1491,31 @@ if ($claveal or $id) {
 		 <?php
 			if (stristr($colegio,$nombre_corto)==TRUE) {
 				if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
-				<input onClick="return confirmacion()" type="submit" name="enviar" value="Enviar los datos de la Matrícula" class="no_imprimir btn btn-primary btn-lg" />
+				<input type="hidden" name="enviar" value="Enviar los datos de la Matrícula" />
+				<input data-bb="confirm-matricula" name="enviar_form" value="Enviar los datos de la Matrícula" type="submit" class="no_imprimir btn btn-primary btn-lg" />
 			<?php	
 			}
 			}
 			else{
 
 			if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
-				<input onClick="return confirmacion()" type="submit" name="enviar" value="Enviar los datos de la Matrícula"  class="no_imprimir btn btn-primary btn-lg" />
+				<input type="hidden" name="enviar" value="Enviar los datos de la Matrícula" />
+				<input data-bb="confirm-matricula" name="enviar_form" value="Enviar los datos de la Matrícula" type="submit" class="no_imprimir btn btn-primary btn-lg" />
 			<?php
 				}
 			}
 
-			if($_SESSION['ya_matricula_bach']==1){ 
-					echo '&nbsp;&nbsp;&nbsp;<a onClick="return imprimeCaratula()" href="caratulas_bach.php?id='.$id.'&curso='.$curso.'" class="btn btn-danger btn-lg" target="_blank">Imprimir documento</a>';			
+			if($_SESSION['ya_matricula_bach']==1 AND date('Y-m-d')>$config['matriculas']['fecha_fin']){ 
+				
+				$dia_1 = strtotime($config['matriculas']['fecha_fin']."+ 1 days");
+				$dia_impresion = date("Y-m-d",$dia_1);
+
+				if (date('Y-m-d')==$dia_impresion) {
+					mysqli_query($db_con,"truncate table matriculas_impresion");
+					mysqli_query($db_con,"insert into matriculas_impresion select * from matriculas");
+				}
+				
+				echo '&nbsp;&nbsp;&nbsp;<a data-bb="confirm-impresion" href="caratulas_bach.php?id='.$id.'&curso='.$curso.'" class="btn btn-danger btn-lg" target="_blank">Imprimir documento</a>';			
 			}
 			?>
 
@@ -1547,6 +1538,8 @@ if ($claveal or $id) {
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 <script src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="//<?php echo $config['dominio'];?>/intranet/js/bootbox.min.js"></script>
+
 
 <script>
 	$(function ()
@@ -1576,3 +1569,70 @@ if ($claveal or $id) {
 		}
 	}
 </script>
+
+<script>
+$(document).on("click", "a[data-bb]", function(e) {
+    e.preventDefault();
+    var type = $(this).data("bb");
+    var link = $(this).attr("href");
+
+    if (type == 'confirm-impresion') {
+      	bootbox.setDefaults({
+        locale: "es",
+        show: true,
+        backdrop: true,
+        closeButton: true,
+        animate: true,
+        
+      });
+
+      	bootbox.confirm({ 
+      		buttons: {
+		        confirm: {
+		            label: '<i class="fas fa-check fa-fw"></i> Aceptar',
+		            className: 'btn-success'
+		        },
+		        cancel: {
+		            label: '<i class="fas fa-ban fa-fw"></i> Cancelar',
+		            className: 'btn-danger'
+		        }
+		    },
+		    title: "<h4 class='text-muted'><i class='fas fa-info-circle fa-fw text-info'></i> Impresión de datos de la preinscripción</h4>",
+		    message: "<p>El documento que se va a generar contiene los datos que el alumno o sus tutores legales han registrado en la preinscripción de la matrícula.<br>Es importante tener en cuenta que <em>este documento no es la matrícula del alumno</em>, sino una impresión de sus datos más importantes a título informativo.</p>",
+		    callback: function(result){ if(result) {document.location.href = link;} }
+		})
+    }
+});
+</script>
+
+<script>
+$("input[name='enviar_form']").on("click",function(e) {
+    e.preventDefault();
+    var currentForm = this;
+
+    	bootbox.setDefaults({
+        locale: "es",
+        show: true,
+        backdrop: true,
+        closeButton: true,
+        animate: true,       
+      	});
+
+      	bootbox.confirm({ 
+      		buttons: {
+		        confirm: {
+		            label: '<i class="fas fa-check fa-fw"></i> Aceptar',
+		            className: 'btn-success'
+		        },
+		        cancel: {
+		            label: '<i class="fas fa-ban fa-fw"></i> Cancelar',
+		            className: 'btn-danger'
+		        }
+		    },
+		    title: "<h4 class='text-muted'><i class='fas fa-info-circle fa-fw text-info'></i> MATRICULACIÓN EN IES MONTERROSO</h4>",
+		    message: "<p>Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.<br>La tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará con anterioridad al 30 de septiembre, una vez comenzadas las clases y por el procedimiento que se determine llegado el momento</p>",
+		    callback: function(result){ if(result) { $('#form1').submit(); } }
+		})
+});
+</script>
+

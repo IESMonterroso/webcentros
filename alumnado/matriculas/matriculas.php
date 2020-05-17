@@ -166,7 +166,7 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 
 	foreach($_POST as $key => $val)
 	{
-		//echo"$key => $val<br />";
+		//echo "$key => $val<br />";
 		${$key}=$val;
 	}
 
@@ -379,15 +379,15 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 				if (empty($foto)) { $foto = "0";}
 				$insert = "update matriculas set apellidos=\"$apellidos\", nombre=\"$nombre\", nacido='$nacido', provincia='$provincia', nacimiento='$fecha_nacimiento', domicilio=\"$domicilio\", localidad=\"$localidad\", dni='$dni', padre=\"$padre\", dnitutor='$dnitutor', madre=\"$madre\", dnitutor2='$dnitutor2', telefono1='$telefono1', telefono2='$telefono2', religion='$religion', colegio='$colegio', optativa1='$optativa1', optativa2='$optativa2', optativa3='$optativa3', optativa4='$optativa4', otrocolegio=\"$otrocolegio\", letra_grupo='$letra_grupo', idioma='$idioma',  religion = '$religion', act1='$act1', observaciones='$observaciones', exencion='$exencion', bilinguismo='$bilinguismo', observaciones = '$observaciones', optativa21='$optativa21', optativa22='$optativa22', optativa23='$optativa23', optativa24='$optativa24', act21='$act21', act22='$act22', act23='$act23', act24='$act24', promociona='$promociona', transporte='$transporte', ruta_este='$ruta_este', ruta_oeste='$ruta_oeste', curso='$curso', sexo = '$sexo', hermanos = '$hermanos', nacionalidad = '$nacionalidad', claveal = '$claveal', optativas4 = '$optativas4', itinerario = '$itinerario', optativa5='$optativa5', optativa6='$optativa6', optativa7='$optativa7', diversificacion='$diversificacion', optativa25='$optativa25', optativa26='$optativa26', optativa27='$optativa27', enfermedad = '$enfermedad', otraenfermedad = '$otraenfermedad', foto='$foto', divorcio='$divorcio', matematicas3 = '$matematicas3', ciencias4 = '$ciencias4', nsegsocial='$segsocial', correo_alumno = '$correo_alumno', analgesicos = '$analgesicos' where id = '$ya[0]'";
 				$insert0 = mysqli_real_escape_string($db_con,$insert);
-				mysqli_query($db_con,$insert0);
+				mysqli_query($db_con,$insert) or die(mysqli_error($db_con));
 			}
 			else{
 
 				if (strlen($ruta) > 0) {$transporte = '1';}
 				if (empty($foto)) { $foto = "0";}
-				$insert = "insert into matriculas (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma, religion, optativa1, optativa2, optativa3, optativa4, act1, observaciones, curso, exencion, bilinguismo, fecha, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, optativas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, enfermedad, otraenfermedad, foto, divorcio, matematicas3, ciencias4, nsegsocial, correo_alumno, analgesicos) VALUES (\"$apellidos\",  \"$nombre\", '$nacido', '$provincia', '$fecha_nacimiento', \"$domicilio\", \"$localidad\", '$dni', \"$padre\", '$dnitutor', \"$madre\", '$dnitutor2', '$telefono1', '$telefono2', '$colegio', \"$otrocolegio\", '$letra_grupo', '$correo', '$idioma', '$religion', '$optativa1', '$optativa2', '$optativa3', '$optativa4', '$act1', '$observaciones', '$curso', '$exencion', '$bilinguismo', now(), '$optativa21', '$optativa22', '$optativa23', '$optativa24', '$act21', '$act22', '$act23', '$act24', '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$optativas4', '$itinerario', '$optativa5', '$optativa6', '$optativa7', '$diversificacion', '$optativa25', '$optativa26', '$optativa27', '$enfermedad', '$otraenfermedad', '$foto', '$divorcio', '$matematicas3', '$ciencias4', '$segsocial', '$correo_alumno', '$analgesicos')";
+				$insert = "insert into matriculas (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma, religion, optativa1, optativa2, optativa3, optativa4, act1, observaciones, curso, exencion, bilinguismo, fecha, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, optativas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, enfermedad, otraenfermedad, foto, divorcio, matematicas3, ciencias4, nsegsocial, correo_alumno, analgesicos) VALUES ('$apellidos',  '$nombre', '$nacido', '$provincia', '$fecha_nacimiento', '$domicilio', '$localidad', '$dni', '$padre', '$dnitutor', '$madre', '$dnitutor2', '$telefono1', '$telefono2', '$colegio', '$otrocolegio', '$letra_grupo', '$correo', '$idioma', '$religion', '$optativa1', '$optativa2', '$optativa3', '$optativa4', '$act1', '$observaciones', '$curso', '$exencion', '$bilinguismo', now(), '$optativa21', '$optativa22', '$optativa23', '$optativa24', '$act21', '$act22', '$act23', '$act24', '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$optativas4', '$itinerario', '$optativa5', '$optativa6', '$optativa7', '$diversificacion', '$optativa25', '$optativa26', '$optativa27', '$enfermedad', '$otraenfermedad', '$foto', '$divorcio', '$matematicas3', '$ciencias4', '$segsocial', '$correo_alumno', '$analgesicos')";
 				$insert1 = mysqli_real_escape_string($db_con,$insert);
-				mysqli_query($db_con,$insert);
+				mysqli_query($db_con,$insert) or die(mysqli_error($db_con));
 			}
 			//echo $insert;
 			$ya_esta1 = mysqli_query($db_con,"select id from matriculas where $extra");
@@ -480,26 +480,6 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
 
 <script language="javascript">
-
-function confirmacion() {
-	var answer = confirm("MATRICULACIÓN EN IES MONTERROSO:\n Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.\nLa tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará con anterioridad al 30 de septiembre, una vez comenzadas las clases y por el procedimiento que se determine llegado el momento")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-
-function imprimeCaratula() {
-	var answer = confirm("ATENCIÓN:\n El documento que se va a generar contiene los datos que el alumno o sus tutores legales han registrado en la preinscripción de la matrícula.\nEs importante tener en cuenta que este documento no es la matrícula del alumno, sino una impresión de sus datos más importantes.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
 
 function dameColegio(){
    	var indice = document.form1.colegio.selectedIndex
@@ -1564,20 +1544,31 @@ if (($claveal or $id) and $curso) {
 			<?php
 			if (stristr($colegio,$nombre_corto)==TRUE) {
 				if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
-				<input onClick="return confirmacion()" type="submit" name="enviar" value="Enviar los datos de la Matrícula" class="no_imprimir btn btn-primary btn-lg" />
+				<input type="hidden" name="enviar" value="Enviar los datos de la Matrícula" />
+				<input data-bb="confirm-matricula" name="enviar_form" value="Enviar los datos de la Matrícula" type="submit" class="no_imprimir btn btn-primary btn-lg" />
 			<?php	
 			}
 			}
 			else{
 
 			if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
-				<input onClick="return confirmacion()" type="submit" name="enviar" value="Enviar los datos de la Matrícula"  class="no_imprimir btn btn-primary btn-lg" />
+				<input type="hidden" name="enviar" value="Enviar los datos de la Matrícula" />
+				<input data-bb="confirm-matricula" name="enviar_form" value="Enviar los datos de la Matrícula" type="submit" class="no_imprimir btn btn-primary btn-lg" />
 			<?php
 				}
 			}
 
-			if($_SESSION['ya_matricula_eso']==1){ 
-					echo '&nbsp;&nbsp;&nbsp;<a onClick="return imprimeCaratula()" href="caratulas.php?id='.$id.'&curso='.$curso.'" class="btn btn-danger btn-lg" target="_blank">Imprimir documento</a>';			
+			if($claveal == "3605006" OR ($_SESSION['ya_matricula_eso']==1 AND date('Y-m-d')>$config['matriculas']['fecha_fin'])){ 
+				
+				$dia_1 = strtotime($config['matriculas']['fecha_fin']."+ 1 days");
+				$dia_impresion = date("Y-m-d",$dia_1);
+				if (date('Y-m-d')==$dia_impresion) {
+					mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `matriculas_impresion` select * from matriculas");
+					mysqli_query($db_con,"truncate table matriculas_impresion");
+					mysqli_query($db_con,"insert into matriculas_impresion select * from matriculas");
+				}
+
+				echo '&nbsp;&nbsp;&nbsp;<a data-bb="confirm-impresion" href="caratulas.php?id='.$id.'&curso='.$curso.'" class="btn btn-danger btn-lg" target="_blank">Imprimir documento</a>';			
 			}
 		 ?>
 		<br />
@@ -1605,6 +1596,8 @@ else{
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 <script src="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="//<?php echo $config['dominio'];?>/intranet/js/bootbox.min.js"></script>
+
 
 <script>
 	$(function ()
@@ -1679,4 +1672,70 @@ else{
 	});
 
 	</script>
+
+<script>
+$(document).on("click", "a[data-bb]", function(e) {
+    e.preventDefault();
+    var type = $(this).data("bb");
+    var link = $(this).attr("href");
+
+    if (type == 'confirm-impresion') {
+      	bootbox.setDefaults({
+        locale: "es",
+        show: true,
+        backdrop: true,
+        closeButton: true,
+        animate: true,
+        
+      });
+
+      	bootbox.confirm({ 
+      		buttons: {
+		        confirm: {
+		            label: '<i class="fas fa-check fa-fw"></i> Aceptar',
+		            className: 'btn-success'
+		        },
+		        cancel: {
+		            label: '<i class="fas fa-ban fa-fw"></i> Cancelar',
+		            className: 'btn-danger'
+		        }
+		    },
+		    title: "<h4 class='text-muted'><i class='fas fa-info-circle fa-fw text-info'></i> Impresión de datos de la preinscripción</h4>",
+		    message: "<p>El documento que se va a generar contiene los datos que el alumno o sus tutores legales han registrado en la preinscripción de la matrícula.<br>Es importante tener en cuenta que <em>este documento no es la matrícula del alumno</em>, sino una impresión de sus datos más importantes a título informativo.</p>",
+		    callback: function(result){ if(result) {document.location.href = link;} }
+		})
+    }
+});
+</script>
+
+<script>
+$("input[name='enviar_form']").on("click",function(e) {
+    e.preventDefault();
+    var currentForm = this;
+
+    	bootbox.setDefaults({
+        locale: "es",
+        show: true,
+        backdrop: true,
+        closeButton: true,
+        animate: true,       
+      	});
+
+      	bootbox.confirm({ 
+      		buttons: {
+		        confirm: {
+		            label: '<i class="fas fa-check fa-fw"></i> Aceptar',
+		            className: 'btn-success'
+		        },
+		        cancel: {
+		            label: '<i class="fas fa-ban fa-fw"></i> Cancelar',
+		            className: 'btn-danger'
+		        }
+		    },
+		    title: "<h4 class='text-muted'><i class='fas fa-info-circle fa-fw text-info'></i> MATRICULACIÓN EN IES MONTERROSO</h4>",
+		    message: "<p>Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.<br>La tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará con anterioridad al 30 de septiembre, una vez comenzadas las clases y por el procedimiento que se determine llegado el momento</p>",
+		    callback: function(result){ if(result) { $('#form1').submit(); } }
+		})
+});
+</script>
 

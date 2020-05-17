@@ -5,8 +5,6 @@ require("../../plugins/pdf/pdf_js.php");
 
 require("../../intranet/admin/matriculas/config.php");
 
-//require("../pdf/mc_table.php");
-
 $id = $_GET['id'];
 $curso = $_GET['curso'];
 
@@ -81,7 +79,7 @@ if (substr($curso, 0, 1) == '1') {
 }
 $n_curso = substr($curso, 0, 1);
 
-$result = mysqli_query($db_con, "select * from matriculas_bach where id = '$id'");
+$result = mysqli_query($db_con, "select * from matriculas_bach_impresion where id = '$id'");
 if ($datos_ya = mysqli_fetch_object ( $result )) {
 
 $naci = explode("-",$datos_ya->nacimiento);

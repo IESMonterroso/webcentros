@@ -5,8 +5,6 @@ require("../../plugins/pdf/pdf_js.php");
 
 require("../../intranet/admin/matriculas/config.php");
 
-//require("../pdf/mc_table.php");
-
 $id = $_GET['id'];
 $curso = $_GET['curso'];
 
@@ -80,7 +78,7 @@ if (substr($curso, 0, 1) == '1') {
 	$mas = ", colegio";
 }
 
-$result = mysqli_query($db_con,"select * from matriculas where id = '$id'");
+$result = mysqli_query($db_con,"select * from matriculas_impresion where id = '$id'");
 if ($row = mysqli_fetch_array ( $result )) {
 	$apellidos = "Apellidos del Alumno: ". $row['apellidos'];
 	 $nombre= "Nombre: ".$row['nombre'];
