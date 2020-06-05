@@ -57,15 +57,15 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 		$esAdmin = 0;
 		$_SESSION['administrador'] = 0;
 	}
-
     // Comprobamos si estamos en periodo de matriculación
     if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion'])) {
     	if (@file_exists("../intranet/admin/matriculas/config.php")) require_once("../intranet/admin/matriculas/config.php");
     	if (@file_exists("../../intranet/admin/matriculas/config.php")) require_once("../../intranet/admin/matriculas/config.php");
 
-      $fecha_fin_colegios = date("d-m-Y",strtotime($config['matriculas']['fecha_fin']."+ 10 days")); 
+      $fecha_fin_colegios = date("Y-m-d",strtotime($config['matriculas']['fecha_fin']."+ 10 days")); 
 
       if ($esAdmin || (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') < $fecha_fin_colegios)) {
+
         // Es un alumno de Primaria
         $result_alumno_primaria = mysqli_query($db_con, "SELECT claveal FROM alma_primaria WHERE claveal = '".$_POST['user']."' LIMIT 1");
         $esAlumnoPrimaria = (mysqli_num_rows($result_alumno_primaria) > 0) ? 1 : 0;

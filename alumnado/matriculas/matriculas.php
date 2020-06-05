@@ -227,6 +227,11 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 			}
 		}
 	}
+	
+	if (substr($curso,0,1)>3 AND $itinerario == "") {
+		$vacios.= "Itinerario, ";
+		$num+=1;
+	}
 	if (($itinerario == '1' or $itinerario == '3') and empty($optativas4)) {
 		$vacios.= "optativas4, ";
 		$num+=1;
@@ -1133,9 +1138,9 @@ if (($claveal or $id) and $curso) {
 				<table style="width:100%" class="table table-condensed table-bordered">
 					<tr>
 				<?php for ($i = 1; $i < 4; $i++): ?>
-						<td style="width:33%;<?php if($i==1 or $i==2){echo "background-color:#E0F2F7;";}else{echo "background-color:#F7F2E0";}?>">
+						<td class=" <?php echo (strstr($vacios,"Itinerario, ")==TRUE) ? 'has-error' : ''; ?>" style="width:33%;<?php if($i==1 or $i==2){echo "background-color:#E0F2F7;";}else{echo "background-color:#F7F2E0";}?>">
 							<div class="radio"><label> <input type="radio"
-				id="itinerario<?php echo $i; ?>" name="itinerario" required
+				id="itinerario<?php echo $i; ?>" name="itinerario" required="required"
 							<?php if($itinerario == $i){echo " checked";} ?>
 				value="<?php echo $i; ?>"> <span class="text-uppercase"><strong>Itinerario
 							<?php echo $i; ?></strong></span><br>
@@ -1733,7 +1738,7 @@ $("input[name='enviar_form']").on("click",function(e) {
 		        }
 		    },
 		    title: "<h4 class='text-muted'><i class='fas fa-info-circle fa-fw text-info'></i> MATRICULACIÓN EN IES MONTERROSO</h4>",
-		    message: "<p>Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.<br>La tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará con anterioridad al 30 de septiembre, una vez comenzadas las clases y por el procedimiento que se determine llegado el momento</p>",
+		    message: "<p>Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.<br>La tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará durante el periodo de matriculación establecido para cada caso. La cuantía por alumno es de 1,12 euros  y se realizará por pasarela bancaria accediendo a la Secretaría Virtual en el siguiente enlace: http://lajunta.es/seguroescolar. El código del IES Monterroso es 29002885. <br>En el caso de que el alumno/a esté <u><em>actualmente cursando 2º ESO</em></u>, el sistema de pago telemático no permite pagar porque aún no está matriculado en 3º ESO. Por lo tanto, estos casos realizarán el pago durante el mes de <u><em>septiembre</em></u>, una vez que comience el periodo lectivo en 3º de ESO.</p>",
 		    callback: function(result){ if(result) { $('#form1').submit(); } }
 		})
 });

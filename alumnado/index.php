@@ -95,6 +95,12 @@ if ($claveal) {
 
 }
 
+// Informes para la evaluación extraordinaria
+$inf_extra = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal = '".$claveal."'");
+if (mysqli_num_rows($inf_extra)>0) {
+	$informe_extraordinaria=1;
+}
+
 // Módulo de matriculación
 if (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) {
 	if (@file_exists("../intranet/admin/matriculas/config.php")) require_once("../intranet/admin/matriculas/config.php");
@@ -401,12 +407,49 @@ include('../inc_menu.php');
 							</tbody>
 						</table>
 					</form>
+					<br>
+					<table class="table table-bordered">
+							<tbody>
+								<tr class="d-flex">
+									<td class="col-md-2 align-middle bg-secondary text-white"><strong><?php echo $dia_matricula_ini; ?> - <?php echo $dia_matricula_fin; ?></strong></td>
+									<td class="col-md-8 align-middle"><button name="rellenarMatricula" class="btn btn-link btn-sm m-0">Pago del Seguro escolar del curso 2020-2021 (<u>obligatorio</u>)</button>
+																		<!-- Button trigger modal -->
+								    	<a href="#" class="btn btn-warning btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+								    		<span class="fas fa-question fa-sm"></span>
+								    	</a>
+
+								  		<!-- Modal -->
+								  		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+								  			<div class="modal-dialog modal-lg">
+								  				<div class="modal-content">
+								  					<div class="modal-header">
+								  						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+								  						<h4 class="modal-title" id="modal_ayuda_titulo">Pago del seguro escolar del curso 2020-21</h4>
+								  					</div>
+								  					<div class="modal-body">
+								  						<p class="text-left">
+								  							La tasa obligatoria del seguro escolar (para el alumnado de todos los niveles <u><em>excepto 1º y 2º de ESO</em></u>), se abonará durante el periodo de matriculación establecido para cada caso.  La cuantía por alumno es de 1,12 euros  y se realizará por pasarela bancaria accediendo a la Secretaría Virtual en el siguiente enlace: <a href="http://lajunta.es/seguroescolar" target="_blank">http://lajunta.es/seguroescolar</a>. El código del IES Monterroso es 29002885.</p>
+								  							<p>En el caso de que el alumno/a esté <u><em>actualmente cursando 2º ESO</em></u>, el sistema de pago telemático no permite pagar porque aún no está matriculado en 3º ESO. Por lo tanto, estos casos realizarán el pago durante el mes de <u><em>septiembre</em></u>, una vez que comience el periodo lectivo en 3º de ESO.
+								  						</p>
+								  					</div>
+								  					<div class="modal-footer">
+								  						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+								  					</div>
+								  				</div>
+								  			</div>
+								  		</div>
+									</td>
+									<td class="d-none d-md-table-cell col-md-2 text-center align-middle"><a href="http://lajunta.es/seguroescolar/" target="_blank" class="btn btn-secondary btn-sm m-0">Pagar</a></td>
+								</tr>
+							</tbody>
+						</table>
+
 
 				</div>
 			</div>
 			<?php endif; ?>
 
-			<?php if ($claveal == "3605006" OR ($_SESSION['alumno_primaria'] <> 1 AND $_SESSION['alumno_secundaria'] <> 1 AND date('m')=='06' AND date('d')>='08' AND date('d')<='12')): $_SESSION['pasa_audiencia']=1; ?>
+			<?php if ($_SESSION['alumno_primaria'] <> 1 AND $_SESSION['alumno_secundaria'] <> 1 AND date('m')=='06' AND date('d')>='08' AND date('d')<='12'): $_SESSION['pasa_audiencia']=1; ?>
 
 			<?php //if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
 			<div class="row mb-3">
@@ -515,7 +558,7 @@ include('../inc_menu.php');
 						<?php include("mensajes.php"); ?>
 						</div>
 						<div class="tab-pane" id="recursos">
-						<?php include("recursos.php"); ?>
+						
 						</div>
 					</div>
 
