@@ -362,9 +362,15 @@ include('../inc_menu.php');
 								</dl>
 							</div>
 
+							<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite'] || isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?>
 							<div class="col-sm-6">
 								<h6 class="mb-3">
-									Acceso a Gmail / Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> / Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']): ?>
+									Acceso a Gmail / Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> 
+									<?php endif; ?>
+									<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?>
+									Microsoft 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php endif; ?>
 								</h6>
 
 								<dl class="row">
@@ -375,10 +381,12 @@ include('../inc_menu.php');
 									<dd class="col-sm-7"><?php echo $pass_gsuite; ?></dd>
 								</dl>
 							</div>
+							<?php endif; ?>
 
 							<div class="col-sm-12">
 								<small class="text-muted">Las credenciales que aparecen en esta página son de carácter informativo. Es posible que el Centro educativo no le haya dado de alta en todas las plataformas.</small>
 							</div>
+
 						</div>
 					</div>
 
