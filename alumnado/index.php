@@ -49,7 +49,7 @@ else {
 
 if ($claveal) {
 	if ($bd_alma == "alma") {
-		$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, curso, claveal, claveal1, numeroexpediente, dnitutor, combasi FROM $bd_alma WHERE claveal = '$claveal' ORDER BY apellidos");
+		$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, curso, claveal, claveal1, numeroexpediente, dnitutor, combasi, estadomatricula FROM $bd_alma WHERE claveal = '$claveal' ORDER BY apellidos");
 	}
 	else{
 		$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, curso, claveal, numeroexpediente, dnitutor FROM $bd_alma WHERE claveal = '$claveal' ORDER BY apellidos");
@@ -63,6 +63,7 @@ if ($claveal) {
 		$apellido = $row1['apellidos'];
 		$nombrepil = $row1['nombre'];
 		$dni_responsable_legal = $row1['dnitutor'];
+		$_SESSION['promociona'] = $row1['estadomatricula'];
 		if (isset($row1['combasi'])) {
 			$combasi = $row1['combasi'];
 		}
@@ -96,6 +97,7 @@ if ($claveal) {
 }
 
 // Informes para la evaluación extraordinaria
+$informe_extraordinaria="";
 $inf_extra = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal = '".$claveal."'");
 if (mysqli_num_rows($inf_extra)>0) {
 	$informe_extraordinaria=1;
@@ -229,7 +231,7 @@ include('../inc_menu.php');
 
 			<?php $result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, DNI, fecha, domicilio, telefono, padre, dnitutor, matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente FROM $bd_alma WHERE claveal= '$claveal'"); ?>
 
-			<?php if ($row = mysqli_fetch_array($result)): ?>
+			<?php if ($row = mysqli_fetch_array($result)): $grupo_al = $row['unidad'];?>
 			<?php $result_tutor = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."' LIMIT 1"); ?>
 			<?php $row_tutor = mysqli_fetch_array($result_tutor); ?>
 			<?php $exp_tutor = explode(", ",$row_tutor['tutor']); ?>
@@ -362,9 +364,15 @@ include('../inc_menu.php');
 								</dl>
 							</div>
 
+							<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite'] || isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?>
 							<div class="col-sm-6">
 								<h6 class="mb-3">
-									Acceso a Gmail / Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> / Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']): ?>
+									Acceso a Gmail / Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a> 
+									<?php endif; ?>
+									<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?>
+									Microsoft 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php endif; ?>
 								</h6>
 
 								<dl class="row">
@@ -375,10 +383,12 @@ include('../inc_menu.php');
 									<dd class="col-sm-7"><?php echo $pass_gsuite; ?></dd>
 								</dl>
 							</div>
+							<?php endif; ?>
 
 							<div class="col-sm-12">
 								<small class="text-muted">Las credenciales que aparecen en esta página son de carácter informativo. Es posible que el Centro educativo no le haya dado de alta en todas las plataformas.</small>
 							</div>
+
 						</div>
 					</div>
 
@@ -507,7 +517,11 @@ include('../inc_menu.php');
 						<?php $tab1 = 1; ?>
 						<li class="nav-item"><a class="nav-link <?php echo $link_active_faltas; ?>" href="#asistencia" role="tab" data-toggle="tab">Asistencia</a></li>
 						<li class="nav-item"><a class="nav-link" href="#convivencia" role="tab" data-toggle="tab">Convivencia</a></li>
-						<li class="nav-item"><a class="nav-link" href="#evaluaciones" role="tab" data-toggle="tab">Calificaciones</a></li>
+						<?php 
+						if ($_SESSION['claveal']=='3605006' or stristr($grupo_al, "4E") or stristr($grupo_al, "2B")) { ?>
+							<li class="nav-item"><a class="nav-link" href="#evaluaciones" role="tab" data-toggle="tab">Calificaciones</a></li>
+						<?php }
+						?>
 						<li class="nav-item"><a class="nav-link <?php echo $link_active_calendario; ?>" href="#evaluables" role="tab" data-toggle="tab">Actividades</a></li>
 						<li class="nav-item"><a class="nav-link" href="#horario" role="tab" data-toggle="tab">Horario</a></li>
 						<?php if (isset($config['alumnado']['ver_informes_tutoria']) && $config['alumnado']['ver_informes_tutoria']): ?>

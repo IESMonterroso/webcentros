@@ -25,7 +25,7 @@ function obtener_calificacion_texto($nota) {
 }
 
 // Evaluaciones
-$notas1 = "select notas1, notas2, notas3, notas4, unidad, notas0 from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL = '$claveal'";
+$notas1 = "select notas1, notas2, notas3, notas4, unidad, notas0, unidad from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL = '$claveal'";
 // echo $notas1;
 $result1 = mysqli_query($db_con, $notas1);
 $row1 = mysqli_fetch_array($result1);
@@ -33,6 +33,7 @@ $asignatura_1 = substr($row1[0], 0, strlen($row1[0])-1);
 $asignatura_2 = substr($row1[1], 0, strlen($row1[1])-1);
 $asignatura_3 = substr($row1[2], 0, strlen($row1[2])-1);
 $inicial = substr($row1[5], 0, strlen($row1[5])-1);
+$unidad = $row1[6];
 
 if (strlen($asignatura_1) > 0) {
 	$trozos = explode(";", $asignatura_1);
@@ -60,16 +61,14 @@ if (strlen($inicial) > 0) {
       
       <!-- COLUMNA CENTRAL -->
       <div class="col-md-12">
+			<?php if (($informe_extraordinaria=="1" and (date('Y-m-d') > $config['curso_fin']) AND date('m')<'10') OR ( stristr($unidad, "4E-") and $informe_extraordinaria=="1") OR ( stristr($unidad, "2B-") and $informe_extraordinaria=="1")): ?>
 
-          <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
-            <li class="nav-item"><a class="nav-link active" href="#notas_evalua" role="tab" data-toggle="tab">Calificaciones de las evaluaciones</a></li>
+	          <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
+	            <li class="nav-item"><a class="nav-link active" href="#notas_evalua" role="tab" data-toggle="tab">Calificaciones de las evaluaciones</a></li>
+				<li class="nav-item"><a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>/intranet/admin/informes/extraordinaria/pdf.php?claveal=<?php echo $claveal; ?>" target="_blank" data-toggle="tooltip" data-html="true" title="<p>Informe sobre la <em><u>fecha de la prueba</u></em>, así como <em><u>contenidos y actividades</u></em> que el alumno debe preparar y realizar, para la <b>evaluación extraordinaria</b> de septiembre</p>">Informe para la evaluación extraordinaria</a></li>
+	          </ul>
 
-			<?php if ($informe_extraordinaria==1 and (date('m')>'05') AND date('m')<'10'): ?>
-			<li class="nav-item"><a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>/intranet/admin/informes/extraordinaria/pdf.php?claveal=<?php echo $claveal; ?>" target="_blank" data-toggle="tooltip" data-html="true" title="<p>Informe sobre la <em><u>fecha de la prueba</u></em>, así como <em><u>contenidos y actividades</u></em> que el alumno debe preparar y realizar, para la <b>evaluación extraordinaria</b> de septiembre</p>">Informe para la evaluación extraordinaria</a></li>
 			<?php endif; ?>
-
-
-          </ul>
 
           <br>         
 
@@ -77,10 +76,15 @@ if (strlen($inicial) > 0) {
             <div class="tab-pane active" id="notas_evalua">
               
               <a name="notas_evalua"></a>
-              
+              <br>
 
-				<h3>Evaluaciones</h3><br>
+             	<h3 style="display:inline;">Evaluaciones</h3> 
+				<a class="btn btn-info float-right" href="imprimir_notas.php" target="_blank" >Imprimir las Calificaciones</a>
+				<?php if(stristr($_SESSION['promociona'], "Obtiene Tít") OR stristr($_SESSION['promociona'], "Promociona")){$boton = "btn-success";} else{ $boton="btn-primary";} ?>
+             	<button class="btn <? echo $boton;?> float-right" style="margin-right:30px;">El alumno <?php echo $_SESSION['promociona'];  ?></button>
+ 
 				<div class='table-responsive'>
+					<br>
 					<table class='table table-bordered table-striped table-hover'>
 						<thead>
 							<tr>
