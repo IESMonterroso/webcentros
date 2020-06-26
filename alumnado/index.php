@@ -55,7 +55,6 @@ if ($claveal) {
 		$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, curso, claveal, numeroexpediente, dnitutor FROM $bd_alma WHERE claveal = '$claveal' ORDER BY apellidos");
 	}
 
-
 	if ($row1 = mysqli_fetch_array($result1)) {
 		$unidad = $row1['unidad'];
 		$curso = $row1['curso'];
@@ -517,11 +516,7 @@ include('../inc_menu.php');
 						<?php $tab1 = 1; ?>
 						<li class="nav-item"><a class="nav-link <?php echo $link_active_faltas; ?>" href="#asistencia" role="tab" data-toggle="tab">Asistencia</a></li>
 						<li class="nav-item"><a class="nav-link" href="#convivencia" role="tab" data-toggle="tab">Convivencia</a></li>
-						<?php 
-						if ($_SESSION['claveal']=='3605006' or stristr($grupo_al, "4E") or stristr($grupo_al, "2B")) { ?>
-							<li class="nav-item"><a class="nav-link" href="#evaluaciones" role="tab" data-toggle="tab">Calificaciones</a></li>
-						<?php }
-						?>
+						<li class="nav-item"><a class="nav-link" href="#evaluaciones" role="tab" data-toggle="tab">Calificaciones</a></li>
 						<li class="nav-item"><a class="nav-link <?php echo $link_active_calendario; ?>" href="#evaluables" role="tab" data-toggle="tab">Actividades</a></li>
 						<li class="nav-item"><a class="nav-link" href="#horario" role="tab" data-toggle="tab">Horario</a></li>
 						<?php if (isset($config['alumnado']['ver_informes_tutoria']) && $config['alumnado']['ver_informes_tutoria']): ?>

@@ -61,7 +61,7 @@ if (strlen($inicial) > 0) {
       
       <!-- COLUMNA CENTRAL -->
       <div class="col-md-12">
-			<?php if (($informe_extraordinaria=="1" and (date('Y-m-d') > $config['curso_fin']) AND date('m')<'10') OR ( stristr($unidad, "4E-") and $informe_extraordinaria=="1") OR ( stristr($unidad, "2B-") and $informe_extraordinaria=="1")): ?>
+			<?php if ($informe_extraordinaria=="1" AND date('Y-m-d') >= $config['curso_fin'] AND date('m')<'10'): ?>
 
 	          <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
 	            <li class="nav-item"><a class="nav-link active" href="#notas_evalua" role="tab" data-toggle="tab">Calificaciones de las evaluaciones</a></li>
@@ -80,8 +80,17 @@ if (strlen($inicial) > 0) {
 
              	<h3 style="display:inline;">Evaluaciones</h3> 
 				<a class="btn btn-info float-right" href="imprimir_notas.php" target="_blank" >Imprimir las Calificaciones</a>
-				<?php if(stristr($_SESSION['promociona'], "Obtiene Tít") OR stristr($_SESSION['promociona'], "Promociona")){$boton = "btn-success";} else{ $boton="btn-primary";} ?>
-             	<button class="btn <? echo $boton;?> float-right" style="margin-right:30px;">El alumno <?php echo $_SESSION['promociona'];  ?></button>
+				<?php if(stristr($_SESSION['promociona'], "Obtiene Tít") OR stristr($_SESSION['promociona'], "Promociona")){ ?>
+					<button class="btn btn-success float-right" style="margin-right:30px;"> El alumno <?php echo $_SESSION['promociona'];  ?></button>
+				<?php	
+				} 
+				elseif(!empty($_SESSION['promociona']))
+				{ ?>
+					<button class="btn btn-danger float-right" style="margin-right:30px;"> El alumno <?php echo $_SESSION['promociona'];  ?></button>
+				<?php } 
+				else{ }
+				?>
+             	
  
 				<div class='table-responsive'>
 					<br>

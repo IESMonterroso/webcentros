@@ -45,9 +45,8 @@ function obtener_calificacion_texto($nota) {
     return $calificacion;
 }
 
-
 class GranPDF extends PDF_MC_Table {
-    /*function SetFontSpacing($size) {
+    function SetFontSpacing($size) {
         $size = ($size / 100);
         if($this->FontSpacingPt==$size)
             return;
@@ -55,20 +54,20 @@ class GranPDF extends PDF_MC_Table {
         $this->FontSpacing = $size/$this->k;
         if ($this->page>0)
             $this->_out(sprintf('BT %.3f Tc ET', $size));
-    }*/
+    }
 
     function Header() {
         global $config;
 
         $this->SetTextColor(48, 46, 43);
-        //$this->SetFontSpacing(-10);
+        $this->SetFontSpacing(-10);
         $this->SetY(14);
         $this->SetFont('Noto Sans HK Bold','',16);
         $this->Cell(80,5,'Junta de Andalucía',0,1);
         $this->Image( 'logo-fse.jpg',85,13,23,'','jpg');
         $this->SetY(15);
         $this->Cell(85);
-        //$this->SetFontSpacing(0);
+        $this->SetFontSpacing(0);
         $this->SetFont('Noto Sans HK','',10);
         $this->Cell(80,5,'Consejería de Educación y Deporte',0,1);
         $this->Cell(85);
@@ -143,10 +142,11 @@ $MiPDF->SetDisplayMode('fullpage');
 // OBTENEMOS LOS ALUMNOS DE LOS CURSOS Y UNIDADES SELECCIONADAS
 $alumnos = array();
 
-$result = mysqli_query($db_con, "SELECT `curso`, `unidad`, `apellidos`, `nombre`, `claveal`, `claveal1`, `numeroexpediente`, `combasi`, `primerapellidotutor`, `segundoapellidotutor`, `nombretutor`, `sexoprimertutor`, `domicilio`, `codpostal`, `localidad`, `provinciaresidencia`, `sexo` FROM `alma` WHERE `claveal`='".$_SESSION['claveal']."' ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC");
+$result = mysqli_query($db_con, "SELECT `curso`, `unidad`, `apellidos`, `nombre`, `claveal`, `claveal1`, `numeroexpediente`, `combasi`, `primerapellidotutor`, `segundoapellidotutor`, `nombretutor`, `sexoprimertutor`, `domicilio`, `codpostal`, `localidad`, `provinciaresidencia`, `sexo`, `estadomatricula` FROM `alma` WHERE `claveal`='".$_SESSION['claveal']."' ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC");
 
 
 while ($row = mysqli_fetch_array($result)) {
+    $estadomatricula=$row['estadomatricula'];
     if ($row['nombretutor'] != "") {
         $tutor_legal = (($row['sexoprimertutor'] == 'H') ? 'Don ' : 'Doña ').trim($row['nombretutor'].' '.$row['primerapellidotutor'].' '.$row['segundoapellidotutor']);
     }
@@ -563,7 +563,7 @@ foreach ($alumnos as $alumno) {
     }
 
     $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
-    $MiPDF->Cell(0, 5, 'Observaciones:', 0, 1, 'L', 0);
+    $MiPDF->Cell(0, 5, 'Observaciones: '.$estadomatricula, 0, 1, 'L', 0);
     $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Ln(10);
 
