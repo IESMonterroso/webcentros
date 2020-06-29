@@ -65,7 +65,7 @@ if (strlen($inicial) > 0) {
 
 	          <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
 	            <li class="nav-item"><a class="nav-link active" href="#notas_evalua" role="tab" data-toggle="tab">Calificaciones de las evaluaciones</a></li>
-				<li class="nav-item"><a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>/intranet/admin/informes/extraordinaria/pdf.php?claveal=<?php echo $claveal; ?>" target="_blank" data-toggle="tooltip" data-html="true" title="<p>Informe sobre la <em><u>fecha de la prueba</u></em>, así como <em><u>contenidos y actividades</u></em> que el alumno debe preparar y realizar, para la <b>evaluación extraordinaria</b> de septiembre</p>">Informe para la evaluación extraordinaria</a></li>
+				<li class="nav-item"><a class="nav-link" href="pdf.php?claveal=<?php echo $claveal; ?>" target="_blank" data-toggle="tooltip" data-html="true" title="<p>Informe sobre la <em><u>fecha de la prueba</u></em>, así como <em><u>contenidos y actividades</u></em> que el alumno debe preparar y realizar, para la <b>evaluación extraordinaria</b> de septiembre</p>">Informe para la evaluación extraordinaria</a></li>
 	          </ul>
 
 			<?php endif; ?>
