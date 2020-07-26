@@ -391,6 +391,30 @@ include('../inc_menu.php');
 						</div>
 					</div>
 
+					<br>
+
+					<?php if (($_SESSION['alumno_primaria'] == 1 OR $_SESSION['alumno_secundaria'] == 1) AND date('Y-m-d')>$config['matriculas']['fecha_fin'] AND date('m')<'09'){ 
+
+						if($_SESSION['alumno_primaria'] == 1){ $_form_action="matriculas.php";}
+						if($_SESSION['alumno_secundaria'] == 1){ $_form_action="matriculas_bach.php";}
+					?>
+
+					<form class="" action="./matriculas/<?php echo $_form_action; ?>" method="post" target="_blank">
+						<input type="hidden" name="curso" value="<?php echo $_curso_matricula; ?>">
+						<table class="table table-bordered">
+							<tbody>
+								<tr class="d-flex">
+									<td class="col-md-2 align-middle bg-secondary text-white"><strong><?php echo $dia_matricula_ini; ?> - <?php echo $dia_matricula_fin; ?></strong></td>
+									<td class="col-md-7 align-middle"><button type="submit" name="rellenarMatricula" class="btn btn-link btn-sm m-0">Solicitud de matrícula en <?php echo $_form_descripcion; ?></button></td>
+									<td class="d-none d-md-table-cell col-md-3 text-center align-middle"><button type="submit" name="rellenarMatricula" class="btn btn-secondary btn-sm m-0">Imprimir documento</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+					<br>
+
+					<?php } ?>
+
 				</div><!-- /.col-sm-10 -->
 
 			</div><!-- /.row -->
@@ -460,7 +484,6 @@ include('../inc_menu.php');
 
 			<?php if ($_SESSION['alumno_primaria'] <> 1 AND $_SESSION['alumno_secundaria'] <> 1 AND date('m')=='06' AND date('d')>='08' AND date('d')<='12'): $_SESSION['pasa_audiencia']=1; ?>
 
-			<?php //if ((isset($config['mod_matriculacion']) && $config['mod_matriculacion']) && (date('Y-m-d') >= $config['matriculas']['fecha_inicio'] && date('Y-m-d') <= $config['matriculas']['fecha_fin'] && (stristr($curso, "Bachillerato") || stristr($curso, "E.S.O") || stristr($curso, "Educ. Prima.")))): $_SESSION['pasa_matricula']=1; ?>
 			<div class="row mb-3">
 				<div class="col-12">
 

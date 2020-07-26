@@ -2,6 +2,46 @@
 require_once("../../bootstrap.php");
 require_once('../../config.php');
 
+// Subida de DNI
+/*if (isset($_POST['subir_DNI'])) {
+
+	$fotografia = $_FILES['foto_DNI']['tmp_name'];
+	$claveal = $_SESSION['claveal'];
+
+	if (empty($claveal) || empty($fotografia)) {
+		$msg_error = "Todos los campos del formulario son obligatorios.";
+	}
+	else {
+
+		if ($_FILES['foto_DNI']['type'] != 'image/jpeg') {
+			$msg_error = "El formato del archivo no es válido.";
+		}
+		else {
+			require_once('../../plugins/class.Images.php');
+			$image = new Image($fotografia);
+			$image->resize(240,320,'crop');
+			$image->save($claveal, '../../intranet/xml/DNI/', 'jpg');
+
+			$file_content = mysqli_real_escape_string($db_con, file_get_contents('../../intranet/xml/DNI/'.$claveal.'.jpg'));
+			$file_size = filesize('../../intranet/xml/DNI/'.$claveal.'.jpg');
+
+			// Eliminamos posibles imagenes que hayan en la tabla
+			mysqli_query($db_con, "DELETE FROM DNI WHERE nombre='".$claveal.".jpg'");
+
+			// Insertamos la foto en la tabla, esto es útil para la página externa
+			mysqli_query($db_con, "INSERT DNI (nombre, datos, fecha, tamaño) VALUES ('".$claveal.".jpg', '$file_content', '".date('Y-m-d H:i:s')."', '".$file_size."')");
+
+			$msg_success = "La fotografía del DNI se ha actualizado.";
+
+			header("Location: ../index.php");
+			exit;
+
+		}
+
+	}
+}
+*/
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['alumno_autenticado'] != 1) {
 	$_SESSION = array();
@@ -400,55 +440,64 @@ if($_POST['enviar'] =="Enviar los datos de la Matrícula"){
 			$id = $ya_id[0];
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
+<?php 
+require_once("../../bootstrap.php");
+require_once("../../config.php");
 
-<head>
-  <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+$pagina['titulo'] = 'Matriculación en IES Monterroso';
 
-	<title><?php echo (isset($pagina['titulo']) && $pagina['titulo'] != '') ? strip_tags($pagina['titulo'])." - ".$config['centro_denominacion'] : $config['centro_denominacion']; ?> - Instituto de Educación Secundaria de <?php echo $config['centro_localidad']; ?></title>
+include('../../inc_menu.php'); 
+?>
 
-	<meta name="robots" content="noindex, nofollow">
+    <div class="section">
 
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//stackpath.bootstrapcdn.com">
-	<link rel="dns-prefetch" href="//code.jquery.com">
-	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+        <div class="container-fluid">
 
-	<!-- Fonts and icons -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-	<link rel="stylesheet" href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/fontawesome-free-5.11.2-web/css/all.css">
-	<!-- CSS Files -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-	<link href="<?php echo WEBCENTROS_DOMINIO; ?>ui-theme/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
+          <div class="row justify-content-md-center">
 
-</head>
-<body>
-<br />
-<br />
-<br />
-<br />
-<div class="container">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="alert alert-success"><br />
-			Los datos de la Matrícula se han registrado correctamente. Si tiene alguna duda o surge algún
-			problema, no dude en ponerse en contacto con la Administración o
-			Dirección del Centro. <br />
-			<br />
-			<form action="../index.php" method="post"
-				enctype="multipart/form-data">
-			<center><input type="submit"
-				value="Volver a la página personal del alumno"
-				class="btn btn-warning btn-block btn-lg" /></center>
-			</form>
+            <div class="col-md-6 col-md-offset-3">          	
+				
+				<div class="alert alert-success">
+				<br />
+				Los datos de la matrícula se han registrado correctamente. Si tiene alguna duda o surge algún 			problema, no dude en ponerse en contacto con la Administración o Dirección del Centro. 
+				<br />
+				<!--	
+				<a href="matriculas.php" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#subir_DNI">Subir foto del DNI</a>
 
+					<div class="modal fade" id="subir_DNI" tabindex="-1" role="dialog">
+						<div class="modal-dialog" role="document">
+							<form action="" method="post" enctype="multipart/form-data">
+								<div class="modal-content">
+									<div class="modal-header justify-content-center">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="title title-up text-muted">Subir foto del DNI</h4>
+									</div>
+									<div class="modal-body">
+										<div class="bg-clouds p-3 rounded text-muted">
+											<div class="form-group">
+												<label for="foto_DNI">Suba o actualice la fotografía. El formato debe ser JPEG.</label>
+												<input type="file" class="form-control" id="foto_DNI" name="foto_DNI" accept="image/jpg">
+											</div>
+										</div>
+										<hr>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+										<button type="submit" name="subir_DNI" class="btn btn-primary">Subir fotografía</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>n 
+				--> 
+
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<?php include("../../inc_pie.php"); ?>
 
 </body>
 </html>
@@ -551,8 +600,18 @@ if (($claveal or $id) and $curso) {
 	if (substr($row_alma[3],0,2)=="2E"){$curso="3ESO";}
 	if (substr($row_alma[3],0,2)=="3E"){$curso="4ESO";}
 
+	// Si ha terminado la matriculación, la tabla para imporimir se bloquea
+
+	if (date('Y-m-d')>$config['matriculas']['fecha_fin'] AND date('m')<='09') {
+		$tabla_matriculas = "matriculas_impresion";
+	}
+	else{
+		$tabla_matriculas = "matriculas";
+	}
+
 	// Comprobamos si el alumno se ha registrado ya
-	$ya = mysqli_query($db_con,"select apellidos, id, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, optativa1, optativa2, optativa3, optativa4, correo, exencion, bilinguismo, otrocolegio, letra_grupo, religion, observaciones, act1, act2, act3, act4, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, otrocolegio, ruta_oeste, sexo, hermanos, nacionalidad, claveal, optativas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, curso, foto, enfermedad, otraenfermedad, matematicas3, divorcio, ciencias4, nsegsocial, correo_alumno, analgesicos from matriculas where ". $conditio ."");
+
+	$ya = mysqli_query($db_con,"select apellidos, id, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, optativa1, optativa2, optativa3, optativa4, correo, exencion, bilinguismo, otrocolegio, letra_grupo, religion, observaciones, act1, act2, act3, act4, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, otrocolegio, ruta_oeste, sexo, hermanos, nacionalidad, claveal, optativas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, curso, foto, enfermedad, otraenfermedad, matematicas3, divorcio, ciencias4, nsegsocial, correo_alumno, analgesicos from ".$tabla_matriculas." where ". $conditio ."");
 
 	// Ya se ha matriculado
 	if (mysqli_num_rows($ya) > 0) {
@@ -1556,14 +1615,14 @@ if (($claveal or $id) and $curso) {
 			}
 			else{
 
-			if ($_SESSION['pasa_matricula'] == "1" or $_SESSION['admin']=="1") { ?>
+			if ($_SESSION['pasa_matricula'] == "1" OR $_SESSION['admin']=="1") { ?>
 				<input type="hidden" name="enviar" value="Enviar los datos de la Matrícula" />
 				<input data-bb="confirm-matricula" name="enviar_form" value="Enviar los datos de la Matrícula" type="submit" class="no_imprimir btn btn-primary btn-lg" />
 			<?php
 				}
 			}
 
-			if($claveal == "3605006" OR ($_SESSION['ya_matricula_eso']==1 AND date('Y-m-d')>$config['matriculas']['fecha_fin'])){ 
+			if(($_SESSION['ya_matricula_eso']==1 OR $_SESSION['alumno_primaria'] == 1) AND date('Y-m-d')>$config['matriculas']['fecha_fin']  AND date('m')<'09'){ 
 				
 				$dia_1 = strtotime($config['matriculas']['fecha_fin']."+ 1 days");
 				$dia_impresion = date("Y-m-d",$dia_1);

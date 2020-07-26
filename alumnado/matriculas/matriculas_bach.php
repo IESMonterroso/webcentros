@@ -596,12 +596,19 @@ if ($claveal or $id) {
 	$ya_secundaria = mysqli_query($db_con,"select claveal, apellidos, nombre from alma_secundaria where ". $conditio1 ."");
 	$ya_alma = mysqli_query($db_con,"select claveal, apellidos, nombre, unidad from alma where (curso like '1º de B%' or curso like '2º de B%' or curso like '4º de E%') and (". $conditio1 .")");
 
+	// Si ha terminado la matriculación, la tabla para imporimir se bloquea
+
+	if (date('Y-m-d')>$config['matriculas']['fecha_fin'] AND date('m')<='09') {
+		$tabla_matriculas = "matriculas_bach_impresion";
+	}
+	else{
+		$tabla_matriculas = "matriculas_bach";
+	}
+			
 	// Comprobamos si el alumno se ha registrado ya
-	$ya = mysqli_query($db_con,"select apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre,
-	dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma1, idioma2, religion,
-	itinerario1, itinerario2, optativa1, optativa2, optativa2b1, optativa2b2, optativa2b3,
+	$ya = mysqli_query($db_con,"select apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre,	dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma1, idioma2, religion,	itinerario1, itinerario2, optativa1, optativa2, optativa2b1, optativa2b2, optativa2b3,
 	optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, observaciones, curso, fecha,
-	promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, itinerario1, itinerario2, repite, foto, enfermedad, otraenfermedad, bilinguismo, divorcio, religion1b, opt_aut21, opt_aut22, opt_aut23, opt_aut24, opt_aut25, opt_aut26, opt_aut27, nsegsocial, parcial, correo_alumno, analgesicos, id from matriculas_bach where ". $conditio ."");
+	promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, itinerario1, itinerario2, repite, foto, enfermedad, otraenfermedad, bilinguismo, divorcio, religion1b, opt_aut21, opt_aut22, opt_aut23, opt_aut24, opt_aut25, opt_aut26, opt_aut27, nsegsocial, parcial, correo_alumno, analgesicos, id from ".$tabla_matriculas." where ". $conditio ."");
 
 	// Ya se ha matriculado
 	if (mysqli_num_rows($ya) > 0) {
@@ -1505,14 +1512,15 @@ if ($claveal or $id) {
 				}
 			}
 
-			if($_SESSION['ya_matricula_bach']==1 AND date('Y-m-d')>$config['matriculas']['fecha_fin']){ 
+			if(($_SESSION['ya_matricula_bach']==1 OR $_SESSION['secundaria'] == 1) AND date('Y-m-d')>$config['matriculas']['fecha_fin'] AND date('m')<='09'){ 
 				
 				$dia_1 = strtotime($config['matriculas']['fecha_fin']."+ 1 days");
 				$dia_impresion = date("Y-m-d",$dia_1);
 
 				if (date('Y-m-d')==$dia_impresion) {
-					mysqli_query($db_con,"truncate table matriculas_impresion");
-					mysqli_query($db_con,"insert into matriculas_impresion select * from matriculas");
+					mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `matriculas_bach_impresion` select * from matriculas_bach");
+					mysqli_query($db_con,"truncate table matriculas_bach_impresion");
+					mysqli_query($db_con,"insert into matriculas_bach_impresion select * from matriculas_bach");
 				}
 				
 				echo '&nbsp;&nbsp;&nbsp;<a data-bb="confirm-impresion" href="caratulas_bach.php?id='.$id.'&curso='.$curso.'" class="btn btn-danger btn-lg" target="_blank">Imprimir documento</a>';			
@@ -1630,7 +1638,7 @@ $("input[name='enviar_form']").on("click",function(e) {
 		        }
 		    },
 		    title: "<h4 class='text-muted'><i class='fas fa-info-circle fa-fw text-info'></i> MATRICULACIÓN EN IES MONTERROSO</h4>",
-		    message: "<p>Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.<br>La tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará con anterioridad al 30 de septiembre, una vez comenzadas las clases y por el procedimiento que se determine llegado el momento</p>",
+		    message: "<p>Una vez pulse el botón Confirmar, la preinscripción estará presentada. Hasta el 30 de junio, podrá editar y modificar los datos de la matrícula, si fuera necesario. Transcurrida esa fecha, se dará por formalizada la matrícula en el IES Monterroso.<br>La tasa obligatoria del seguro escolar (para el alumnado de todos los niveles excepto 1º y 2º de ESO), se abonará durante el periodo de matriculación establecido para cada caso.  La cuantía por alumno es de 1,12 euros  y se realizará por pasarela bancaria accediendo a la Secretaría Virtual en el siguiente enlace: http://lajunta.es/seguroescolar. El código del IES Monterroso es 29002885.</p>",
 		    callback: function(result){ if(result) { $('#form1').submit(); } }
 		})
 });
