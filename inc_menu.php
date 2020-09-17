@@ -170,10 +170,12 @@ a{color:#fff !important}
                 <?php endif; ?>
               </div>
 
+              <?php if (! isset($config['ocultar_datos_centro']) || (isset($config['ocultar_datos_centro']) && $config['ocultar_datos_centro'] == 0)): ?>
               <div class="p-2 text-muted" style="font-size: 1rem;">
                 <i class="fas fa-phone fa-lg fa-fw fa-rotate-90"></i> <?php echo formatoTelefono($config['centro_telefono']); ?><?php echo (isset($config['centro_fax']) && $config['centro_fax']) ? ' - Fax: ' . formatoTelefono($config['centro_fax']) : ''; ?><br>
                 <i class="fas fa-envelope fa-lg fa-fw"></i> <?php echo ofuscarEmail($config['centro_email']); ?>
               </div>
+              <?php endif; ?>
             </div>
           </div>
         </div>
