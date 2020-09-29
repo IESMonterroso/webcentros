@@ -56,7 +56,7 @@ if(isset($_POST['enviar'])) {
 		$direccionIP = getRealIP();
 
 		if ($enviarMensaje) {
-			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '$unidad', '$nombreAdjunto')");
+			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '".$_SESSION['unidad']."', '$nombreAdjunto')");
 
 			if(! $result) {
 				$msg_error = "Ha ocurrido un error al enviar el mensaje.";
@@ -86,7 +86,7 @@ if(isset($_POST['leido'])){
 		$mensaje = "El mensaje enviado a $nombrepil $apellido con el asunto \"$asunto\" ha sido entregado y leído en la web del centro.";
 
 		$direccionIP = getRealIP();
-		mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto_confirmacion', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '$unidad')");
+		mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto_confirmacion', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '".$_SESSION['unidad']."')");
 	}
 
 }

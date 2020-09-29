@@ -57,6 +57,7 @@ if ($claveal) {
 
 	if ($row1 = mysqli_fetch_array($result1)) {
 		$unidad = $row1['unidad'];
+		$_SESSION['unidad'] = $unidad;
 		$curso = $row1['curso'];
 		$claveal1 = $row1['claveal1'];
 		$apellido = $row1['apellidos'];
