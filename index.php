@@ -496,7 +496,7 @@ include("inc_menu.php");
                     <br>
                     <?php endif; ?>
 
-                    <?php if (date('m') == 9 && (date('d') >= 13 && date('d') <= 30)): ?>
+                    <?php if (date('m') == 9 && (date('d') >= 13 && date('d') <= 20)): ?>
                     <!-- CONSULTA UNIDAD DEL ALUMNO -->
                     <div class="pt-15">
                       <div class="card-box border-primary" style="min-height: 241px;">

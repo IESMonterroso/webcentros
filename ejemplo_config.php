@@ -17,6 +17,10 @@ $config['color_primario'] = "0%, 60%, 80%, 2%";
 // Los valores posibles son del 1 al 7.
 $config['fondo_patron'] = "1";
 
+// DATOS DE CONTACTO
+// Comentar / Descomentar la línea para ocultar o mostrar, respectivamente, los datos de contacto del centro
+//$config['ocultar_datos_centro'] = 1;
+
 // PLAN DE CENTRO
 // Comentar / Descomentar la línea para mostrar o no mostrar, respectivamente, el Plan de Centro
 // $config['plan_centro']    = "";
