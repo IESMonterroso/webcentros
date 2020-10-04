@@ -57,6 +57,7 @@ if ($claveal) {
 
 	if ($row1 = mysqli_fetch_array($result1)) {
 		$unidad = $row1['unidad'];
+		$_SESSION['unidad'] = $row1['unidad'];
 		$curso = $row1['curso'];
 		$claveal1 = $row1['claveal1'];
 		$apellido = $row1['apellidos'];
@@ -202,6 +203,15 @@ if (mysqli_num_rows($query_evaluables1)>0)  $muestra_evaluables = 1;
 // Comprobamos mensajes recibidos
 $query_mensajes = mysqli_query($db_con, "SELECT mens_texto.id, ahora, asunto, texto, c_profes.profesor, (SELECT recibidoprofe FROM mens_profes WHERE id_texto = mens_texto.id AND profesor LIKE '%$apellido, $nombrepil%' OR profesor LIKE '%".$_SESSION['claveal']."%' LIMIT 1) AS recibidoprofe FROM mens_texto JOIN c_profes ON mens_texto.origen = c_profes.idea WHERE ahora BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' AND (destino LIKE '%$apellido, $nombrepil%' OR destino LIKE '%".$_SESSION['claveal']."%' AND asunto NOT LIKE 'Mensaje de confirmación') ORDER BY ahora DESC");
 $numeroMensajesRecibidos = mysqli_num_rows($query_mensajes);
+
+$query_mensajes2 = mysqli_query($db_con, "SELECT mens_texto.id, ahora, asunto, texto, c_profes.profesor, (SELECT recibidoprofe FROM mens_profes WHERE id_texto = mens_texto.id AND profesor LIKE '%$apellido, $nombrepil%' OR profesor LIKE '%".$_SESSION['claveal']."%' LIMIT 1) AS recibidoprofe FROM mens_texto JOIN c_profes ON mens_texto.origen = c_profes.idea WHERE ahora BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' AND (destino LIKE '%$apellido, $nombrepil%' OR destino LIKE '%".$_SESSION['claveal']."%' AND asunto NOT LIKE 'Mensaje de confirmación') ORDER BY ahora DESC");
+
+while ($n_mens = mysqli_fetch_array($query_mensajes2)) {
+	$c1  = mysqli_query($db_con,"select recibidoprofe from mens_profes where id_texto = '$n_mens[0]' and recibidoprofe='0'");
+		if (mysqli_num_rows($c1)>0) {
+		$numeroMensajesRecibidos2++;
+		}
+}
 
 $query_enviados = mysqli_query($db_con, "SELECT id, ahora, asunto, texto, recibidotutor FROM mensajes WHERE ahora BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' AND (claveal = '".$_SESSION['claveal']."' AND asunto NOT LIKE 'Mensaje de confirmación')");
 $numeroMensajesEnviados = mysqli_num_rows($query_enviados);
@@ -504,6 +514,40 @@ include('../inc_menu.php');
 			<br>
 			<?php endif; ?>
 
+			<?php if($numeroMensajesRecibidos2>0): ?>
+			<div class="row mb-3">
+				<div class="col-12">
+
+						<table class="table table-bordered">
+							<tbody>
+								<tr class="d-flex">
+									<td class="col-md-12 align-middle bg-info text-white text-center"><h6><span class="fas fa-exclamation-triangle fa-lg"> </span> Tiene mensajes sin leer.</h6></td>
+								</tr>
+							</tbody>
+						</table>
+
+				</div>
+			</div>
+		<?php endif; ?>
+
+
+			<?php 
+			$matr_contr = mysqli_fetch_array(mysqli_query($db_con,"select curso, grupo_actual from matriculas where claveal = '$claveal'"));
+			$matr_bach_contr = mysqli_fetch_array(mysqli_query($db_con,"select curso, grupo_actual from matriculas_bach where claveal = '$claveal'"));
+			if (!empty($matr_contr['curso'])) {
+				$curso_matr = $matr_contr['curso'];
+				$unidad_matr = $matr_contr['curso']." - ".$matr_contr['grupo_actual'];
+			}
+			elseif(!empty($matr_bach_contr['curso'])) {
+				$curso_matr = $matr_bach_contr['curso'];
+				$unidad_matr = $matr_bach_contr['curso']." - ".$matr_contr['grupo_actual'];
+			}
+			else{
+				$unidad_matr = "";
+			}
+
+			?>
+
 			<?php if ($bd_alma == "alma"): ?>
 			<div class="row">
 
@@ -545,7 +589,7 @@ include('../inc_menu.php');
 						<?php if (isset($config['alumnado']['ver_informes_tutoria']) && $config['alumnado']['ver_informes_tutoria']): ?>
 						<li class="nav-item"><a class="nav-link" href="#tutoria" role="tab" data-toggle="tab">Tutoría</a></li>
 						<?php endif; ?>
-						<li class="nav-item"><a class="nav-link" href="#mensajes" role="tab" data-toggle="tab">Mensajes<?php echo ($numeroMensajesRecibidos) ? ' <span class="badge">'.$numeroMensajesRecibidos.'</span>' : ''; ?></a></li>
+						<li class="nav-item"><a class="nav-link" href="#mensajes" role="tab" data-toggle="tab">Mensajes<?php echo ($numeroMensajesRecibidos2) ? ' <span class="badge">'.$numeroMensajesRecibidos2.'</span>' : ''; ?></a></li>
 						<?php $rutaRecursos = $config['mod_documentos_dir'] . "/Recursos/" . $row['unidad']; ?>
 						<?php if (file_exists($rutaRecursos)): ?>
 						<li class="nav-item"><a class="nav-link" href="<?php echo WEBCENTROS_DOMINIO; ?>/documentos/index.php?dir=/Recursos/<?php echo $row['unidad']; ?>">Recursos</a></li>

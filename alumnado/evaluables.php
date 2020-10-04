@@ -1,5 +1,7 @@
 <?php defined('WEBCENTROS_DIRECTORY') OR exit('No direct script access allowed');
 
+$unidad = $_SESSION['unidad'];
+
 $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profesor AS nomprofesor, asignaturas.NOMBRE AS nomasignatura, notas_cuaderno.id AS idactividad, notas_cuaderno.nombre AS nomactividad, notas_cuaderno.fecha AS fecactividad FROM notas_cuaderno JOIN asignaturas ON notas_cuaderno.asignatura = asignaturas.CODIGO WHERE notas_cuaderno.curso LIKE '%$unidad%' AND notas_cuaderno.visible_nota=1 order by fecactividad desc");
 ?>
 <a name="evaluables"></a>
@@ -226,7 +228,6 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
       
       <!-- COLUMNA CENTRAL -->
       <div class="col-md-12">
-
           <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
             <li class="nav-item"><a class="nav-link active" href="#calendario_act" role="tab" data-toggle="tab">Calendario de actividades</a></li>
             <li class="nav-item"><a class="nav-link" href="#resultados_act" role="tab" data-toggle="tab">Resultados de las actividades</a></li>

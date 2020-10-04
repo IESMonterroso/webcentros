@@ -56,7 +56,7 @@ if(isset($_POST['enviar'])) {
 		$direccionIP = getRealIP();
 
 		if ($enviarMensaje) {
-			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '$unidad', '$nombreAdjunto')");
+			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '".$_POST['asunto']."', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '".$_SESSION['unidad']."', '$nombreAdjunto')");
 
 			if(! $result) {
 				$msg_error = "Ha ocurrido un error al enviar el mensaje.";
@@ -76,14 +76,14 @@ if(isset($_POST['enviar'])) {
 if(isset($_POST['leido'])){
 	$verifica = limpiarInput($_POST['verifica'], 'numeric');
 
-	$result = mysqli_query("SELECT recibidoprofe FROM mens_profes WHERE id_profe = '".$verifica."'");
+	$result = mysqli_query("SELECT recibidoprofe FROM mens_profes WHERE id_texto = '".$_POST['verifica']."'");
 	$row = mysqli_fetch_array($result);
 
-	if (! $row['recibidoprofe']) {
-		mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '".$verifica."'");
+	if ($row['recibidoprofe']!== '1') {
+		mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_texto = '".$_POST['verifica']."'");
 
 		$asunto_confirmacion = "Mensaje de confirmación";
-		$mensaje = "El mensaje enviado a $nombrepil $apellido con el asunto \"$asunto\" ha sido entregado y leído en la web del centro.";
+		$mensaje = 'El mensaje enviado a '.$nombrepil.' '. $apellido.' con el asunto \"'.$_POST['asunto'].'\" ha sido entregado y leído en la web del centro.';
 
 		$direccionIP = getRealIP();
 		mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto_confirmacion', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '$unidad')");
@@ -206,10 +206,8 @@ if(isset($_POST['leido'])){
 				<div class="form-group">
 					<label for="adjunto">Adjuntar archivo PDF <span class="text-muted">(opcional)</span></label>
 					<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-					<div>
-						<input type="file" id="adjunto" name="adjunto" accept="application/pdf">
-						<p class="help-block"><small>Tamaño máximo: 100 Kb.</small></p>
-					</div>
+					<input type="file" class="form-control" id="adjunto" name="adjunto" accept="application/pdf">
+					<p class="help-block"><small>Tamaño máximo: 100 Kb.</small></p>
 				</div>
 
 				<button type="submit" class="btn btn-primary" name="enviar">Enviar mensaje</button>
@@ -224,7 +222,13 @@ if(isset($_POST['leido'])){
 
 <?php $query_mensajes = mysqli_query($db_con, "SELECT mens_texto.id, ahora, asunto, texto, c_profes.profesor, (SELECT recibidoprofe FROM mens_profes WHERE id_texto = mens_texto.id AND profesor LIKE '%$apellido, $nombrepil%' OR profesor LIKE '%".$_SESSION['claveal']."%' LIMIT 1) AS recibidoprofe, (SELECT id_profe FROM mens_profes WHERE id_texto = mens_texto.id AND profesor LIKE '%$apellido, $nombrepil%' OR profesor LIKE '%".$_SESSION['claveal']."%' LIMIT 1) AS id_profe FROM mens_texto JOIN c_profes ON mens_texto.origen = c_profes.idea WHERE ahora BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' AND (destino LIKE '%$apellido, $nombrepil%' OR destino LIKE '%".$_SESSION['claveal']."%' AND asunto NOT LIKE 'Mensaje de confirmación') ORDER BY ahora DESC"); ?>
 <?php if(mysqli_num_rows($query_mensajes)): ?>
-<?php while ($mensajes_recibidos = mysqli_fetch_array($query_mensajes)): ?>
+<?php while ($mensajes_recibidos = mysqli_fetch_array($query_mensajes)): 
+		$noRecibido = '';
+		$c1  = mysqli_query($db_con,"select recibidoprofe from mens_profes where id_texto = '$mensajes_recibidos[0]' and recibidoprofe='0'");
+		if (mysqli_num_rows($c1)>0) {
+			$noRecibido = 1;;
+		}
+?>
 <div id="recibidos_<?php echo $mensajes_recibidos['id']; ?>" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -238,9 +242,10 @@ if(isset($_POST['leido'])){
 				<p><small>Enviado por <?php echo $mensajes_recibidos['profesor']; ?> el <?php echo $mensajes_recibidos['ahora']; ?></small></p>
       </div>
       <div class="modal-footer">
-      	<?php if(! $mensajes_recibidos['recibidoprofe']): ?>
+      	<?php if($noRecibido=='1'): ?>
       	<form method="post" action="index.php?mod=mensajes">
-	      	<input type="hidden" name="verifica" value="<?php echo $mensajes_recibidos['id_profe']; ?>">
+	      	<input type="hidden" name="verifica" value="<?php echo $mensajes_recibidos['id']; ?>">
+	      	<input type="hidden" name="asunto" value="<?php echo $mensajes_recibidos['asunto']; ?>">
 	        <button type="submit" class="btn btn-default" name="leido">Cerrar</button>
 	      </form>
 	      <?php else: ?>

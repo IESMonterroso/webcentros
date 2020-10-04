@@ -80,7 +80,7 @@ if (strlen($inicial) > 0) {
 
              	<h3 style="display:inline;">Evaluaciones</h3> 
 				<a class="btn btn-info float-right" href="imprimir_notas.php" target="_blank" >Imprimir las Calificaciones</a>
-				<?php if(stristr($_SESSION['promociona'], "Obtiene Tít") OR stristr($_SESSION['promociona'], "Promociona")){ ?>
+				<?php if(date('m')=='09') { if(stristr($_SESSION['promociona'], "Obtiene Tít") OR stristr($_SESSION['promociona'], "Promociona")){ ?>
 					<button class="btn btn-success float-right" style="margin-right:30px;"> El alumno <?php echo $_SESSION['promociona'];  ?></button>
 				<?php	
 				} 
@@ -89,6 +89,7 @@ if (strlen($inicial) > 0) {
 					<button class="btn btn-danger float-right" style="margin-right:30px;"> El alumno <?php echo $_SESSION['promociona'];  ?></button>
 				<?php } 
 				else{ }
+				}
 				?>
              	
  
