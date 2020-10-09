@@ -3,6 +3,7 @@
 <!-- MODULO RESUMEN FALTAS DE ASISTENCIA -->
 
 <a name="faltas"></a>
+<br>
 <h3>Resumen de faltas de asistencia</h3>
 
 <div class="row">

@@ -3,6 +3,7 @@
 <!-- MODULO PROBLEMAS DE CONVIVENCIA -->
 
 <a name="convivencia"></a>
+<br>
 <h3>Problemas de convivencia</h3>
 
 <?php $result = mysqli_query($db_con, "SELECT DISTINCT alma.apellidos, alma.nombre, alma.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM Fechoria, alma WHERE alma.claveal = Fechoria.claveal AND alma.claveal = '$claveal' ORDER BY Fechoria.fecha DESC, alma.unidad, alma.apellidos"); ?>

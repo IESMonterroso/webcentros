@@ -3,6 +3,7 @@
 <!-- MODULO INFORMES DE TUTORIA -->
 
 <a name="tutoria"></a>
+<br>
 <h3>Informes de tutoría</h3>
 
 <?php $result = mysqli_query($db_con, "SELECT id, f_entrev, tutor FROM infotut_alumno WHERE claveal = '$claveal' and DATE( F_ENTREV ) < DATE_SUB( CURDATE( ) , INTERVAL 1 DAY ) and valido = '1' ORDER BY f_entrev DESC"); ?>

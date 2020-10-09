@@ -1,11 +1,13 @@
-<?php defined('WEBCENTROS_DIRECTORY') OR exit('No direct script access allowed');
+<?php defined('WEBCENTROS_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
-$unidad = $_SESSION['unidad'];
+<a name="evaluables"></a>
+<br>
+
+<?php $unidad = $_SESSION['unidad'];
 
 $query_evaluables = mysqli_query($db_con, "SELECT DISTINCT notas_cuaderno.profesor AS nomprofesor, asignaturas.NOMBRE AS nomasignatura, notas_cuaderno.id AS idactividad, notas_cuaderno.nombre AS nomactividad, notas_cuaderno.fecha AS fecactividad FROM notas_cuaderno JOIN asignaturas ON notas_cuaderno.asignatura = asignaturas.CODIGO WHERE notas_cuaderno.curso LIKE '%$unidad%' AND notas_cuaderno.visible_nota=1 order by fecactividad desc");
 ?>
-<a name="evaluables"></a>
-<br>
+
 <?php $query_acteva = mysqli_query($db_con,"SELECT id, fechaini, unidades, nombre, asignaturas FROM calendario WHERE unidades like '%".$unidad."%' and date(fechaini)>'".$config['curso_inicio']."' and categoria > '2' order by fechaini"); ?>
 <?php if (mysqli_num_rows($query_acteva)): 
 
@@ -223,22 +225,8 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
     
     </style> 
     
-    <!-- SCAFFOLDING -->
-    <div class="row">
-      
-      <!-- COLUMNA CENTRAL -->
-      <div class="col-md-12">
-          <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
-            <li class="nav-item"><a class="nav-link active" href="#calendario_act" role="tab" data-toggle="tab">Calendario de actividades</a></li>
-            <li class="nav-item"><a class="nav-link" href="#resultados_act" role="tab" data-toggle="tab">Resultados de las actividades</a></li>
-          </ul>
 
-          <br>         
-
-          <div class="tab-content">
-            <div class="tab-pane active" id="calendario_act">
-              
-              <!-- TITULO DE LA PAGINA -->
+ 
               <br>
               <h3>Calendario de actividades de <?php echo $unidad; ?></h3>   
 
@@ -261,9 +249,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
           
             <?php vista_mes($calendario, $dia, $mes, $anio, $unidad); ?>
             
-          </div>
 
-          <div class="tab-pane" id="resultados_act">
             
             <a name="resultados_act"></a>
             <br>
@@ -294,13 +280,8 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
                 <?php endwhile; ?>
               </tbody>
             </table>
-            </div>
 
-          </div><!-- /.tab-content -->
 
-      </div><!-- /.col-md-12 -->
-      
-    </div><!-- /.row -->
 
 <?php else: ?>
 

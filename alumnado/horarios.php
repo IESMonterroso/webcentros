@@ -17,6 +17,7 @@ foreach ($tr_combasi as $codigo){
 }
 ?>
 <a name="horario"></a>
+<br>
 <h3>Horario de la unidad</h3>
 <br>
 

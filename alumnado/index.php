@@ -584,7 +584,7 @@ include('../inc_menu.php');
 						<li class="nav-item"><a class="nav-link <?php echo $link_active_faltas; ?>" href="#asistencia" role="tab" data-toggle="tab">Asistencia</a></li>
 						<li class="nav-item"><a class="nav-link" href="#convivencia" role="tab" data-toggle="tab">Convivencia</a></li>
 						<li class="nav-item"><a class="nav-link" href="#evaluaciones" role="tab" data-toggle="tab">Calificaciones</a></li>
-						<li class="nav-item"><a class="nav-link <?php echo $link_active_calendario; ?>" href="#evaluables" role="tab" data-toggle="tab">Actividades</a></li>
+						<?php if ($muestra_evaluables == 1): ?><li class="nav-item"><a class="nav-link <?php echo $link_active_calendario; ?>" href="#evaluables" role="tab" data-toggle="tab">Actividades</a></li><?php endif; ?>
 						<li class="nav-item"><a class="nav-link" href="#horario" role="tab" data-toggle="tab">Horario</a></li>
 						<?php if (isset($config['alumnado']['ver_informes_tutoria']) && $config['alumnado']['ver_informes_tutoria']): ?>
 						<li class="nav-item"><a class="nav-link" href="#tutoria" role="tab" data-toggle="tab">Tutoría</a></li>
