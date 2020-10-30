@@ -46,6 +46,7 @@ $icons = array(
     'Matemáticas' => 'fas fa-superscript',
     'Matemáticas y Economía' => 'fas fa-superscript',
     'Mantenimiento de Vehículos' => 'fas fa-car',
+    'Vehículos' => 'fas fa-car',
     'Música' => 'fas fa-music',
     'Orientación Educativa' => 'far fa-compass',
     'Pedagogía Terapéutica' => 'fas fa-universal-access',
