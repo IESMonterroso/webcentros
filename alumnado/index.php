@@ -98,7 +98,7 @@ if ($claveal) {
 
 // Informes para la evaluación extraordinaria
 $informe_extraordinaria="";
-$inf_extra = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal = '".$claveal."'");
+$inf_extra = mysqli_query($db_con,"select * from informe_pendientes_alumnos where claveal = '".$claveal."'");
 if (mysqli_num_rows($inf_extra)>0) {
 	$informe_extraordinaria=1;
 }

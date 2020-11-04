@@ -56,13 +56,21 @@ if(isset($_POST['enviar'])) {
 		$direccionIP = getRealIP();
 
 		if ($enviarMensaje) {
-			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '".$_POST['asunto']."', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '".$_SESSION['unidad']."', '$nombreAdjunto')");
+			if (isset($dni_responsable_legal) && ! empty($dni_responsable_legal)) {
+				$dni_mensaje = $dni_responsable_legal;
+			}
+			else {
+				$dni_mensaje = '';
+			}
+			
+			$result = mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad, archivo) VALUES ('$dni_mensaje', '".$_SESSION['claveal']."', '".$_POST['asunto']."', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '".$_SESSION['unidad']."', '$nombreAdjunto')");
 
 			if(! $result) {
 				$msg_error = "Ha ocurrido un error al enviar el mensaje.";
 			}
 			else {
-				$msg_success = "El mensaje ha sido enviado correctamente.";
+				header("Location:".WEBCENTROS_DOMINIO."alumnado/index.php?mod=mensajes");
+				exit();
 			}
 		}
 
@@ -87,6 +95,8 @@ if(isset($_POST['leido'])){
 
 		$direccionIP = getRealIP();
 		mysqli_query($db_con, "INSERT INTO mensajes (dni, claveal, asunto, texto, ip, correo, unidad) VALUES ('$dni_responsable_legal', '".$_SESSION['claveal']."', '$asunto_confirmacion', '$mensaje', '".$direccionIP."', '".$_SESSION['correo']."', '".$_SESSION['unidad']."')");
+		header("Location:".WEBCENTROS_DOMINIO."alumnado/index.php?mod=mensajes");
+		exit();
 	}
 
 }
@@ -109,7 +119,7 @@ if(isset($_POST['leido'])){
 	<?php echo $msg_success; ?>
 </div>
 <?php endif; ?>
- 
+
 <div class="row">
 
 	<div class="col-sm-5">
@@ -204,12 +214,14 @@ if(isset($_POST['leido'])){
 					<textarea type="text" class="form-control" id="mensaje" name="mensaje" rows="5"></textarea>
 				</div>
 
-				<div class="form-group">
-					<label for="adjunto">Adjuntar archivo PDF <span class="text-muted">(opcional)</span></label>
-					<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-					<input type="file" class="form-control" id="adjunto" name="adjunto" accept="application/pdf">
-					<p class="help-block"><small>Tamaño máximo: 100 Kb.</small></p>
+				<div class="input-group mb-3">
+				  <div class="custom-file">
+				    <input type="file" class="custom-file-input" id="adjunto" name="adjunto" accept="application/pdf">
+				    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+				    <label class="custom-file-label" for="adjunto">Seleccionar archivo PDF (opcional)</label>
+				  </div>
 				</div>
+				<p class="help-block"><small>Tamaño máximo: 100 Kb.</small></p>
 
 				<button type="submit" class="btn btn-primary" name="enviar">Enviar mensaje</button>
 

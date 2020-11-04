@@ -28,6 +28,7 @@ function obtener_calificacion_texto($nota) {
 $notas1 = "select notas1, notas2, notas3, notas4, unidad, notas0, unidad from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL = '$claveal'";
 // echo $notas1;
 $result1 = mysqli_query($db_con, $notas1);
+$hay_notas = mysqli_num_rows($result1);
 $row1 = mysqli_fetch_array($result1);
 $asignatura_1 = substr($row1[0], 0, strlen($row1[0])-1);
 $asignatura_2 = substr($row1[1], 0, strlen($row1[1])-1);
@@ -61,11 +62,11 @@ if (strlen($inicial) > 0) {
       
       <!-- COLUMNA CENTRAL -->
       <div class="col-md-12">
-			<?php if ($informe_extraordinaria=="1" AND date('Y-m-d') >= $config['curso_fin'] AND date('m')<'10'): ?>
+			<?php if ($informe_extraordinaria=="1"): ?>
 
 	          <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
 	            <li class="nav-item"><a class="nav-link active" href="#notas_evalua" role="tab" data-toggle="tab">Calificaciones de las evaluaciones</a></li>
-				<li class="nav-item"><a class="nav-link" href="pdf.php?claveal=<?php echo $claveal; ?>" target="_blank" data-toggle="tooltip" data-html="true" title="<p>Informe sobre la <em><u>fecha de la prueba</u></em>, así como <em><u>contenidos y actividades</u></em> que el alumno debe preparar y realizar, para la <b>evaluación extraordinaria</b> de septiembre</p>">Informe para la evaluación extraordinaria</a></li>
+				<li class="nav-item"><a class="nav-link" href="pdf.php?claveal=<?php echo $claveal; ?>" target="_blank" data-toggle="tooltip" data-html="true" title="<p>Informe sobre la <em><u>fecha de la prueba</u></em>, así como <em><u>contenidos y actividades</u></em> que el alumno debe preparar y realizar, para la <b>evaluación extraordinaria</b> de septiembre y la <b>evaluación de materias pendientes</b></p>">Informe para la evaluación extraordinaria y de materias pendientes</a></li>
 	          </ul>
 
 			<?php endif; ?>
