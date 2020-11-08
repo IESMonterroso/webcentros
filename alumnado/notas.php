@@ -36,6 +36,10 @@ $asignatura_3 = substr($row1[2], 0, strlen($row1[2])-1);
 $inicial = substr($row1[5], 0, strlen($row1[5])-1);
 $unidad = $row1[6];
 
+if ($asignatura_1 == '' and $asignatura_2 == '' and $asignatura_3 == '') {
+	$no_hay = 1;
+}
+
 if (strlen($asignatura_1) > 0) {
 	$trozos = explode(";", $asignatura_1);
 }
@@ -66,7 +70,7 @@ if (strlen($inicial) > 0) {
 
 	          <ul id="nav_actividades" class="nav nav-tabs nav-tabs-neutral justify-content-center bg-primary" role="tablist">
 	            <li class="nav-item"><a class="nav-link active" href="#notas_evalua" role="tab" data-toggle="tab">Calificaciones de las evaluaciones</a></li>
-				<li class="nav-item"><a class="nav-link" href="pdf.php?claveal=<?php echo $claveal; ?>" target="_blank" data-toggle="tooltip" data-html="true" title="<p>Informe sobre la <em><u>fecha de la prueba</u></em>, así como <em><u>contenidos y actividades</u></em> que el alumno debe preparar y realizar, para la <b>evaluación extraordinaria</b> de septiembre y la <b>evaluación de materias pendientes</b></p>">Informe para la evaluación extraordinaria y de materias pendientes</a></li>
+				<li class="nav-item"><a class="nav-link" href="pdf.php?claveal=<?php echo $claveal; ?>" target="_blank" data-toggle="tooltip" data-html="true" title="<p>Informe sobre la <em><u>fecha de la prueba</u></em>, así como <em><u>contenidos y actividades</u></em> que el alumno debe preparar y realizar, para la <b>evaluación extraordinaria</b> de septiembre y la <b>evaluación de materias pendientes</b></p>">Informe para la evaluación de materias pendientes</a></li>
 	          </ul>
 
 			<?php endif; ?>
@@ -79,7 +83,10 @@ if (strlen($inicial) > 0) {
               <a name="notas_evalua"></a>
               <br>
 
-             	<h3 style="display:inline;">Evaluaciones</h3> 
+             	<h3 style="display:inline;">Evaluaciones</h3>
+
+             	<? if($no_hay<>1){ ?> 
+				
 				<a class="btn btn-info float-right" href="imprimir_notas.php" target="_blank" >Imprimir las Calificaciones</a>
 				<?php if(date('m')=='09') { if(stristr($_SESSION['promociona'], "Obtiene Tít") OR stristr($_SESSION['promociona'], "Promociona")){ ?>
 					<button class="btn btn-success float-right" style="margin-right:30px;"> El alumno <?php echo $_SESSION['promociona'];  ?></button>
@@ -93,7 +100,6 @@ if (strlen($inicial) > 0) {
 				}
 				?>
              	
- 
 				<div class='table-responsive'>
 					<br>
 					<table class='table table-bordered table-striped table-hover'>
@@ -297,6 +303,11 @@ if (strlen($inicial) > 0) {
 
 			</table>
 		</div>
+		<?php } else{ ?>
+			<div class="justify-content-center">
+			  <p class="lead text-muted text-center p-5">No se han registrado calificaciones de las evaluaciones del alumno.</p>
+			</div>
+		<?php } ?>
 	</div>
 </div>
 </div>
