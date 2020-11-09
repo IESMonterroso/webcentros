@@ -91,6 +91,20 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
       }
     }
 
+		// Comprobamos si se ha introducido el DNI de alumno
+		$result_alumno = mysqli_query($db_con, "SELECT dni, apellidos, nombre FROM $tabla_alumno WHERE claveal = '$usuario' AND dni = '$clave' LIMIT 1");
+		$esal = (mysqli_num_rows($result_alumno) > 0) ? 1 : 0;
+		if ($esal) {
+			$row_al = mysqli_fetch_array($result_alumno);
+			if (! empty($row_al['dni']) && ! empty($row_al['nombre'])) {
+				$_SESSION['dnitutor'] = $row_al['dni'];
+				$_SESSION['nombretutor'] = $row_al['nombre'].' '.$row_al['apellidos'];
+			}
+			else {
+				$esal = 0;
+			}
+		}
+
 		// Comprobamos si se ha introducido el DNI del primer tutor legal registrado en la matrícula
 		$result_tutor1 = mysqli_query($db_con, "SELECT dnitutor, primerapellidotutor, segundoapellidotutor, nombretutor FROM $tabla_alumno WHERE claveal = '$usuario' AND dnitutor = '$clave' LIMIT 1");
 		$esTutorLegal1 = (mysqli_num_rows($result_tutor1) > 0) ? 1 : 0;
@@ -99,6 +113,7 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 			if (! empty($row_tutor1['dnitutor']) && ! empty($row_tutor1['nombretutor'])) {
 				$_SESSION['dnitutor'] = $row_tutor1['dnitutor'];
 				$_SESSION['nombretutor'] = $row_tutor1['nombretutor'].' '.$row_tutor1['primerapellidotutor'].' '.$row_tutor1['segundoapellidotutor'];
+				$_SESSION['esTutor'] = 1;
 			}
 			else {
 				$esTutorLegal1 = 0;
@@ -113,13 +128,14 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 			if (! empty($row_tutor2['dnitutor2']) && ! empty($row_tutor2['nombretutor2'])) {
 				$_SESSION['dnitutor'] = $row_tutor2['dnitutor2'];
 				$_SESSION['nombretutor'] = $row_tutor2['nombretutor2'].' '.$row_tutor2['primerapellidotutor2'].' '.$row_tutor2['segundoapellidotutor2'];
+				$_SESSION['esTutor'] = 1;
 			}
 			else {
 				$esTutorLegal2 = 0;
 			}
 		}
 
-		if ($esAdmin || $esTutorLegal1 || $esTutorLegal2) {
+		if ($esAdmin || $esTutorLegal1 || $esTutorLegal2 || $esal) {
 			$result = mysqli_query($db_con, "SELECT $tabla_alumno.claveal, $tabla_alumno.apellidos, $tabla_alumno.nombre, $tabla_control.pass AS clave, $tabla_alumno.correo AS correo_matricula, $tabla_control.correo FROM $tabla_alumno LEFT JOIN $tabla_control ON $tabla_alumno.claveal = $tabla_control.claveal WHERE $tabla_alumno.claveal='$usuario' LIMIT 1");
 		}
 		else {
@@ -154,7 +170,7 @@ if (isset($_POST['submit']) && (strlen($_POST['user']) > 5 && strlen($_POST['cla
 				header("Location:".WEBCENTROS_DOMINIO."alumnado/clave.php");
 				exit();
 			}
-			elseif (sha1($clave) == $usuario['clave'] || $esAdmin || $esTutorLegal1 || $esTutorLegal2) {
+			elseif (sha1($clave) == $usuario['clave'] || $esAdmin || $esTutorLegal1 || $esTutorLegal2 || $esal) {
 
 				// Registramos el acceso
 				if (isset($_SESSION['nombretutor'])) {

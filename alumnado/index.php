@@ -230,7 +230,8 @@ include('../inc_menu.php');
 
 			<?php if (isset($_SESSION['dnitutor'])): ?>
 			<div class="alert alert-info">
-				Ha iniciado sesión como <?php echo $_SESSION['nombretutor']; ?>, tutor/a legal de <?php echo $nombrepil; ?> <span style="border-bottom: 1px dotted #fff; cursor: help;" data-toggle="popover" data-placement="bottom" data-content="Los tutores legales registrados en la matrícula de su hijo/a en este centro tienen acceso al expediente académico utilizando su respectivo DNI como contraseña. Los accesos que realicen a este informe quedarán registrados, incluyendo fecha y dirección IP de su ordenador actual. Puede solicitar un documento con los accesos realizados a este informe en Jefatura de Estudios.">¿qué significa esto?</span>
+				<?php if($_SESSION['esTutor'] == 1) $extra_tutorLegal = " tutor/a legal de $nombrepil ";?>
+				Ha iniciado sesión como <?php echo $_SESSION['nombretutor']; ?>,<?php echo $extra_tutorLegal; ?> <span style="border-bottom: 1px dotted #fff; cursor: help;" data-toggle="popover" data-placement="bottom" data-content="Los tutores legales registrados en la matrícula del alumno/a en este centro tienen acceso al expediente académico utilizando su respectivo DNI como contraseña. Los accesos que realicen a este informe quedarán registrados, incluyendo fecha y dirección IP de su ordenador actual. Puede solicitar un documento con los accesos realizados a este informe en Jefatura de Estudios.">¿qué significa esto?</span>
 			</div>
 			<?php endif; ?>
 
