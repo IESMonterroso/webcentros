@@ -53,6 +53,10 @@ $config['alumnado']['ver_informes_tareas']  = 0;
 $config['alumnado']['ver_informes_tutoria'] = 0;
 $config['alumnado']['detalles_fechorias'] = 0;
 
+// AULA DE CONVIVENCIA
+// Comentar / Descomentar la línea para mostrar o no mostrar, respectivamente, el listado de profesores que componen el equipo de convivencia
+// $config['convivencia']['mostrar_profesores'] = 1;
+
 // ENLACES MENÚ SUPERIOR
 // Comentar / Descomentar el bloque para mostrar o no mostrar, respectivamente, enlaces en el menú superior
 // Slo se permiten dos enlaces más

@@ -56,6 +56,7 @@ include("../../inc_menu.php");
 
               <h4>Equipo de Convivencia</h4>
 
+              <?php if (isset($config['convivencia']['mostrar_profesores']) && $config['convivencia']['mostrar_profesores'] == 1): ?>
               <p>El Aula de Convivencia es atendida por profesorado voluntario del Centro y lo componen:</p>
 
               <ul>
@@ -63,6 +64,9 @@ include("../../inc_menu.php");
                 <li><?php echo $profesor; ?></li>
                 <?php endforeach; ?>
               </ul>
+              <?php else: ?>
+              <p>El Aula de Convivencia es atendida por profesorado voluntario del Centro.</p>
+              <?php endif; ?>
 
             </div>
 
