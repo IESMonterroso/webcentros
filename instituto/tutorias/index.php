@@ -3,7 +3,8 @@ require_once("../../bootstrap.php");
 require_once("../../config.php");
 
 $tutorias = array();
-$result = mysqli_query($db_con, "SELECT DISTINCT SUBSTRING(`cursos`.`nomcurso`, 3, 12) AS `subcurso`, `unidades`.`nomunidad`, `FTUTORES`.`tutor` FROM `unidades` JOIN `cursos` ON `cursos`.`idcurso` = `unidades`.`idcurso` JOIN `FTUTORES` ON `unidades`.`nomunidad` = `FTUTORES`.`unidad` ORDER BY `subcurso` ASC, `unidades`.`nomunidad` ASC");
+$result = mysqli_query($db_con, "SELECT DISTINCT REPLACE(SUBSTRING(REPLACE(`cursos`.`nomcurso`, 'º de ', ''), 2, 6), '.B.O.', 'F.B.O.') AS `subcurso`, `unidades`.`nomunidad`, `FTUTORES`.`tutor` FROM `unidades` JOIN `cursos` ON `cursos`.`idcurso` = `unidades`.`idcurso` JOIN `FTUTORES` ON `unidades`.`nomunidad` = `FTUTORES`.`unidad` ORDER BY `subcurso` ASC, `unidades`.`nomunidad` ASC");
+
 while ($row = mysqli_fetch_array($result)) {
 
   $result_horario = mysqli_query($db_con, "SELECT `dia`, `hora` FROM `horw` WHERE (`c_asig` = '117' OR `c_asig` = '279') AND (`a_grupo` = '".$row['nomunidad']."' OR `prof` = '".$row['tutor']."') LIMIT 1");
